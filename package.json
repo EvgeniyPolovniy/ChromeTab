@@ -1,0 +1,20 @@
+{
+  "name": "ChromeTab",
+  "version": "1.0.0",
+  "description": "Develop tab",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EvgeniyPolovniy/ChromeTab.git"
+  },
+  "author": "Evgeniy Polovniy",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.2.0",
+    "require-dir": "^0.3.0"
+  }
+}
