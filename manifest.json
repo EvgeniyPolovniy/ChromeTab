@@ -5,6 +5,14 @@
   "description": "This extension shows a Google Image search result for the current page",
   "version": "1.0",
 
+  "icons": {
+    "16": "16x16.png",
+    "32": "32x32.png",
+    "48": "48x48.png",
+    "64": "48x48.png",
+    "128": "128x128.png"
+  },
+
   "chrome_url_overrides" : {
     "newtab": "newtab.html"
   },
