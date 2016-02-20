@@ -9,6 +9,21 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  @include min_desktop {
+    font-size: 16px;
+  }
+  @include desktop1 {
+    font-size: 20px;
+  }
+  @include desktop2 {
+    font-size: 24px;
+  }
+  @include desktop3 {
+    font-size: 26px;
+  }
+  @include max_desktop {
+    font-size: 28px;
+  }
 }
 .main {
   height: 100vh;
@@ -22,27 +37,27 @@ body {
     flex-direction: column;
     align-content: center;
     height: 100vh;
-    width: 350px;
-    padding: 0 15px;
+    width: 12em;
+    padding: 0 .8em;
   }
   .left-bar {
     align-content: center;
   }
   .right-bar {
     justify-content: flex-end;
-    width: calc(100vw - 350px);
+    width: calc(100vw - 12em);
   }
   .first,
   .second {
-    font-size: 80px;
+    font-size: 2.7em;
     text-align: right;
   }
   .second {
-    margin: 0 0 20px;
+    margin: 0 0 .8em;
   }
   .time {
-    font-size: 150px;
-    margin: 10px 0 0;
+    font-size: 5em;
+    margin: .2em 0 0;
     line-height: 1;
   }
   .currency-block-wrapper {
@@ -50,14 +65,14 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     flex-grow: 10000;
-    min-width: 350px;
-    padding: 50px 0 0;
+    min-width: 12em;
+    padding: 1.2em 0 0;
   }
   .currency-block {
     display: flex;
     justify-content: space-between;
     white-space: nowrap;
-    margin: 0 0 20px;
+    margin: 0 0 1em;
     line-height: 1;
     &.loading {
       .ball-triangle-path {
@@ -72,25 +87,25 @@ body {
     i,span {
       display: inline-block;
       vertical-align: top;
-      font-size: 50px;
+      font-size: 2em;
     }
     .currency-wrap {
       position: relative;
       display: inline-block;
-      min-width: 120px;
-      font-size: 50px;
-      height: 50px;
+      min-width: 4em;
+      font-size: 2em;
+      height: 2em;
       vertical-align: top;
     }
   }
   h1,
   span {
-    font-size: 18px;
+    font-size: .4em;
     text-align: center;
     margin: 0;
     color: #fff;
   }
   h1 {
-    font-size: 24px;
+    font-size: 1em;
   }
 }

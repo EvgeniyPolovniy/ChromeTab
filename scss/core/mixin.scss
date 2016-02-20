@@ -1,5 +1,25 @@
-@mixin mini_desktop {
-  @media (max-width: #{$desktop_width}) {
+@mixin min_desktop {
+  @media (max-width: #{$desktop_width1}) {
+    @content;
+  }
+}
+@mixin desktop1 {
+  @media (min-width: #{$desktop_width1}) and (max-width: #{$desktop_width2}) {
+    @content;
+  }
+}
+@mixin desktop2 {
+  @media (min-width: #{$desktop_width2}) and (max-width: #{$desktop_width3}) {
+    @content;
+  }
+}
+@mixin desktop3 {
+  @media (min-width: #{$desktop_width3}) and (max-width: #{$desktop_width4}) {
+    @content;
+  }
+}
+@mixin max_desktop {
+  @media (min-width: #{$desktop_width4}) {
     @content;
   }
 }

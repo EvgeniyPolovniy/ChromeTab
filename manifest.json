@@ -19,11 +19,13 @@
 
   "permissions": [
     "https://*/*",
-    "http://*/*"
+    "http://*/*",
+    "storage"
   ],
 
   "background" : {
-    "scripts" : ["js/background.js", "js/jquery.js"]
+    "scripts" : ["js/background.js", "js/jquery.js"],
+    "persistent": false
   },
 
   "content_security_policy": "script-src 'self' https://api.500px.com; object-src 'self'"
