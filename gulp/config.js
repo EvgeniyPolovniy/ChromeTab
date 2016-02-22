@@ -5,5 +5,11 @@ module.exports = {
       buildFolder: './css',
       watchPath: './scss/**/*.scss'
     },
+    js: {
+      name: 'main.js',
+      base: './src/**/*',
+      buildFolder: './js',
+      watchPath: './src/**/*'
+    }
   }
 };
