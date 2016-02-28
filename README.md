@@ -1,4 +1,4 @@
-![](img/icon/64x64.png) ![](img/icon/48x48.png) ![](img/icon/32x32.png)
+![](img/icon/256x256.png) ![](img/icon/128x128.png) ![](img/icon/64x64.png) ![](img/icon/32x32.png) ![](img/icon/16x16.png) 
 # ChromeTab
 
 ![](image.jpg)
