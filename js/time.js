@@ -34,4 +34,8 @@ $( document ).ready(function() {
     timeStorage.minutes = timeWraper(time.getMinutes());
   }, 1000);
 
+  chrome.extension.onMessage.addListener(function(req){
+    console.log('3. Принято из фона:', req.msg);
+  });
+
 });

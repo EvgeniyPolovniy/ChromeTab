@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Tab42",
-  "description": "This extension shows a Google Image search result for the current page",
-  "version": "1.0",
+  "description": "This extension for everything!",
+  "version": "0.1",
 
   "icons": {
     "16": "./img/icon/16x16.png",
