@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import LeftBar from '../components/view/LeftBar'
 import RightBar from '../components/view/RightBar'
 

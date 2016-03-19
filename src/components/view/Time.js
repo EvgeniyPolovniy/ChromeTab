@@ -10,13 +10,13 @@ class Time extends Component {
     return result
   }
   normalizeTime(time) {
-    let normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes());
+    let normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes()) + ":" + this.timeWraper(time.getSeconds());
     return normalTime;
   }
   render() {
     return (
       <h1 className="time">
-        {this.state.time.toString()}
+        {this.state.time}
       </h1>
     )
   }

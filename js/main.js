@@ -19933,7 +19933,7 @@
 	  }, {
 	    key: 'normalizeTime',
 	    value: function normalizeTime(time) {
-	      var normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes());
+	      var normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes()) + ":" + this.timeWraper(time.getSeconds());
 	      return normalTime;
 	    }
 	  }, {
@@ -19942,7 +19942,7 @@
 	      return _react2.default.createElement(
 	        'h1',
 	        { className: 'time' },
-	        this.state.time.toString()
+	        this.state.time
 	      );
 	    }
 	  }]);
