@@ -4,8 +4,8 @@ class RightBar extends Component {
   render() {
     return (
       <div className="right-bar">
-        <span className="first"></span>
-        <span className="second"></span>
+        <span className="first">Эй ты, ленивая задница!</span>
+        <span className="second">Сделай это приложение!</span>
       </div>
     )
   }

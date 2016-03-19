@@ -6,7 +6,7 @@ class LeftBar extends Component {
   render() {
     return (
       <div className="left-bar">
-        <Time />
+        <Time/>
         <Curency />
       </div>
     )

@@ -19869,8 +19869,16 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "right-bar" },
-	        _react2.default.createElement("span", { className: "first" }),
-	        _react2.default.createElement("span", { className: "second" })
+	        _react2.default.createElement(
+	          "span",
+	          { className: "first" },
+	          "Эй ты, ленивая задница!"
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          { className: "second" },
+	          "Сделай это приложение!"
+	        )
 	      );
 	    }
 	  }]);
@@ -19884,7 +19892,7 @@
 /* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -19907,16 +19915,35 @@
 	var Time = function (_Component) {
 	  _inherits(Time, _Component);
 
-	  function Time() {
+	  function Time(props) {
 	    _classCallCheck(this, Time);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Time).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Time).call(this, props));
+
+	    _this.state = { time: _this.normalizeTime(new Date()) };
+	    return _this;
 	  }
 
 	  _createClass(Time, [{
-	    key: "render",
+	    key: 'timeWraper',
+	    value: function timeWraper(item) {
+	      var result = item.toString().length == 1 ? '0' + item : item;
+	      return result;
+	    }
+	  }, {
+	    key: 'normalizeTime',
+	    value: function normalizeTime(time) {
+	      var normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes());
+	      return normalTime;
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement("h1", { className: "time" });
+	      return _react2.default.createElement(
+	        'h1',
+	        { className: 'time' },
+	        this.state.time.toString()
+	      );
 	    }
 	  }]);
 
