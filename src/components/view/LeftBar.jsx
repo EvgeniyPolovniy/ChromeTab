@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import Time from './Time'
-import Curency from './Curency'
+import Time from './Time.jsx'
+import Curency from './Curency.jsx'
 
 class LeftBar extends Component {
   render() {

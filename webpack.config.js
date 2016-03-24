@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   output: {
     path: './js',
     filename: 'main.js'
@@ -10,7 +10,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js/,
+        test: /\.jsx?$/,
         loader: 'babel',
         query: {
           presets: [
