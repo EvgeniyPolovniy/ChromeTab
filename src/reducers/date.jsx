@@ -1,15 +1,13 @@
-function date(state = [], action) {
+export default function date(state = [], action) {
   switch (action.type) {
-  case 'DATE_UPDATE':
-    return [
-      ...state,
-      {
-        date: action.date
-      }
-    ]
-  default:
-    return state
+    case 'DATE_UPDATE':
+      return [
+        ...state,
+        {
+          date: action.date
+        }
+      ]
+    default:
+      return state
   }
 }
-
-export default date;
