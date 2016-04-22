@@ -14,6 +14,7 @@ $( document ).ready(function() {
       dataType: "json",
       success: function(data){
         currencyStorage.btc = parseFloat(data.price.usd).toFixed(2);
+        proxied.getRateBtc;
       },
       error: function (request, status, error) {
         console.log(request.responseText);
@@ -29,6 +30,7 @@ $( document ).ready(function() {
       dataType: "json",
       success: function(data){
         currencyStorage.uah = parseFloat(data.query.results.rate.Rate).toFixed(2);
+        proxied.getRateUah;
       },
       error: function (request, status, error) {
         console.log(request.responseText);
@@ -45,6 +47,7 @@ $( document ).ready(function() {
       success: function(data){
         currencyStorage.eth = parseFloat(data.price.usd).toFixed(2);
         currencyStorage.ethtobtc = parseFloat(data.price.btc).toFixed(6);
+        proxied.getRateEth;
       },
       error: function (request, status, error) {
         console.log(request.responseText);
@@ -71,24 +74,23 @@ $( document ).ready(function() {
     $(".eth").removeClass('loading');
     $(".eth.eth-btc .currency").text(ethtobtc);
   }
-  
-  Object.observe(currencyStorage, function(changes) {
-    changes.forEach(function(change) {
-      switch (change.name) {
-        case 'uah':
-          setUah(change.object[change.name]);
+
+  var proxied = new Proxy(currencyStorage, {
+    get: function(target, prop) {
+      switch (prop) {
+        case 'getRateUah':
+          setUah(target.uah);
           break
-        case 'btc':
-          setBtc(change.object[change.name]);
+        case 'getRateBtc':
+          setBtc(target.btc);
           break
-        case 'ethtobtc':
-          setEthToBtc(change.object[change.name]);
-          break
-        case 'eth':
-          setEth(change.object[change.name]);
+        case 'getRateEth':
+          setEthToBtc(target.ethtobtc);
+          setEth(target.eth);
           break
       }
-    });
+      return Reflect.get(target, prop);
+    }
   });
 
   getRateUah();
@@ -100,5 +102,4 @@ $( document ).ready(function() {
     getRateBtc();
     getRateEth();
   }, 60000);
-
 });
