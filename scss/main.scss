@@ -1,6 +1,6 @@
-@import "./core/variables";
-@import "./core/mixin";
+@import "./core/variables.scss";
+@import "./core/mixin.scss";
 
-@import "./nodes/loader";
-@import "./nodes/fa/font-awesome";
-@import "./nodes/template";
+@import "./nodes/loader.scss";
+@import "./nodes/fa/font-awesome.scss";
+@import "./nodes/template.scss";
