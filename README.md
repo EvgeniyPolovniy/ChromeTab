@@ -10,14 +10,7 @@ In console:
 npm i 
 ```
 
-# For compile scss to css
-
-run watch process for compile scss:
-```{r, engine='bash', count_lines}
-gulp
-```
-
-# For compile JS (ReactJS)
+# For compile JS (ReactJS) and scss to css
 
 open new console tab for watch process to js:
 ```{r, engine='bash', count_lines}
