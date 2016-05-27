@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 
+  var bgCount = 5;
+
   var currencyStorage = {
     uah: null,
     btc: null,
@@ -96,11 +98,19 @@ $( document ).ready(function() {
     }
   });
 
+  function setBg() {
+    var number = Math.floor(Math.random() * bgCount) + 1;
+    $('body').removeClass();
+    $('body').addClass('bg'+number);
+  }
+
   getRateUah();
   getRate();
+  setBg();
 
   setInterval( function() {
     getRateUah();
     getRate();
+    setBg();
   }, 60000);
 });
