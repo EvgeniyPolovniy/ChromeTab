@@ -4,23 +4,8 @@ $( document ).ready(function() {
     uah: null,
     btc: null,
     eth: null,
-    ethtobtc: null
-  }
-
-  function getRateBtc () {
-    var baseUrl = 'http://coinmarketcap-nexuist.rhcloud.com/api/btc';
-    $.ajax({
-      url: baseUrl,
-      dataType: "json",
-      success: function(data){
-        currencyStorage.btc = parseFloat(data.price.usd).toFixed(2);
-        proxied.getRateBtc;
-      },
-      error: function (request, status, error) {
-        console.log(request.responseText);
-        getRateBtc();
-      }
-    });
+    ethtobtc: null,
+    lisk: null
   }
 
   function getRateUah () {
@@ -39,19 +24,29 @@ $( document ).ready(function() {
     });
   }
 
-  function getRateEth () {
-    var baseUrl = 'http://coinmarketcap-nexuist.rhcloud.com/api/eth';
+  function getRate () {
+    var baseUrl = 'https://poloniex.com/public?command=returnTicker';
     $.ajax({
       url: baseUrl,
       dataType: "json",
       success: function(data){
-        currencyStorage.eth = parseFloat(data.price.usd).toFixed(2);
-        currencyStorage.ethtobtc = parseFloat(data.price.btc).toFixed(6);
+        console.log(data);
+        //BTC to USD
+        currencyStorage.btc = parseFloat(data.USDT_BTC.last).toFixed(2);
+        proxied.getRateBtc;
+        //ETH to USD
+        currencyStorage.eth = parseFloat(data.USDT_ETH.last).toFixed(2);
         proxied.getRateEth;
+        //ETH to BTC
+        currencyStorage.ethtobtc = parseFloat(data.BTC_ETH.last).toFixed(6);
+        proxied.getRateEthToBtc;
+        //Lisk to BTC
+        currencyStorage.lisk = parseFloat(data.BTC_LSK.last).toFixed(6);
+        proxied.getLisk;
       },
       error: function (request, status, error) {
         console.log(request.responseText);
-        getRateEth();
+        getRate();
       }
     });
   }
@@ -74,6 +69,10 @@ $( document ).ready(function() {
     $(".eth").removeClass('loading');
     $(".eth.eth-btc .currency").text(ethtobtc);
   }
+  function setLisk(lisk) {
+    $(".lisk").removeClass('loading');
+    $(".lisk .currency").text(lisk);
+  }
 
   var proxied = new Proxy(currencyStorage, {
     get: function(target, prop) {
@@ -85,8 +84,13 @@ $( document ).ready(function() {
           setBtc(target.btc);
           break
         case 'getRateEth':
-          setEthToBtc(target.ethtobtc);
           setEth(target.eth);
+          break
+        case 'getRateEthToBtc':
+          setEthToBtc(target.ethtobtc);
+          break
+        case 'getLisk':
+          setLisk(target.lisk);
           break
       }
       return Reflect.get(target, prop);
@@ -94,12 +98,10 @@ $( document ).ready(function() {
   });
 
   getRateUah();
-  getRateBtc();
-  getRateEth();
+  getRate();
 
   setInterval( function() {
     getRateUah();
-    getRateBtc();
-    getRateEth();
+    getRate();
   }, 60000);
 });

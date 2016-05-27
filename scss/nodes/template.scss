@@ -37,7 +37,7 @@ body {
     flex-direction: column;
     align-content: center;
     height: 100vh;
-    width: 16em;
+    width: 17em;
     padding: 0 .8em;
   }
   .left-bar {
@@ -45,7 +45,7 @@ body {
   }
   .right-bar {
     justify-content: flex-end;
-    width: calc(100vw - 16em);
+    width: calc(100vw - 17em);
   }
   .first,
   .second {
@@ -83,6 +83,9 @@ body {
       .currency {
         display: none;
       }
+    }
+    img {
+      height: 100%;
     }
     i,span {
       display: inline-block;
