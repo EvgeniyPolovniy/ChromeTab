@@ -30,7 +30,6 @@ $( document ).ready(function() {
       url: baseUrl,
       dataType: "json",
       success: function(data){
-        console.log(data);
         //BTC to USD
         currencyStorage.btc = parseFloat(data.USDT_BTC.last).toFixed(2);
         proxied.getRateBtc;
