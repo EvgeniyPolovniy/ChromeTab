@@ -111,6 +111,5 @@ $( document ).ready(function() {
   setInterval( function() {
     getRateUah();
     getRate();
-    setBg();
-  }, 60000);
+  }, 5000);
 });
