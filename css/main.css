@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'comfortaa-light';
+  src: url(../fonts/Comfortaa-Light.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'comfortaa-regular';
+  src: url(../fonts/Comfortaa-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'comfortaa-bold';
+  src: url(../fonts/Comfortaa-Bold.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
 @keyframes ball-triangle-path-1 {
   33% {
     transform: translate(25px, -50px); }
@@ -73,7 +91,7 @@ html, body {
   height: 100vh; }
 
 body {
-  font-family: 'Comfortaa', cursive;
+  font-family: 'comfortaa-regular', cursive;
   margin: 0;
   background-image: url(../img/bg.jpg);
   background-size: cover;
