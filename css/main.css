@@ -112,16 +112,6 @@ body {
   @media (min-width: 1600px) {
     body {
       font-size: 28px; } }
-  body.bg1 {
-    background-image: url(../img/bg1.jpg); }
-  body.bg2 {
-    background-image: url(../img/bg2.jpg); }
-  body.bg3 {
-    background-image: url(../img/bg3.jpg); }
-  body.bg4 {
-    background-image: url(../img/bg4.jpg); }
-  body.bg5 {
-    background-image: url(../img/bg5.jpg); }
 
 .main {
   height: 100vh;

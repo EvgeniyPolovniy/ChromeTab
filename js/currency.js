@@ -1,13 +1,12 @@
 $( document ).ready(function() {
 
-  var bgCount = 5;
-
   var currencyStorage = {
     uah: null,
     btc: null,
     eth: null,
     ethtobtc: null,
-    lisk: null
+    lisk: null,
+    dao: null
   }
 
   function getRateUah () {
@@ -44,6 +43,9 @@ $( document ).ready(function() {
         //Lisk to BTC
         currencyStorage.lisk = parseFloat(data.BTC_LSK.last).toFixed(6);
         proxied.getLisk;
+        //Dao to BTC
+        currencyStorage.dao = parseFloat(data.BTC_DAO.last).toFixed(6);
+        proxied.getDao;
       },
       error: function (request, status, error) {
         console.log(request.responseText);
@@ -63,16 +65,20 @@ $( document ).ready(function() {
   }
 
   function setEth(eth) {
-    $(".eth").removeClass('loading');
-    $(".eth.eth-dol .currency").text(eth);
+    $(".eth-dol").removeClass('loading');
+    $(".eth-dol .currency").text(eth);
   }
   function setEthToBtc(ethtobtc) {
-    $(".eth").removeClass('loading');
-    $(".eth.eth-btc .currency").text(ethtobtc);
+    $(".eth-btc").removeClass('loading');
+    $(".eth-btc .currency").text(ethtobtc);
   }
   function setLisk(lisk) {
     $(".lisk").removeClass('loading');
     $(".lisk .currency").text(lisk);
+  }
+  function setDao(dao) {
+    $(".dao").removeClass('loading');
+    $(".dao .currency").text(dao);
   }
 
   var proxied = new Proxy(currencyStorage, {
@@ -93,20 +99,16 @@ $( document ).ready(function() {
         case 'getLisk':
           setLisk(target.lisk);
           break
+        case 'getDao':
+          setDao(target.dao);
+          break
       }
       return Reflect.get(target, prop);
     }
   });
 
-  function setBg() {
-    var number = Math.floor(Math.random() * bgCount) + 1;
-    $('body').removeClass();
-    $('body').addClass('bg'+number);
-  }
-
   getRateUah();
   getRate();
-  setBg();
 
   setInterval( function() {
     getRateUah();
