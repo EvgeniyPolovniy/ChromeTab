@@ -3,6 +3,8 @@ export const initialState = {
     {
       id: 1,
       price: 0,
+      type: 'UAH',
+      toFixed: 2,
       name: 'uah',
       firstCurrency: 'START',
       secondCurrency: 'BTCD'
@@ -10,6 +12,8 @@ export const initialState = {
     {
       id: 2,
       price: 0,
+      type: 'USDT_BTC',
+      toFixed: 2,
       name: 'btc',
       firstCurrency: 'BTC',
       secondCurrency: 'START'
@@ -17,6 +21,8 @@ export const initialState = {
     {
       id: 3,
       price: 0,
+      type: 'USDT_ETH',
+      toFixed: 2,
       name: 'eth-dol',
       firstCurrency: 'ETH-alt',
       secondCurrency: 'START'
@@ -24,6 +30,8 @@ export const initialState = {
     {
       id: 4,
       price: 0,
+      type: 'BTC_ETH',
+      toFixed: 6,
       name: 'eth-btc',
       firstCurrency: 'ETH-alt',
       secondCurrency: 'BTC'
@@ -31,6 +39,8 @@ export const initialState = {
     {
       id: 5,
       price: 0,
+      type: 'BTC_LSK',
+      toFixed: 6,
       name: 'lisk',
       firstCurrency: 'LISK-alt',
       secondCurrency: 'BTC'
@@ -38,9 +48,13 @@ export const initialState = {
     {
       id: 6,
       price: 0,
+      type: 'BTC_DAO',
+      toFixed: 6,
       name: 'dao',
       firstCurrency: 'DGD',
       secondCurrency: 'BTC'
     }
   ],
+  rates: {},
+  interval: 30000
 };

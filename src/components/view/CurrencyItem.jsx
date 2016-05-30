@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class CurrencyItem extends Component {
   render() {
     return (
-      <span className={'currency-block loading ' + this.props.data.name}>
+      <span className={'currency-block ' + this.props.data.name}>
         <span className="left-currency">
           <span>1&nbsp;</span>
           <i className={'cc ' + this.props.data.firstCurrency}></i>

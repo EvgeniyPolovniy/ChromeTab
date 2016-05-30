@@ -113,5 +113,5 @@ $( document ).ready(function() {
   setInterval( function() {
     getRateUah();
     getRate();
-  }, 5000);
+  }, 30000);
 });

@@ -6,6 +6,16 @@ import CurrencyItem from './CurrencyItem.jsx'
 import * as currencyAction from '../store/currencyAction'
 
 class Curency extends Component {
+  constructor(props) {
+    super(props);
+
+    props.actions.getRateUah();
+    
+    setInterval( () => {
+      props.actions.getRateUah();
+    }, props.interval );
+
+  }
   render() {
     let currencyList = this.props.currency
     return (
@@ -19,7 +29,10 @@ class Curency extends Component {
 }
 
 function mapStateToProps(state) {
-  return { currency: state }
+  return {
+    currency: state.currency,
+    interval: state.interval
+  }
 }
 
 function mapDispatchToProps(dispatch) {
