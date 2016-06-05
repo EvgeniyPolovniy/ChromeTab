@@ -11,7 +11,8 @@ import reducer from "./components/store/currencyReducer"
 
 const Store = createStore(
   reducer,
-  applyMiddleware(thunk, logger())
+  applyMiddleware(thunk)
+  //applyMiddleware(thunk, logger())
 )
 
 function mapStateToProps(state) {

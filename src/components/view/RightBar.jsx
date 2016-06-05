@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
+import Setings from './Setings'
 
-class RightBar extends Component {
+export default class RightBar extends Component {
   render() {
     return (
       <div className="right-bar">
-        <span className="first">Эй ты, ленивая задница!</span>
-        <span className="second">Сделай это приложение!</span>
+        <Setings />
+        <span className="first"></span>
+        <span className="second"></span>
       </div>
     )
   }
 }
-
-export default RightBar

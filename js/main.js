@@ -80,7 +80,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Store = (0, _redux.createStore)(_currencyReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)()));
+	var Store = (0, _redux.createStore)(_currencyReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default)
+	//applyMiddleware(thunk, logger())
+	);
 
 	function mapStateToProps(state) {
 	  return { store: state };
@@ -22051,7 +22053,9 @@
 	        "div",
 	        { className: "currency-block-wrapper" },
 	        currencyList.map(function (currency) {
-	          return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
+	          if (currency.visible) {
+	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
+	          }
 	        })
 	      );
 	    }
@@ -22120,7 +22124,16 @@
 	            null,
 	            '1 '
 	          ),
-	          _react2.default.createElement('i', { className: 'cc ' + this.props.data.firstCurrency }),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'currency-abbr-wrap' },
+	            _react2.default.createElement('i', { className: 'cc ' + this.props.data.firstCurrency }),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'currency-abbr' },
+	              this.props.data.publickFirst
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'span',
 	            null,
@@ -22143,7 +22156,16 @@
 	            this.props.data.price
 	          ),
 	          ' ',
-	          _react2.default.createElement('i', { className: 'cc ' + this.props.data.secondCurrency })
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'currency-abbr-wrap' },
+	            _react2.default.createElement('i', { className: 'cc ' + this.props.data.secondCurrency }),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'currency-abbr' },
+	              this.props.data.publickSecond
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -23350,7 +23372,7 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -23361,6 +23383,10 @@
 	var _react = __webpack_require__(9);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _Setings = __webpack_require__(222);
+
+	var _Setings2 = _interopRequireDefault(_Setings);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23380,21 +23406,14 @@
 	  }
 
 	  _createClass(RightBar, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "right-bar" },
-	        _react2.default.createElement(
-	          "span",
-	          { className: "first" },
-	          "Эй ты, ленивая задница!"
-	        ),
-	        _react2.default.createElement(
-	          "span",
-	          { className: "second" },
-	          "Сделай это приложение!"
-	        )
+	        'div',
+	        { className: 'right-bar' },
+	        _react2.default.createElement(_Setings2.default, null),
+	        _react2.default.createElement('span', { className: 'first' }),
+	        _react2.default.createElement('span', { className: 'second' })
 	      );
 	    }
 	  }]);
@@ -23469,6 +23488,9 @@
 	    type: 'UAH',
 	    toFixed: 2,
 	    name: 'uah',
+	    visible: true,
+	    publickFirst: 'USD',
+	    publickSecond: 'UAH',
 	    firstCurrency: 'START',
 	    secondCurrency: 'BTCD'
 	  }, {
@@ -23477,6 +23499,9 @@
 	    type: 'USDT_BTC',
 	    toFixed: 2,
 	    name: 'btc',
+	    visible: true,
+	    publickFirst: 'BTC',
+	    publickSecond: 'USD',
 	    firstCurrency: 'BTC',
 	    secondCurrency: 'START'
 	  }, {
@@ -23485,6 +23510,9 @@
 	    type: 'USDT_ETH',
 	    toFixed: 2,
 	    name: 'eth-dol',
+	    visible: true,
+	    publickFirst: 'ETH',
+	    publickSecond: 'USD',
 	    firstCurrency: 'ETH-alt',
 	    secondCurrency: 'START'
 	  }, {
@@ -23493,6 +23521,9 @@
 	    type: 'BTC_ETH',
 	    toFixed: 6,
 	    name: 'eth-btc',
+	    visible: true,
+	    publickFirst: 'ETH',
+	    publickSecond: 'BTC',
 	    firstCurrency: 'ETH-alt',
 	    secondCurrency: 'BTC'
 	  }, {
@@ -23501,6 +23532,9 @@
 	    type: 'BTC_LSK',
 	    toFixed: 6,
 	    name: 'lisk',
+	    visible: true,
+	    publickFirst: 'LISK',
+	    publickSecond: 'BTC',
 	    firstCurrency: 'LISK-alt',
 	    secondCurrency: 'BTC'
 	  }, {
@@ -23509,12 +23543,89 @@
 	    type: 'BTC_DAO',
 	    toFixed: 6,
 	    name: 'dao',
+	    visible: true,
+	    publickFirst: 'DAO',
+	    publickSecond: 'BTC',
 	    firstCurrency: 'DGD',
 	    secondCurrency: 'BTC'
 	  }],
 	  rates: {},
 	  interval: 30000
 	};
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Setings = function (_Component) {
+	  _inherits(Setings, _Component);
+
+	  function Setings(props) {
+	    _classCallCheck(this, Setings);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Setings).call(this, props));
+
+	    _this.handleClick = function () {
+	      _this.setState({ is_active: !_this.state.is_active });
+	    };
+
+	    _this.state = {
+	      is_active: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Setings, [{
+	    key: 'render',
+	    value: function render() {
+	      var classN = this.state.is_active ? 'is-active' : '';
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'bg-setings' },
+	        _react2.default.createElement(
+	          'a',
+	          { href: '#', className: 'btn', onClick: this.handleClick },
+	          _react2.default.createElement('span', null),
+	          _react2.default.createElement('span', null),
+	          _react2.default.createElement('span', null)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'seting-content ' + classN },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Тут будут настройки!'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Setings;
+	}(_react.Component);
+
+	exports.default = Setings;
 
 /***/ }
 /******/ ]);

@@ -44,7 +44,7 @@ body {
     align-content: center;
   }
   .right-bar {
-    justify-content: flex-end;
+    position: relative;
     width: calc(100vw - 17em);
   }
   .first,
@@ -56,7 +56,7 @@ body {
     margin: 0 0 .8em;
   }
   .time {
-    font-size: 5em;
+    font-size: 4em;
     margin: .2em 0 0;
     line-height: 1;
   }
@@ -88,17 +88,26 @@ body {
       height: 100%;
     }
     i,span {
-      display: inline-block;
+      @include flexbox();
       vertical-align: top;
+      justify-content: center;
       font-size: 2em;
     }
     .currency-wrap {
       position: relative;
-      display: inline-block;
       min-width: 4em;
       font-size: 2em;
       height: 2em;
       vertical-align: top;
+    }
+    .currency-abbr-wrap {
+      flex-direction: column;
+      i {
+        font-size: .7em;
+      }
+      .currency-abbr {
+        font-size: .3em;
+      }
     }
   }
   h1,
@@ -110,5 +119,46 @@ body {
   }
   h1 {
     font-size: 1em;
+  }
+}
+.bg-setings {
+  position: absolute;
+  flex-direction: column;
+  align-self: flex-end;
+  margin: .8em 0 0;
+  border-radius: 3px;
+  width: calc(100% - 1.6em);
+  height: auto;
+  overflow: hidden;
+  .btn {
+    position: absolute;
+    right: 0;
+    font-size: 0;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    z-index: 1;
+    span {
+      display: inline-block;
+      width: 22px;
+      height: 4px;
+      margin: 5px 5px 0;
+      background: white;
+    }
+  }
+  .seting-content {
+    position: relative;
+    display: inline-block;
+    min-width: calc(100% - 20px);
+    padding: 32px 10px;
+    right: -100%;
+    background: rgba(255, 255, 255 , .5);
+    @include transition();
+    &.is-active {
+      right: 0;
+    }
+    p {
+      margin: 0;
+    }
   }
 }

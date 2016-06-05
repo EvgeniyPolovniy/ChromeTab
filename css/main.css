@@ -130,7 +130,7 @@ body {
   .main .left-bar {
     align-content: center; }
   .main .right-bar {
-    justify-content: flex-end;
+    position: relative;
     width: calc(100vw - 17em); }
   .main .first,
   .main .second {
@@ -139,7 +139,7 @@ body {
   .main .second {
     margin: 0 0 .8em; }
   .main .time {
-    font-size: 5em;
+    font-size: 4em;
     margin: .2em 0 0;
     line-height: 1; }
   .main .currency-block-wrapper {
@@ -164,16 +164,26 @@ body {
     .main .currency-block img {
       height: 100%; }
     .main .currency-block i, .main .currency-block span {
-      display: inline-block;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
       vertical-align: top;
+      justify-content: center;
       font-size: 2em; }
     .main .currency-block .currency-wrap {
       position: relative;
-      display: inline-block;
       min-width: 4em;
       font-size: 2em;
       height: 2em;
       vertical-align: top; }
+    .main .currency-block .currency-abbr-wrap {
+      flex-direction: column; }
+      .main .currency-block .currency-abbr-wrap i {
+        font-size: .7em; }
+      .main .currency-block .currency-abbr-wrap .currency-abbr {
+        font-size: .3em; }
   .main h1,
   .main span {
     font-size: .5em;
@@ -182,3 +192,43 @@ body {
     color: #fff; }
   .main h1 {
     font-size: 1em; }
+
+.bg-setings {
+  position: absolute;
+  flex-direction: column;
+  align-self: flex-end;
+  margin: .8em 0 0;
+  border-radius: 3px;
+  width: calc(100% - 1.6em);
+  height: auto;
+  overflow: hidden; }
+  .bg-setings .btn {
+    position: absolute;
+    right: 0;
+    font-size: 0;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    z-index: 1; }
+    .bg-setings .btn span {
+      display: inline-block;
+      width: 22px;
+      height: 4px;
+      margin: 5px 5px 0;
+      background: white; }
+  .bg-setings .seting-content {
+    position: relative;
+    display: inline-block;
+    min-width: calc(100% - 20px);
+    padding: 32px 10px;
+    right: -100%;
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .bg-setings .seting-content.is-active {
+      right: 0; }
+    .bg-setings .seting-content p {
+      margin: 0; }

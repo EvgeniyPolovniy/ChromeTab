@@ -10,7 +10,7 @@ class Curency extends Component {
     super(props);
 
     props.actions.getRateUah();
-    
+
     setInterval( () => {
       props.actions.getRateUah();
     }, props.interval );
@@ -21,7 +21,9 @@ class Curency extends Component {
     return (
       <div className="currency-block-wrapper">
         { currencyList.map( function(currency) {
-          return <CurrencyItem key={currency.id} data={currency}/>
+          if (currency.visible) {
+            return <CurrencyItem key={currency.id} data={currency}/>
+          }
         })}
       </div>
     )
