@@ -103,10 +103,11 @@ body {
     .currency-abbr-wrap {
       flex-direction: column;
       i {
-        font-size: .7em;
+        font-size: .65em;
+        margin: 0 0 .1em;
       }
       .currency-abbr {
-        font-size: .3em;
+        font-size: .25em;
       }
     }
   }

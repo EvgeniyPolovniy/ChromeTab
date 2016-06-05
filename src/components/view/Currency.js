@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect  } from "react-redux";
 
-import CurrencyItem from './CurrencyItem.jsx'
+import CurrencyItem from './CurrencyItem'
 import * as currencyAction from '../store/currencyAction'
 
 class Curency extends Component {

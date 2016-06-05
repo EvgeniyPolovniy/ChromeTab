@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider, connect  } from "react-redux";
 
-import App from './components/App.jsx'
+import App from './components/App'
 import reducer from "./components/store/currencyReducer"
 
 const Store = createStore(

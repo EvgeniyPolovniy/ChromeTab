@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import LeftBar from './view/LeftBar.jsx'
-import RightBar from './view/RightBar.jsx'
+import LeftBar from './view/LeftBar'
+import RightBar from './view/RightBar'
 
 export default class App extends Component {
   render() {

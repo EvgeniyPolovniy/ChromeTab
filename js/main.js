@@ -74,7 +74,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _currencyReducer = __webpack_require__(220);
+	var _currencyReducer = __webpack_require__(223);
 
 	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
 
@@ -23384,9 +23384,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Setings = __webpack_require__(222);
+	var _Settings = __webpack_require__(220);
 
-	var _Setings2 = _interopRequireDefault(_Setings);
+	var _Settings2 = _interopRequireDefault(_Settings);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23411,7 +23411,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'right-bar' },
-	        _react2.default.createElement(_Setings2.default, null),
+	        _react2.default.createElement(_Settings2.default, null),
 	        _react2.default.createElement('span', { className: 'first' }),
 	        _react2.default.createElement('span', { className: 'second' })
 	      );
@@ -23427,6 +23427,176 @@
 /* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(167);
+
+	var _reactRedux = __webpack_require__(182);
+
+	var _SettingCurrencyItem = __webpack_require__(221);
+
+	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
+
+	var _settingsAction = __webpack_require__(222);
+
+	var settingsAction = _interopRequireWildcard(_settingsAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Settings = function (_Component) {
+	  _inherits(Settings, _Component);
+
+	  function Settings(props) {
+	    _classCallCheck(this, Settings);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).call(this, props));
+
+	    _this.handleClick = function () {
+	      _this.setState({ is_active: !_this.state.is_active });
+	    };
+
+	    _this.state = {
+	      is_active: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Settings, [{
+	    key: "render",
+	    value: function render() {
+	      var classN = this.state.is_active ? 'is-active' : '';
+	      var settingCurrencyList = this.props.currency;
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "bg-setings" },
+	        _react2.default.createElement(
+	          "a",
+	          { href: "#", className: "btn", onClick: this.handleClick },
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null)
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: 'seting-content ' + classN },
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            "Display currency:"
+	          ),
+	          settingCurrencyList.map(function (currency) {
+	            return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency });
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Settings;
+	}(_react.Component);
+
+	exports.default = Settings;
+
+
+	function mapStateToProps(state) {
+	  return {
+	    currency: state.currency
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return { actions: (0, _redux.bindActionCreators)(settingsAction, dispatch) };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingCurrencyItem = function (_Component) {
+	  _inherits(SettingCurrencyItem, _Component);
+
+	  function SettingCurrencyItem() {
+	    _classCallCheck(this, SettingCurrencyItem);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SettingCurrencyItem).apply(this, arguments));
+	  }
+
+	  _createClass(SettingCurrencyItem, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'span',
+	        { className: 'testClass' },
+	        this.props.data.name
+	      );
+	    }
+	  }]);
+
+	  return SettingCurrencyItem;
+	}(_react.Component);
+
+	exports.default = SettingCurrencyItem;
+
+/***/ },
+/* 222 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateSettingCurrency = exports.updateSettingCurrency = function updateSettingCurrency(data) {
+	  return {
+	    type: 'UPDATE_SETTING_CURRENCY',
+	    rates: data
+	  };
+	};
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -23437,7 +23607,7 @@
 
 	exports.default = currencyReducer;
 
-	var _store = __webpack_require__(221);
+	var _store = __webpack_require__(224);
 
 	function currencyReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialState : arguments[0];
@@ -23473,7 +23643,7 @@
 	}
 
 /***/ },
-/* 221 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23552,80 +23722,6 @@
 	  rates: {},
 	  interval: 30000
 	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Setings = function (_Component) {
-	  _inherits(Setings, _Component);
-
-	  function Setings(props) {
-	    _classCallCheck(this, Setings);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Setings).call(this, props));
-
-	    _this.handleClick = function () {
-	      _this.setState({ is_active: !_this.state.is_active });
-	    };
-
-	    _this.state = {
-	      is_active: false
-	    };
-	    return _this;
-	  }
-
-	  _createClass(Setings, [{
-	    key: 'render',
-	    value: function render() {
-	      var classN = this.state.is_active ? 'is-active' : '';
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'bg-setings' },
-	        _react2.default.createElement(
-	          'a',
-	          { href: '#', className: 'btn', onClick: this.handleClick },
-	          _react2.default.createElement('span', null),
-	          _react2.default.createElement('span', null),
-	          _react2.default.createElement('span', null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'seting-content ' + classN },
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Тут будут настройки!'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Setings;
-	}(_react.Component);
-
-	exports.default = Setings;
 
 /***/ }
 /******/ ]);
