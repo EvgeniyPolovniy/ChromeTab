@@ -7,7 +7,7 @@ class LeftBar extends Component {
     return (
       <div className="left-bar">
         <Time/>
-        <Currency />
+        <Currency currency={this.props.currency} interval={this.props.interval} actions={this.props.actions}/>
       </div>
     )
   }

@@ -5,7 +5,7 @@ export default class RightBar extends Component {
   render() {
     return (
       <div className="right-bar">
-        <Settings />
+        <Settings currency={this.props.currency} actions={this.props.actions}/>
         <span className="first"></span>
         <span className="second"></span>
       </div>

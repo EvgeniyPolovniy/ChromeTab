@@ -9,7 +9,6 @@ export default function currencyReducer(state = initialState, action) {
       }
     case 'UPDATE_RATE_UAH':
       let {rates} = state
-      console.log(action.price);
       return {
         ...state,
         rates: {...rates, 'UAH': action.price}
@@ -26,6 +25,18 @@ export default function currencyReducer(state = initialState, action) {
       return {
         ...state,
         currency: updateBlock
+      }
+    case 'UPDATE_SETTING_CURRENCY':
+      let updateBlock2 = [];
+      state.currency.map( function(currency, key) {
+        if (currency.id == action.id) {
+          currency.visible = !currency.visible
+        }
+        updateBlock2.push(currency);
+      })
+      return {
+        ...state,
+        currency: updateBlock2
       }
     default:
       return state

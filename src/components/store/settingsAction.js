@@ -1,6 +1,6 @@
-export const updateSettingCurrency = (data) => {
+export const updateSettingCurrency = (id) => {
   return {
     type: 'UPDATE_SETTING_CURRENCY',
-    rates: data
+    id: id
   }
 }

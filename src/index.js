@@ -7,10 +7,10 @@ import logger from 'redux-logger';
 import { Provider, connect  } from "react-redux";
 
 import App from './components/App'
-import reducer from "./components/store/currencyReducer"
+import reducers from "./components/store/indexReducers"
 
 const Store = createStore(
-  reducer,
+  reducers,
   applyMiddleware(thunk)
   //applyMiddleware(thunk, logger())
 )

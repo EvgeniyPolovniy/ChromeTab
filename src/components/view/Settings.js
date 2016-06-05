@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from "redux";
-import { connect  } from "react-redux";
 
 import SettingCurrencyItem from './SettingCurrencyItem'
-import * as settingsAction from '../store/settingsAction'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -19,6 +16,7 @@ export default class Settings extends Component {
   render() {
     let classN = this.state.is_active ? 'is-active' : ''
     let settingCurrencyList = this.props.currency
+    let avtions = this.props.actions
     return (
       <div className="bg-setings">
         <a href="#" className="btn" onClick={this.handleClick} >
@@ -28,23 +26,11 @@ export default class Settings extends Component {
         </a>
         <div className={'seting-content ' + classN }>
           <p>Display currency:</p>
-          { settingCurrencyList.map( function(currency) {
-            return <SettingCurrencyItem key={currency.id} data={currency} />
+          { settingCurrencyList.map( function(currency, ) {
+            return <SettingCurrencyItem key={currency.id} data={currency} action={avtions}/>
           })}
         </div>
       </div>
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    currency: state.currency
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(settingsAction, dispatch) }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Settings)
