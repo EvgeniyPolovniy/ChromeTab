@@ -5,13 +5,24 @@ export const initialState = {
     type: 'UAH',
     toFixed: 2,
     name: 'uah',
-    visible: true,
+    visible: false,
     publickFirst: 'USD',
     publickSecond: 'UAH',
     firstCurrency: 'START',
     secondCurrency: 'BTCD'
   },{
     id: 2,
+    price: 0,
+    type: 'RUB',
+    toFixed: 2,
+    name: 'rub',
+    visible: false,
+    publickFirst: 'USD',
+    publickSecond: 'RUB',
+    firstCurrency: 'START',
+    secondCurrency: 'BTCD'
+  },{
+    id: 3,
     price: 0,
     type: 'USDT_BTC',
     toFixed: 2,
@@ -22,7 +33,7 @@ export const initialState = {
     firstCurrency: 'BTC',
     secondCurrency: 'START'
   },{
-    id: 3,
+    id: 4,
     price: 0,
     type: 'USDT_ETH',
     toFixed: 2,
@@ -33,7 +44,7 @@ export const initialState = {
     firstCurrency: 'ETH-alt',
     secondCurrency: 'START'
   },{
-    id: 4,
+    id: 5,
     price: 0,
     type: 'BTC_ETH',
     toFixed: 8,
@@ -44,7 +55,7 @@ export const initialState = {
     firstCurrency: 'ETH-alt',
     secondCurrency: 'BTC'
   },{
-    id: 5,
+    id: 6,
     price: 0,
     type: 'BTC_LSK',
     toFixed: 8,
@@ -55,7 +66,7 @@ export const initialState = {
     firstCurrency: 'LISK-alt',
     secondCurrency: 'BTC'
   },{
-    id: 6,
+    id: 7,
     price: 0,
     type: 'BTC_DAO',
     toFixed: 8,
@@ -66,7 +77,7 @@ export const initialState = {
     firstCurrency: 'DGD',
     secondCurrency: 'BTC'
   },{
-    id: 7,
+    id: 8,
     price: 0,
     type: 'BTC_DASH',
     toFixed: 8,
@@ -77,7 +88,7 @@ export const initialState = {
     firstCurrency: 'DASH',
     secondCurrency: 'BTC'
   },{
-    id: 8,
+    id: 9,
     price: 0,
     type: 'BTC_LTC',
     toFixed: 8,
@@ -88,7 +99,7 @@ export const initialState = {
     firstCurrency: 'LTC',
     secondCurrency: 'BTC'
   },{
-    id: 9,
+    id: 10,
     price: 0,
     type: 'BTC_DOGE',
     toFixed: 8,
@@ -99,7 +110,7 @@ export const initialState = {
     firstCurrency: 'DOGE',
     secondCurrency: 'BTC'
   },{
-    id: 10,
+    id: 11,
     price: 0,
     type: 'BTC_NXT',
     toFixed: 8,
@@ -110,7 +121,7 @@ export const initialState = {
     firstCurrency: 'NXT',
     secondCurrency: 'BTC'
   },{
-    id: 11,
+    id: 12,
     price: 0,
     type: 'BTC_XMR',
     toFixed: 8,
@@ -121,7 +132,7 @@ export const initialState = {
     firstCurrency: 'XMR',
     secondCurrency: 'BTC'
   },{
-    id: 12,
+    id: 13,
     price: 0,
     type: 'BTC_XRP',
     toFixed: 8,

@@ -131,6 +131,7 @@ body {
     align-content: center; }
   .main .right-bar {
     position: relative;
+    overflow: hidden;
     width: calc(100vw - 20em); }
   .main .first,
   .main .second {
@@ -200,10 +201,18 @@ body {
   flex-direction: column;
   align-self: flex-end;
   margin: .8em 0 0;
-  border-radius: 3px;
   width: calc(100% - 1.6em);
-  height: auto;
-  overflow: hidden; }
+  height: auto; }
+  .bg-setings.is-active .btn span {
+    background: #34495e; }
+    .bg-setings.is-active .btn span:nth-child(1), .bg-setings.is-active .btn span:nth-child(4) {
+      top: 14px;
+      width: 0%;
+      left: 50%; }
+    .bg-setings.is-active .btn span:nth-child(2) {
+      transform: rotate(45deg); }
+    .bg-setings.is-active .btn span:nth-child(3) {
+      transform: rotate(-45deg); }
   .bg-setings .btn {
     position: absolute;
     right: 0;
@@ -214,18 +223,33 @@ body {
     z-index: 1;
     cursor: pointer; }
     .bg-setings .btn span {
+      position: absolute;
       display: inline-block;
       width: 22px;
       height: 4px;
-      margin: 5px 5px 0;
-      background: white; }
+      margin: 0;
+      left: 5px;
+      background: white;
+      transform: rotate(0deg);
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+      .bg-setings .btn span:nth-child(1) {
+        top: 5px; }
+      .bg-setings .btn span:nth-child(2), .bg-setings .btn span:nth-child(3) {
+        top: 14px; }
+      .bg-setings .btn span:nth-child(4) {
+        top: 23px; }
   .bg-setings .seting-content {
     position: relative;
     display: inline-block;
     min-width: calc(100% - 20px);
     padding: 32px 10px;
-    right: -100%;
+    right: calc(-100% - .8em);
     background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
     color: #34495e;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -243,10 +267,19 @@ body {
         color: #34495e;
         font-size: 1em; }
       .bg-setings .seting-content h3 a {
-        font-size: 1em; }
+        font-size: 1em;
+        color: #3498db; }
+        .bg-setings .seting-content h3 a:hover {
+          color: #2e8ece; }
+    .bg-setings .seting-content .currency-list {
+      margin: 0 0 1em; }
     .bg-setings .seting-content .setting-currency-item {
       display: inline-block;
       margin: 0 20px 0 0; }
+      .bg-setings .seting-content .setting-currency-item:hover {
+        cursor: pointer; }
+        .bg-setings .seting-content .setting-currency-item:hover span {
+          color: rgba(0, 0, 0, 0.9); }
       .bg-setings .seting-content .setting-currency-item input {
         display: none; }
       .bg-setings .seting-content .setting-currency-item .checkbox {
