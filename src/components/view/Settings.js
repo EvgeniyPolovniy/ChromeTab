@@ -19,13 +19,14 @@ export default class Settings extends Component {
     let avtions = this.props.actions
     return (
       <div className="bg-setings">
-        <a href="#" className="btn" onClick={this.handleClick} >
+        <div href="#" className="btn" onClick={this.handleClick} >
           <span></span>
           <span></span>
           <span></span>
-        </a>
+        </div>
         <div className={'seting-content ' + classN }>
-          <p>Display currency:</p>
+          <h2>Display currency:</h2>
+          <h3>Currency rate get from <a href="https://www.poloniex.com">poloniex.com</a></h3>
           { settingCurrencyList.map( function(currency, ) {
             return <SettingCurrencyItem key={currency.id} data={currency} action={avtions}/>
           })}

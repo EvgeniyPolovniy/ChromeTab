@@ -17,7 +17,8 @@ export default class SettingCurrencyItem extends Component {
           checked={this.props.data.visible}
           onChange={this.onChange}
         />
-        <span>{this.props.data.publickFirst} - {this.props.data.publickSecond}</span>
+        <span className={this.props.data.visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+        {this.props.data.publickFirst}<span> - </span>{this.props.data.publickSecond}
       </label>
     )
   }

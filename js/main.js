@@ -22294,7 +22294,7 @@
 	        'div',
 	        { className: 'bg-setings' },
 	        _react2.default.createElement(
-	          'a',
+	          'div',
 	          { href: '#', className: 'btn', onClick: this.handleClick },
 	          _react2.default.createElement('span', null),
 	          _react2.default.createElement('span', null),
@@ -22304,9 +22304,19 @@
 	          'div',
 	          { className: 'seting-content ' + classN },
 	          _react2.default.createElement(
-	            'p',
+	            'h2',
 	            null,
 	            'Display currency:'
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Currency rate get from ',
+	            _react2.default.createElement(
+	              'a',
+	              { href: 'https://www.poloniex.com' },
+	              'poloniex.com'
+	            )
 	          ),
 	          settingCurrencyList.map(function (currency) {
 	            return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: avtions });
@@ -22371,13 +22381,14 @@
 	          checked: this.props.data.visible,
 	          onChange: this.onChange
 	        }),
+	        _react2.default.createElement("span", { className: this.props.data.visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	        this.props.data.publickFirst,
 	        _react2.default.createElement(
 	          "span",
 	          null,
-	          this.props.data.publickFirst,
-	          " - ",
-	          this.props.data.publickSecond
-	        )
+	          " - "
+	        ),
+	        this.props.data.publickSecond
 	      );
 	    }
 	  }]);
@@ -23630,7 +23641,7 @@
 
 	exports.default = currencyReducer;
 
-	var _store = __webpack_require__(226);
+	var _store = __webpack_require__(225);
 
 	function currencyReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialState : arguments[0];
@@ -23676,8 +23687,7 @@
 	}
 
 /***/ },
-/* 225 */,
-/* 226 */
+/* 225 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23723,7 +23733,7 @@
 	    id: 4,
 	    price: 0,
 	    type: 'BTC_ETH',
-	    toFixed: 6,
+	    toFixed: 8,
 	    name: 'eth-btc',
 	    visible: true,
 	    publickFirst: 'ETH',
@@ -23734,7 +23744,7 @@
 	    id: 5,
 	    price: 0,
 	    type: 'BTC_LSK',
-	    toFixed: 6,
+	    toFixed: 8,
 	    name: 'lisk',
 	    visible: true,
 	    publickFirst: 'LISK',
@@ -23745,12 +23755,78 @@
 	    id: 6,
 	    price: 0,
 	    type: 'BTC_DAO',
-	    toFixed: 6,
+	    toFixed: 8,
 	    name: 'dao',
 	    visible: true,
 	    publickFirst: 'DAO',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'DGD',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 7,
+	    price: 0,
+	    type: 'BTC_DASH',
+	    toFixed: 8,
+	    name: 'DASH',
+	    visible: false,
+	    publickFirst: 'DASH',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'DASH',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 8,
+	    price: 0,
+	    type: 'BTC_LTC',
+	    toFixed: 8,
+	    name: 'litecoin',
+	    visible: false,
+	    publickFirst: 'Litecoin',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'LTC',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 9,
+	    price: 0,
+	    type: 'BTC_DOGE',
+	    toFixed: 8,
+	    name: 'dogecoin',
+	    visible: false,
+	    publickFirst: 'Dogecoin',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'DOGE',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 10,
+	    price: 0,
+	    type: 'BTC_NXT',
+	    toFixed: 8,
+	    name: 'nxt',
+	    visible: false,
+	    publickFirst: 'NXT',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'NXT',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 11,
+	    price: 0,
+	    type: 'BTC_XMR',
+	    toFixed: 8,
+	    name: 'monero',
+	    visible: false,
+	    publickFirst: 'Monero',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'XMR',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 12,
+	    price: 0,
+	    type: 'BTC_XRP',
+	    toFixed: 8,
+	    name: 'Ripple',
+	    visible: false,
+	    publickFirst: 'Ripple',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'XRP',
 	    secondCurrency: 'BTC'
 	  }],
 	  rates: {},

@@ -37,7 +37,7 @@ body {
     flex-direction: column;
     align-content: center;
     height: 100vh;
-    width: 17em;
+    width: 20em;
     padding: 0 .8em;
   }
   .left-bar {
@@ -45,7 +45,7 @@ body {
   }
   .right-bar {
     position: relative;
-    width: calc(100vw - 17em);
+    width: calc(100vw - 20em);
   }
   .first,
   .second {
@@ -56,7 +56,7 @@ body {
     margin: 0 0 .8em;
   }
   .time {
-    font-size: 4em;
+    font-size: 4.8em;
     margin: .2em 0 0;
     line-height: 1;
   }
@@ -102,6 +102,7 @@ body {
     }
     .currency-abbr-wrap {
       flex-direction: column;
+      min-width: 1.1em;
       i {
         font-size: .65em;
         margin: 0 0 .1em;
@@ -139,6 +140,7 @@ body {
     width: 32px;
     height: 32px;
     z-index: 1;
+    cursor: pointer;
     span {
       display: inline-block;
       width: 22px;
@@ -153,20 +155,43 @@ body {
     min-width: calc(100% - 20px);
     padding: 32px 10px;
     right: -100%;
-    background: rgba(255, 255, 255 , .5);
+    background: rgba(255, 255, 255 , .7);
     color: #34495e;
     @include transition();
     &.is-active {
       right: 0;
     }
-    p {
+    p, h2, h3 {
       margin: 0;
+      color: #34495e;
+    }
+    h3 {
+      margin: 0 0 1em;
+      span {
+        color: #34495e;
+        font-size: 1em;
+      }
+      a {
+        font-size: 1em;
+      }
     }
     .setting-currency-item {
+      display: inline-block;
       margin: 0 20px 0 0;
+      input {
+        display: none;
+      }
+      .checkbox {
+        display: inline-block;
+        width: 1.1em;
+        text-align: left;
+        font-size: 1.2em;
+      }
       span {
+        display: inline-block;
         font-size: 1em;
         color: #34495e;
+        vertical-align: top;
       }
     }
   }
