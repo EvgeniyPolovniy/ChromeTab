@@ -7,13 +7,28 @@ import RightBar from './view/RightBar'
 
 import * as currencyAction from './store/currencyAction'
 import * as settingsAction from './store/settingsAction'
+import * as timeAction from './store/timeAction'
 
 class App extends Component {
   render() {
     return (
       <div className="main">
-          <LeftBar currency={this.props.currency} interval={this.props.interval} actions={this.props.actionsCurrency}/>
-          <RightBar currency={this.props.currency} actions={this.props.actionsSettings}/>
+          <LeftBar
+            currency={this.props.currency}
+            interval={this.props.interval}
+            actions={this.props.actionsCurrency}
+            timeActions={this.props.actionsTime}
+            time={this.props.time}
+            date={this.props.date}
+            time24={this.props.time24}
+          />
+          <RightBar
+            currency={this.props.currency}
+            actions={this.props.actionsSettings}
+            timeActions={this.props.actionsTime}
+            localeRu={this.props.localeRu}
+            time24={this.props.time24}
+          />
       </div>
     )
   }
@@ -22,14 +37,19 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     currency: state.currencyReducer.currency,
-    interval: state.currencyReducer.interval
+    interval: state.currencyReducer.interval,
+    time: state.currencyReducer.time,
+    date: state.currencyReducer.date,
+    time24: state.currencyReducer.time24,
+    localeRu: state.currencyReducer.localeRu
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actionsCurrency: bindActionCreators(currencyAction, dispatch),
-    actionsSettings: bindActionCreators(settingsAction, dispatch)
+    actionsSettings: bindActionCreators(settingsAction, dispatch),
+    actionsTime: bindActionCreators(timeAction, dispatch)
   }
 }
 

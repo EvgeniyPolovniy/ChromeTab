@@ -64,17 +64,17 @@
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reactRedux = __webpack_require__(182);
+	var _reactRedux = __webpack_require__(181);
 
-	var _App = __webpack_require__(195);
+	var _App = __webpack_require__(194);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _indexReducers = __webpack_require__(223);
+	var _indexReducers = __webpack_require__(225);
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(226);
+	var _localStorage = __webpack_require__(228);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20671,8 +20671,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 181 */,
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20680,11 +20679,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(183);
+	var _Provider = __webpack_require__(182);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(186);
+	var _connect = __webpack_require__(185);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -20696,7 +20695,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20708,11 +20707,11 @@
 
 	var _react = __webpack_require__(9);
 
-	var _storeShape = __webpack_require__(184);
+	var _storeShape = __webpack_require__(183);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(185);
+	var _warning = __webpack_require__(184);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -20796,7 +20795,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20812,7 +20811,7 @@
 	});
 
 /***/ },
-/* 185 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20841,7 +20840,7 @@
 	}
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20863,31 +20862,31 @@
 
 	var _react = __webpack_require__(9);
 
-	var _storeShape = __webpack_require__(184);
+	var _storeShape = __webpack_require__(183);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(187);
+	var _shallowEqual = __webpack_require__(186);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(188);
+	var _wrapActionCreators = __webpack_require__(187);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(185);
+	var _warning = __webpack_require__(184);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(189);
+	var _isPlainObject = __webpack_require__(188);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(193);
+	var _hoistNonReactStatics = __webpack_require__(192);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(194);
+	var _invariant = __webpack_require__(193);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -21264,7 +21263,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21295,7 +21294,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21312,14 +21311,14 @@
 	}
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(190),
-	    isHostObject = __webpack_require__(191),
-	    isObjectLike = __webpack_require__(192);
+	var getPrototype = __webpack_require__(189),
+	    isHostObject = __webpack_require__(190),
+	    isObjectLike = __webpack_require__(191);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21387,7 +21386,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 190 */
+/* 189 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21409,7 +21408,7 @@
 	module.exports = getPrototype;
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21436,7 +21435,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 192 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21474,7 +21473,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 193 */
+/* 192 */
 /***/ function(module, exports) {
 
 	/**
@@ -21520,7 +21519,7 @@
 	};
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21574,7 +21573,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 195 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21591,23 +21590,27 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _reactRedux = __webpack_require__(182);
+	var _reactRedux = __webpack_require__(181);
 
-	var _LeftBar = __webpack_require__(196);
+	var _LeftBar = __webpack_require__(195);
 
 	var _LeftBar2 = _interopRequireDefault(_LeftBar);
 
-	var _RightBar = __webpack_require__(200);
+	var _RightBar = __webpack_require__(199);
 
 	var _RightBar2 = _interopRequireDefault(_RightBar);
 
-	var _currencyAction = __webpack_require__(203);
+	var _currencyAction = __webpack_require__(204);
 
 	var currencyAction = _interopRequireWildcard(_currencyAction);
 
-	var _settingsAction = __webpack_require__(222);
+	var _settingsAction = __webpack_require__(223);
 
 	var settingsAction = _interopRequireWildcard(_settingsAction);
+
+	var _timeAction = __webpack_require__(224);
+
+	var timeAction = _interopRequireWildcard(_timeAction);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -21634,8 +21637,22 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "main" },
-	        _react2.default.createElement(_LeftBar2.default, { currency: this.props.currency, interval: this.props.interval, actions: this.props.actionsCurrency }),
-	        _react2.default.createElement(_RightBar2.default, { currency: this.props.currency, actions: this.props.actionsSettings })
+	        _react2.default.createElement(_LeftBar2.default, {
+	          currency: this.props.currency,
+	          interval: this.props.interval,
+	          actions: this.props.actionsCurrency,
+	          timeActions: this.props.actionsTime,
+	          time: this.props.time,
+	          date: this.props.date,
+	          time24: this.props.time24
+	        }),
+	        _react2.default.createElement(_RightBar2.default, {
+	          currency: this.props.currency,
+	          actions: this.props.actionsSettings,
+	          timeActions: this.props.actionsTime,
+	          localeRu: this.props.localeRu,
+	          time24: this.props.time24
+	        })
 	      );
 	    }
 	  }]);
@@ -21646,21 +21663,26 @@
 	function mapStateToProps(state) {
 	  return {
 	    currency: state.currencyReducer.currency,
-	    interval: state.currencyReducer.interval
+	    interval: state.currencyReducer.interval,
+	    time: state.currencyReducer.time,
+	    date: state.currencyReducer.date,
+	    time24: state.currencyReducer.time24,
+	    localeRu: state.currencyReducer.localeRu
 	  };
 	}
 
 	function mapDispatchToProps(dispatch) {
 	  return {
 	    actionsCurrency: (0, _redux.bindActionCreators)(currencyAction, dispatch),
-	    actionsSettings: (0, _redux.bindActionCreators)(settingsAction, dispatch)
+	    actionsSettings: (0, _redux.bindActionCreators)(settingsAction, dispatch),
+	    actionsTime: (0, _redux.bindActionCreators)(timeAction, dispatch)
 	  };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21675,11 +21697,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Time = __webpack_require__(197);
+	var _Time = __webpack_require__(196);
 
 	var _Time2 = _interopRequireDefault(_Time);
 
-	var _Currency = __webpack_require__(198);
+	var _Currency = __webpack_require__(197);
 
 	var _Currency2 = _interopRequireDefault(_Currency);
 
@@ -21706,7 +21728,13 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'left-bar' },
-	        _react2.default.createElement(_Time2.default, null),
+	        _react2.default.createElement(_Time2.default, {
+	          interval: this.props.interval,
+	          actions: this.props.timeActions,
+	          time: this.props.time,
+	          date: this.props.date,
+	          time24: this.props.time24
+	        }),
 	        _react2.default.createElement(_Currency2.default, { currency: this.props.currency, interval: this.props.interval, actions: this.props.actions })
 	      );
 	    }
@@ -21718,10 +21746,10 @@
 	exports.default = LeftBar;
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21749,29 +21777,30 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Time).call(this, props));
 
-	    _this.state = { time: _this.normalizeTime(new Date()) };
+	    props.actions.updateTime();
+
+	    setInterval(function () {
+	      props.actions.updateTime();
+	    }, props.interval);
 	    return _this;
 	  }
 
 	  _createClass(Time, [{
-	    key: 'timeWraper',
-	    value: function timeWraper(item) {
-	      var result = item.toString().length == 1 ? '0' + item : item;
-	      return result;
-	    }
-	  }, {
-	    key: 'normalizeTime',
-	    value: function normalizeTime(time) {
-	      var normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes()) + ":" + this.timeWraper(time.getSeconds());
-	      return normalTime;
-	    }
-	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'h1',
-	        { className: 'time' },
-	        this.state.time
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "h1",
+	          { className: "time" },
+	          this.props.time
+	        ),
+	        _react2.default.createElement(
+	          "h2",
+	          { className: "date" },
+	          this.props.date
+	        )
 	      );
 	    }
 	  }]);
@@ -21782,7 +21811,7 @@
 	exports.default = Time;
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21797,7 +21826,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CurrencyItem = __webpack_require__(199);
+	var _CurrencyItem = __webpack_require__(198);
 
 	var _CurrencyItem2 = _interopRequireDefault(_CurrencyItem);
 
@@ -21848,7 +21877,7 @@
 	exports.default = Curency;
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21947,7 +21976,7 @@
 	exports.default = CurrencyItem;
 
 /***/ },
-/* 200 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21962,7 +21991,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Settings = __webpack_require__(201);
+	var _Settings = __webpack_require__(200);
 
 	var _Settings2 = _interopRequireDefault(_Settings);
 
@@ -21989,7 +22018,13 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'right-bar' },
-	        _react2.default.createElement(_Settings2.default, { currency: this.props.currency, actions: this.props.actions }),
+	        _react2.default.createElement(_Settings2.default, {
+	          currency: this.props.currency,
+	          actions: this.props.actions,
+	          localeRu: this.props.localeRu,
+	          time24: this.props.time24,
+	          timeActions: this.props.timeActions
+	        }),
 	        _react2.default.createElement('span', { className: 'first' }),
 	        _react2.default.createElement('span', { className: 'second' })
 	      );
@@ -22002,7 +22037,7 @@
 	exports.default = RightBar;
 
 /***/ },
-/* 201 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22017,9 +22052,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SettingCurrencyItem = __webpack_require__(202);
+	var _SettingCurrencyItem = __webpack_require__(201);
 
 	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
+
+	var _SettingDate = __webpack_require__(202);
+
+	var _SettingDate2 = _interopRequireDefault(_SettingDate);
+
+	var _SettingTime = __webpack_require__(203);
+
+	var _SettingTime2 = _interopRequireDefault(_SettingTime);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22052,7 +22095,8 @@
 	    value: function render() {
 	      var classN = this.state.is_active ? 'is-active' : '';
 	      var settingCurrencyList = this.props.currency;
-	      var avtions = this.props.actions;
+	      var actions = this.props.actions;
+	      var timeActions = this.props.timeActions;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'bg-setings ' + classN },
@@ -22067,6 +22111,23 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'seting-content ' + classN },
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Date and time:'
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Set language for date'
+	          ),
+	          _react2.default.createElement(_SettingDate2.default, { localeRu: this.props.localeRu, action: timeActions }),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Set time format'
+	          ),
+	          _react2.default.createElement(_SettingTime2.default, { time24: this.props.time24, action: timeActions }),
 	          _react2.default.createElement(
 	            'h2',
 	            null,
@@ -22086,7 +22147,7 @@
 	            'div',
 	            { className: 'currency-list' },
 	            settingCurrencyList.map(function (currency) {
-	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: avtions });
+	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: actions });
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -22115,7 +22176,7 @@
 	exports.default = Settings;
 
 /***/ },
-/* 202 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22182,7 +22243,179 @@
 	exports.default = SettingCurrencyItem;
 
 /***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingDate = function (_Component) {
+	  _inherits(SettingDate, _Component);
+
+	  function SettingDate(props) {
+	    _classCallCheck(this, SettingDate);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingDate).call(this, props));
+
+	    _this.onChange = function (e) {
+	      var isRu = e.target.value == 'ru';
+	      _this.props.action.updateLocaleSetting(isRu);
+	      _this.props.action.updateTime();
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SettingDate, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'date-list', onChange: this.onChange },
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'locale',
+	            value: 'ru'
+	          }),
+	          _react2.default.createElement('span', { className: this.props.localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'Russian'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'locale',
+	            value: 'en-US'
+	          }),
+	          _react2.default.createElement('span', { className: !this.props.localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'English'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SettingDate;
+	}(_react.Component);
+
+	exports.default = SettingDate;
+
+/***/ },
 /* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingTime = function (_Component) {
+	  _inherits(SettingTime, _Component);
+
+	  function SettingTime(props) {
+	    _classCallCheck(this, SettingTime);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingTime).call(this, props));
+
+	    _this.onChange = function (e) {
+	      var isRu = e.target.value == 'ru';
+	      _this.props.action.updateTimeSetting(isRu);
+	      _this.props.action.updateTime();
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SettingTime, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'time-list', onChange: this.onChange },
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'time',
+	            value: 'ru'
+	          }),
+	          _react2.default.createElement('span', { className: this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '24'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'time',
+	            value: 'en-US'
+	          }),
+	          _react2.default.createElement('span', { className: !this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '12'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SettingTime;
+	}(_react.Component);
+
+	exports.default = SettingTime;
+
+/***/ },
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22192,7 +22425,7 @@
 	});
 	exports.getRate = exports.getRateRub = exports.getRateUah = exports.updateCurrency = exports.updateRateUah = exports.updateRate = undefined;
 
-	var _axios = __webpack_require__(204);
+	var _axios = __webpack_require__(205);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -22253,27 +22486,27 @@
 	};
 
 /***/ },
-/* 204 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = __webpack_require__(205);
-
-/***/ },
 /* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(206);
-	var utils = __webpack_require__(207);
-	var dispatchRequest = __webpack_require__(208);
-	var InterceptorManager = __webpack_require__(217);
-	var isAbsoluteURL = __webpack_require__(218);
-	var combineURLs = __webpack_require__(219);
-	var bind = __webpack_require__(220);
-	var transformData = __webpack_require__(212);
+	module.exports = __webpack_require__(206);
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var defaults = __webpack_require__(207);
+	var utils = __webpack_require__(208);
+	var dispatchRequest = __webpack_require__(209);
+	var InterceptorManager = __webpack_require__(218);
+	var isAbsoluteURL = __webpack_require__(219);
+	var combineURLs = __webpack_require__(220);
+	var bind = __webpack_require__(221);
+	var transformData = __webpack_require__(213);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -22348,7 +22581,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(221);
+	axios.spread = __webpack_require__(222);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -22375,12 +22608,12 @@
 	});
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22446,7 +22679,7 @@
 	};
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22715,7 +22948,7 @@
 	};
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22738,10 +22971,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(209);
+	        adapter = __webpack_require__(210);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(209);
+	        adapter = __webpack_require__(210);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -22755,18 +22988,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(207);
-	var buildURL = __webpack_require__(210);
-	var parseHeaders = __webpack_require__(211);
-	var transformData = __webpack_require__(212);
-	var isURLSameOrigin = __webpack_require__(213);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(214);
-	var settle = __webpack_require__(215);
+	var utils = __webpack_require__(208);
+	var buildURL = __webpack_require__(211);
+	var parseHeaders = __webpack_require__(212);
+	var transformData = __webpack_require__(213);
+	var isURLSameOrigin = __webpack_require__(214);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(215);
+	var settle = __webpack_require__(216);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -22859,7 +23092,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(216);
+	    var cookies = __webpack_require__(217);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -22917,12 +23150,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -22981,12 +23214,12 @@
 	};
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	/**
 	 * Parse headers into an object
@@ -23025,12 +23258,12 @@
 	};
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23050,12 +23283,12 @@
 	};
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23118,7 +23351,7 @@
 	}();
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23158,7 +23391,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23182,12 +23415,12 @@
 	};
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23240,12 +23473,12 @@
 	}();
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(207);
+	var utils = __webpack_require__(208);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23297,7 +23530,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23318,7 +23551,7 @@
 	};
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23336,7 +23569,7 @@
 	};
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23352,7 +23585,7 @@
 	};
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23385,7 +23618,7 @@
 	};
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23401,7 +23634,37 @@
 	};
 
 /***/ },
-/* 223 */
+/* 224 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateTime = exports.updateTime = function updateTime() {
+	  return {
+	    type: 'UPDATE_TIME',
+	    time: new Date()
+	  };
+	};
+
+	var updateLocaleSetting = exports.updateLocaleSetting = function updateLocaleSetting(isRu) {
+	  return {
+	    type: 'UPDATE_DATE_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+	var updateTimeSetting = exports.updateTimeSetting = function updateTimeSetting(isRu) {
+	  return {
+	    type: 'UPDATE_TIME_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+/***/ },
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23412,7 +23675,7 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _currencyReducer = __webpack_require__(224);
+	var _currencyReducer = __webpack_require__(226);
 
 	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
 
@@ -23423,7 +23686,7 @@
 	});
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23436,7 +23699,7 @@
 
 	exports.default = currencyReducer;
 
-	var _store = __webpack_require__(225);
+	var _store = __webpack_require__(227);
 
 	function currencyReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialState : arguments[0];
@@ -23476,13 +23739,45 @@
 	      return _extends({}, state, {
 	        currency: updateBlock2
 	      });
+	    case 'UPDATE_TIME':
+	      return _extends({}, state, {
+	        time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
+	        date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
+	      });
+	    case 'UPDATE_DATE_LOCAL':
+	      return _extends({}, state, {
+	        localeRu: action.isRu
+	      });
+	    case 'UPDATE_TIME_LOCAL':
+	      return _extends({}, state, {
+	        time24: action.isRu
+	      });
 	    default:
 	      return state;
 	  }
 	}
 
+	var timeWraper = function timeWraper(item) {
+	  var result = item.toString().length == 1 ? '0' + item : item;
+	  return result;
+	};
+	var normalizeTime = function normalizeTime(time) {
+	  var normalTime = timeWraper(time.getHours()) + ":" + timeWraper(time.getMinutes());
+	  return normalTime;
+	};
+
+	var dateOptions = {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric'
+	};
+	var timeOptions = {
+	  hour: 'numeric',
+	  minute: 'numeric'
+	};
+
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23636,11 +23931,15 @@
 	    secondCurrency: 'BTC'
 	  }],
 	  rates: {},
-	  interval: 30000
+	  interval: 30000,
+	  time: 0,
+	  date: 0,
+	  time24: true,
+	  localeRu: true
 	};
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';

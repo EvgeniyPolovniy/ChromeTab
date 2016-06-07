@@ -6,8 +6,14 @@ class LeftBar extends Component {
   render() {
     return (
       <div className="left-bar">
-        <Time/>
-        <Currency currency={this.props.currency} interval={this.props.interval} actions={this.props.actions}/>
+        <Time
+          interval={this.props.interval}
+          actions={this.props.timeActions}
+          time={this.props.time}
+          date={this.props.date}
+          time24={this.props.time24}
+        />
+        <Currency currency={this.props.currency} interval={this.props.interval} actions={this.props.actions} />
       </div>
     )
   }

@@ -139,10 +139,13 @@ body {
     text-align: right; }
   .main .second {
     margin: 0 0 .8em; }
-  .main .time {
+  .main .time,
+  .main .date {
     font-size: 4.8em;
     margin: .2em 0 0;
     line-height: 1; }
+  .main .date {
+    font-size: 2em; }
   .main .currency-block-wrapper {
     display: flex;
     flex-direction: column;
@@ -188,6 +191,7 @@ body {
       .main .currency-block .currency-abbr-wrap .currency-abbr {
         font-size: .25em; }
   .main h1,
+  .main h2,
   .main span {
     font-size: .5em;
     text-align: center;
@@ -261,6 +265,9 @@ body {
     .bg-setings .seting-content p, .bg-setings .seting-content h2, .bg-setings .seting-content h3 {
       margin: 0;
       color: #34495e; }
+    .bg-setings .seting-content h2 {
+      font-size: 1.5em;
+      text-align: left; }
     .bg-setings .seting-content h3 {
       margin: 0 0 .5em; }
       .bg-setings .seting-content h3 span {
@@ -271,6 +278,8 @@ body {
         color: #3498db; }
         .bg-setings .seting-content h3 a:hover {
           color: #2e8ece; }
+    .bg-setings .seting-content .date-list,
+    .bg-setings .seting-content .time-list,
     .bg-setings .seting-content .currency-list {
       margin: 0 0 1em; }
     .bg-setings .seting-content .setting-currency-item {

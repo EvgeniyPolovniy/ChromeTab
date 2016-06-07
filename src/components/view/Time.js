@@ -1,25 +1,26 @@
 import React, { Component, PropTypes } from 'react'
 
-class Time extends Component {
+export default class Time extends Component {
   constructor(props) {
     super(props);
-    this.state = {time: this.normalizeTime( new Date() )};
+
+    props.actions.updateTime();
+
+    setInterval( () => {
+      props.actions.updateTime();
+    }, props.interval );
   }
-  timeWraper(item) {
-    let result = (item.toString().length == 1) ? ('0'+ item) : item;
-    return result
-  }
-  normalizeTime(time) {
-    let normalTime = this.timeWraper(time.getHours()) + ":" + this.timeWraper(time.getMinutes()) + ":" + this.timeWraper(time.getSeconds());
-    return normalTime;
-  }
+
   render() {
     return (
-      <h1 className="time">
-        {this.state.time}
-      </h1>
+      <div>
+        <h1 className="time">
+          {this.props.time}
+        </h1>
+        <h2 className="date">
+          {this.props.date}
+        </h2>
+      </div>
     )
   }
 }
-
-export default Time

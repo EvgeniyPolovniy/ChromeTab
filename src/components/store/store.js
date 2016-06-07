@@ -144,5 +144,9 @@ export const initialState = {
     secondCurrency: 'BTC'
   }],
   rates: {},
-  interval: 30000
+  interval: 30000,
+  time: 0,
+  date: 0,
+  time24: true,
+  localeRu: true
 };

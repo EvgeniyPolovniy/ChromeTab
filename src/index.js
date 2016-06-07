@@ -24,7 +24,6 @@ Store.subscribe(() => {
   saveState(Store.getState());
 });
 
-
 function mapStateToProps(state) {
   return { store: state }
 }
