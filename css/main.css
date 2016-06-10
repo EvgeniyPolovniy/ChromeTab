@@ -92,11 +92,7 @@ html, body {
 
 body {
   font-family: 'comfortaa-regular', cursive;
-  margin: 0;
-  background-image: url(../img/bg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center; }
+  margin: 0; }
   @media (max-width: 1024px) {
     body {
       font-size: 16px; } }
@@ -118,7 +114,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row; }
+  flex-direction: row;
+  background-image: url(../img/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; }
   .main .left-bar,
   .main .right-bar {
     display: flex;
@@ -154,6 +154,7 @@ body {
     min-width: 12em;
     padding: 1.2em 0 0; }
   .main .currency-block {
+    position: relative;
     display: flex;
     justify-content: space-between;
     white-space: nowrap;
@@ -190,6 +191,10 @@ body {
         margin: 0 0 .1em; }
       .main .currency-block .currency-abbr-wrap .currency-abbr {
         font-size: .25em; }
+    .main .currency-block .after-trend {
+      position: absolute;
+      display: none;
+      font-size: 1em; }
   .main h1,
   .main h2,
   .main span {

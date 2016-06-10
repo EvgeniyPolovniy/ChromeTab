@@ -21626,32 +21626,53 @@
 	  _inherits(App, _Component);
 
 	  function App() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(App)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.bgStyle = {
+	      backgroundImage: 'url(https://source.unsplash.com/collection/' + _this.props.bgChannel + '/2560x1600)'
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(App, [{
 	    key: "render",
 	    value: function render() {
+	      var _props = this.props;
+	      var currency = _props.currency;
+	      var interval = _props.interval;
+	      var actionsCurrency = _props.actionsCurrency;
+	      var actionsTime = _props.actionsTime;
+	      var time = _props.time;
+	      var date = _props.date;
+	      var time24 = _props.time24;
+	      var actionsSettings = _props.actionsSettings;
+	      var localeRu = _props.localeRu;
+
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "main" },
+	        { className: "main", style: this.bgStyle },
 	        _react2.default.createElement(_LeftBar2.default, {
-	          currency: this.props.currency,
-	          interval: this.props.interval,
-	          actions: this.props.actionsCurrency,
-	          timeActions: this.props.actionsTime,
-	          time: this.props.time,
-	          date: this.props.date,
-	          time24: this.props.time24
+	          currency: currency,
+	          interval: interval,
+	          actions: actionsCurrency,
+	          timeActions: actionsTime,
+	          time: time,
+	          date: date,
+	          time24: time24
 	        }),
 	        _react2.default.createElement(_RightBar2.default, {
-	          currency: this.props.currency,
-	          actions: this.props.actionsSettings,
-	          timeActions: this.props.actionsTime,
-	          localeRu: this.props.localeRu,
-	          time24: this.props.time24
+	          currency: currency,
+	          actions: actionsSettings,
+	          timeActions: actionsTime,
+	          localeRu: localeRu,
+	          time24: time24
 	        })
 	      );
 	    }
@@ -21667,7 +21688,8 @@
 	    time: state.currencyReducer.time,
 	    date: state.currencyReducer.date,
 	    time24: state.currencyReducer.time24,
-	    localeRu: state.currencyReducer.localeRu
+	    localeRu: state.currencyReducer.localeRu,
+	    bgChannel: state.currencyReducer.bgChannel
 	  };
 	}
 
@@ -21725,17 +21747,26 @@
 	  _createClass(LeftBar, [{
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props;
+	      var interval = _props.interval;
+	      var timeActions = _props.timeActions;
+	      var time = _props.time;
+	      var date = _props.date;
+	      var time24 = _props.time24;
+	      var currency = _props.currency;
+	      var actions = _props.actions;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'left-bar' },
 	        _react2.default.createElement(_Time2.default, {
-	          interval: this.props.interval,
-	          actions: this.props.timeActions,
-	          time: this.props.time,
-	          date: this.props.date,
-	          time24: this.props.time24
+	          interval: interval,
+	          actions: timeActions,
+	          time: time,
+	          date: date,
+	          time24: time24
 	        }),
-	        _react2.default.createElement(_Currency2.default, { currency: this.props.currency, interval: this.props.interval, actions: this.props.actions })
+	        _react2.default.createElement(_Currency2.default, { currency: currency, interval: interval, actions: actions })
 	      );
 	    }
 	  }]);
@@ -21788,18 +21819,22 @@
 	  _createClass(Time, [{
 	    key: "render",
 	    value: function render() {
+	      var _props = this.props;
+	      var time = _props.time;
+	      var date = _props.date;
+
 	      return _react2.default.createElement(
 	        "div",
 	        null,
 	        _react2.default.createElement(
 	          "h1",
 	          { className: "time" },
-	          this.props.time
+	          time
 	        ),
 	        _react2.default.createElement(
 	          "h2",
 	          { className: "date" },
-	          this.props.date
+	          date
 	        )
 	      );
 	    }
@@ -21858,11 +21893,12 @@
 	  _createClass(Curency, [{
 	    key: 'render',
 	    value: function render() {
-	      var currencyList = this.props.currency;
+	      var currency = this.props.currency;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'currency-block-wrapper' },
-	        currencyList.map(function (currency) {
+	        currency.map(function (currency) {
 	          if (currency.visible) {
 	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
 	          }
@@ -21912,9 +21948,18 @@
 	  _createClass(CurrencyItem, [{
 	    key: 'render',
 	    value: function render() {
+	      var _props$data = this.props.data;
+	      var name = _props$data.name;
+	      var firstCurrency = _props$data.firstCurrency;
+	      var publickFirst = _props$data.publickFirst;
+	      var price = _props$data.price;
+	      var secondCurrency = _props$data.secondCurrency;
+	      var publickSecond = _props$data.publickSecond;
+	      var percentChange = _props$data.percentChange;
+
 	      return _react2.default.createElement(
 	        'span',
-	        { className: 'currency-block ' + this.props.data.name },
+	        { className: 'currency-block ' + name },
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'left-currency' },
@@ -21926,11 +21971,11 @@
 	          _react2.default.createElement(
 	            'span',
 	            { className: 'currency-abbr-wrap' },
-	            _react2.default.createElement('i', { className: 'cc ' + this.props.data.firstCurrency }),
+	            _react2.default.createElement('i', { className: 'cc ' + firstCurrency }),
 	            _react2.default.createElement(
 	              'span',
 	              { className: 'currency-abbr' },
-	              this.props.data.publickFirst
+	              publickFirst
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -21952,19 +21997,24 @@
 	          _react2.default.createElement(
 	            'span',
 	            { className: 'currency' },
-	            this.props.data.price
+	            price
 	          ),
 	          ' ',
 	          _react2.default.createElement(
 	            'span',
 	            { className: 'currency-abbr-wrap' },
-	            _react2.default.createElement('i', { className: 'cc ' + this.props.data.secondCurrency }),
+	            _react2.default.createElement('i', { className: 'cc ' + secondCurrency }),
 	            _react2.default.createElement(
 	              'span',
 	              { className: 'currency-abbr' },
-	              this.props.data.publickSecond
+	              publickSecond
 	            )
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'after-trend' },
+	          percentChange
 	        )
 	      );
 	    }
@@ -22015,15 +22065,22 @@
 	  _createClass(RightBar, [{
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props;
+	      var currency = _props.currency;
+	      var actions = _props.actions;
+	      var localeRu = _props.localeRu;
+	      var time24 = _props.time24;
+	      var timeActions = _props.timeActions;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'right-bar' },
 	        _react2.default.createElement(_Settings2.default, {
-	          currency: this.props.currency,
-	          actions: this.props.actions,
-	          localeRu: this.props.localeRu,
-	          time24: this.props.time24,
-	          timeActions: this.props.timeActions
+	          currency: currency,
+	          actions: actions,
+	          localeRu: localeRu,
+	          time24: time24,
+	          timeActions: timeActions
 	        }),
 	        _react2.default.createElement('span', { className: 'first' }),
 	        _react2.default.createElement('span', { className: 'second' })
@@ -22093,10 +22150,14 @@
 	  _createClass(Settings, [{
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props;
+	      var currency = _props.currency;
+	      var actions = _props.actions;
+	      var timeActions = _props.timeActions;
+	      var localeRu = _props.localeRu;
+	      var time24 = _props.time24;
+
 	      var classN = this.state.is_active ? 'is-active' : '';
-	      var settingCurrencyList = this.props.currency;
-	      var actions = this.props.actions;
-	      var timeActions = this.props.timeActions;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'bg-setings ' + classN },
@@ -22121,13 +22182,13 @@
 	            null,
 	            'Set language for date'
 	          ),
-	          _react2.default.createElement(_SettingDate2.default, { localeRu: this.props.localeRu, action: timeActions }),
+	          _react2.default.createElement(_SettingDate2.default, { localeRu: localeRu, action: timeActions }),
 	          _react2.default.createElement(
 	            'h3',
 	            null,
 	            'Set time format'
 	          ),
-	          _react2.default.createElement(_SettingTime2.default, { time24: this.props.time24, action: timeActions }),
+	          _react2.default.createElement(_SettingTime2.default, { time24: time24, action: timeActions }),
 	          _react2.default.createElement(
 	            'h2',
 	            null,
@@ -22146,7 +22207,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'currency-list' },
-	            settingCurrencyList.map(function (currency) {
+	            currency.map(function (currency) {
 	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: actions });
 	            })
 	          ),
@@ -22217,22 +22278,27 @@
 	  _createClass(SettingCurrencyItem, [{
 	    key: "render",
 	    value: function render() {
+	      var _props$data = this.props.data;
+	      var visible = _props$data.visible;
+	      var publickFirst = _props$data.publickFirst;
+	      var publickSecond = _props$data.publickSecond;
+
 	      return _react2.default.createElement(
 	        "label",
 	        { className: "setting-currency-item" },
 	        _react2.default.createElement("input", {
 	          type: "checkbox",
-	          checked: this.props.data.visible,
+	          checked: visible,
 	          onChange: this.onChange
 	        }),
-	        _react2.default.createElement("span", { className: this.props.data.visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	        this.props.data.publickFirst,
+	        _react2.default.createElement("span", { className: visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	        publickFirst,
 	        _react2.default.createElement(
 	          "span",
 	          null,
 	          " - "
 	        ),
-	        this.props.data.publickSecond
+	        publickSecond
 	      );
 	    }
 	  }]);
@@ -22286,6 +22352,8 @@
 	  _createClass(SettingDate, [{
 	    key: 'render',
 	    value: function render() {
+	      var localeRu = this.props.localeRu;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'date-list', onChange: this.onChange },
@@ -22297,7 +22365,7 @@
 	            name: 'locale',
 	            value: 'ru'
 	          }),
-	          _react2.default.createElement('span', { className: this.props.localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement('span', { className: localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
 	          _react2.default.createElement(
 	            'span',
 	            null,
@@ -22312,7 +22380,7 @@
 	            name: 'locale',
 	            value: 'en-US'
 	          }),
-	          _react2.default.createElement('span', { className: !this.props.localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement('span', { className: !localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
 	          _react2.default.createElement(
 	            'span',
 	            null,
@@ -22372,6 +22440,8 @@
 	  _createClass(SettingTime, [{
 	    key: 'render',
 	    value: function render() {
+	      var time24 = this.props.time24;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'time-list', onChange: this.onChange },
@@ -22383,7 +22453,7 @@
 	            name: 'time',
 	            value: 'ru'
 	          }),
-	          _react2.default.createElement('span', { className: this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement('span', { className: time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
 	          _react2.default.createElement(
 	            'span',
 	            null,
@@ -22398,7 +22468,7 @@
 	            name: 'time',
 	            value: 'en-US'
 	          }),
-	          _react2.default.createElement('span', { className: !this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement('span', { className: !time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
 	          _react2.default.createElement(
 	            'span',
 	            null,
@@ -23721,7 +23791,9 @@
 	      state.currency.map(function (currency, key) {
 	        var item = currency.type;
 	        var price = state.rates[item].last;
+	        var percentChange = state.rates[item].percentChange || 0;
 	        currency.price = parseFloat(price).toFixed(currency.toFixed);
+	        currency.percentChange = parseFloat(percentChange).toFixed(4);
 
 	        updateBlock.push(currency);
 	      });
@@ -23793,6 +23865,7 @@
 	    toFixed: 2,
 	    name: 'uah',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'USD',
 	    publickSecond: 'UAH',
 	    firstCurrency: 'START',
@@ -23804,6 +23877,7 @@
 	    toFixed: 2,
 	    name: 'rub',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'USD',
 	    publickSecond: 'RUB',
 	    firstCurrency: 'START',
@@ -23815,6 +23889,7 @@
 	    toFixed: 2,
 	    name: 'btc',
 	    visible: true,
+	    percentChange: 0,
 	    publickFirst: 'BTC',
 	    publickSecond: 'USD',
 	    firstCurrency: 'BTC',
@@ -23826,6 +23901,7 @@
 	    toFixed: 2,
 	    name: 'eth-dol',
 	    visible: true,
+	    percentChange: 0,
 	    publickFirst: 'ETH',
 	    publickSecond: 'USD',
 	    firstCurrency: 'ETH-alt',
@@ -23837,6 +23913,7 @@
 	    toFixed: 8,
 	    name: 'eth-btc',
 	    visible: true,
+	    percentChange: 0,
 	    publickFirst: 'ETH',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'ETH-alt',
@@ -23848,6 +23925,7 @@
 	    toFixed: 8,
 	    name: 'lisk',
 	    visible: true,
+	    percentChange: 0,
 	    publickFirst: 'LISK',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'LISK-alt',
@@ -23859,6 +23937,7 @@
 	    toFixed: 8,
 	    name: 'dao',
 	    visible: true,
+	    percentChange: 0,
 	    publickFirst: 'DAO',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'DGD',
@@ -23870,6 +23949,7 @@
 	    toFixed: 8,
 	    name: 'DASH',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'DASH',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'DASH',
@@ -23881,6 +23961,7 @@
 	    toFixed: 8,
 	    name: 'litecoin',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'Litecoin',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'LTC',
@@ -23892,6 +23973,7 @@
 	    toFixed: 8,
 	    name: 'dogecoin',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'Dogecoin',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'DOGE',
@@ -23903,6 +23985,7 @@
 	    toFixed: 8,
 	    name: 'nxt',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'NXT',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'NXT',
@@ -23914,6 +23997,7 @@
 	    toFixed: 8,
 	    name: 'monero',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'Monero',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'XMR',
@@ -23925,6 +24009,7 @@
 	    toFixed: 8,
 	    name: 'Ripple',
 	    visible: false,
+	    percentChange: 0,
 	    publickFirst: 'Ripple',
 	    publickSecond: 'BTC',
 	    firstCurrency: 'XRP',
@@ -23935,7 +24020,8 @@
 	  time: 0,
 	  date: 0,
 	  time24: true,
-	  localeRu: true
+	  localeRu: true,
+	  bgChannel: 237739
 	};
 
 /***/ },

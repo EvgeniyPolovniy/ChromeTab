@@ -14,10 +14,10 @@ export default class Curency extends Component {
 
   }
   render() {
-    let currencyList = this.props.currency
+    const { currency } = this.props;
     return (
       <div className="currency-block-wrapper">
-        { currencyList.map( function(currency) {
+        { currency.map( function(currency) {
           if (currency.visible) {
             return <CurrencyItem key={currency.id} data={currency}/>
           }

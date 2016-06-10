@@ -10,24 +10,28 @@ import * as settingsAction from './store/settingsAction'
 import * as timeAction from './store/timeAction'
 
 class App extends Component {
+  bgStyle = {
+    backgroundImage: 'url(https://source.unsplash.com/collection/' + this.props.bgChannel + '/2560x1600)',
+  }
   render() {
+    const { currency, interval, actionsCurrency, actionsTime, time, date, time24, actionsSettings, localeRu } = this.props
     return (
-      <div className="main">
+      <div className="main" style={this.bgStyle}>
           <LeftBar
-            currency={this.props.currency}
-            interval={this.props.interval}
-            actions={this.props.actionsCurrency}
-            timeActions={this.props.actionsTime}
-            time={this.props.time}
-            date={this.props.date}
-            time24={this.props.time24}
+            currency={currency}
+            interval={interval}
+            actions={actionsCurrency}
+            timeActions={actionsTime}
+            time={time}
+            date={date}
+            time24={time24}
           />
           <RightBar
-            currency={this.props.currency}
-            actions={this.props.actionsSettings}
-            timeActions={this.props.actionsTime}
-            localeRu={this.props.localeRu}
-            time24={this.props.time24}
+            currency={currency}
+            actions={actionsSettings}
+            timeActions={actionsTime}
+            localeRu={localeRu}
+            time24={time24}
           />
       </div>
     )
@@ -41,7 +45,8 @@ function mapStateToProps(state) {
     time: state.currencyReducer.time,
     date: state.currencyReducer.date,
     time24: state.currencyReducer.time24,
-    localeRu: state.currencyReducer.localeRu
+    localeRu: state.currencyReducer.localeRu,
+    bgChannel: state.currencyReducer.bgChannel
   }
 }
 

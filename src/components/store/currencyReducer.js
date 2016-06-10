@@ -18,7 +18,9 @@ export default function currencyReducer(state = initialState, action) {
       state.currency.map( function(currency, key) {
         let item = currency.type;
         let price = state.rates[item].last
+        let percentChange = state.rates[item].percentChange || 0
         currency.price = parseFloat(price).toFixed(currency.toFixed)
+        currency.percentChange = parseFloat(percentChange).toFixed(4)
 
         updateBlock.push(currency);
       })

@@ -3,14 +3,15 @@ import Settings from './Settings'
 
 export default class RightBar extends Component {
   render() {
+    const { currency, actions, localeRu, time24, timeActions } = this.props;
     return (
       <div className="right-bar">
         <Settings
-          currency={this.props.currency}
-          actions={this.props.actions}
-          localeRu={this.props.localeRu}
-          time24={this.props.time24}
-          timeActions={this.props.timeActions}
+          currency={currency}
+          actions={actions}
+          localeRu={localeRu}
+          time24={time24}
+          timeActions={timeActions}
         />
         <span className="first"></span>
         <span className="second"></span>

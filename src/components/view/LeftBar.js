@@ -2,21 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import Time from './Time'
 import Currency from './Currency'
 
-class LeftBar extends Component {
+export default class LeftBar extends Component {
   render() {
+    const { interval, timeActions, time, date, time24, currency, actions } = this.props;
     return (
       <div className="left-bar">
         <Time
-          interval={this.props.interval}
-          actions={this.props.timeActions}
-          time={this.props.time}
-          date={this.props.date}
-          time24={this.props.time24}
+          interval={interval}
+          actions={timeActions}
+          time={time}
+          date={date}
+          time24={time24}
         />
-        <Currency currency={this.props.currency} interval={this.props.interval} actions={this.props.actions} />
+        <Currency currency={currency} interval={interval} actions={actions} />
       </div>
     )
   }
 }
-
-export default LeftBar

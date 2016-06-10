@@ -12,6 +12,7 @@ export default class SettingTime extends Component {
   }
 
   render() {
+    const { time24 } = this.props
     return (
       <div className='time-list' onChange={this.onChange}>
         <label className="setting-currency-item">
@@ -20,7 +21,7 @@ export default class SettingTime extends Component {
             name='time'
             value='ru'
           />
-          <span className={this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+          <span className={time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
           <span>24</span>
         </label>
         <label className="setting-currency-item">
@@ -29,7 +30,7 @@ export default class SettingTime extends Component {
             name='time'
             value='en-US'
           />
-          <span className={!this.props.time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+          <span className={!time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
           <span>12</span>
         </label>
       </div>

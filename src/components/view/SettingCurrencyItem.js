@@ -10,15 +10,16 @@ export default class SettingCurrencyItem extends Component {
   }
 
   render() {
+    const { visible, publickFirst, publickSecond } = this.props.data
     return (
       <label className="setting-currency-item">
         <input
           type="checkbox"
-          checked={this.props.data.visible}
+          checked={visible}
           onChange={this.onChange}
         />
-        <span className={this.props.data.visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
-        {this.props.data.publickFirst}<span> - </span>{this.props.data.publickSecond}
+        <span className={visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+        {publickFirst}<span> - </span>{publickSecond}
       </label>
     )
   }

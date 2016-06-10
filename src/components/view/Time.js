@@ -12,14 +12,11 @@ export default class Time extends Component {
   }
 
   render() {
+    const { time, date } = this.props
     return (
       <div>
-        <h1 className="time">
-          {this.props.time}
-        </h1>
-        <h2 className="date">
-          {this.props.date}
-        </h2>
+        <h1 className="time">{time}</h1>
+        <h2 className="date">{date}</h2>
       </div>
     )
   }

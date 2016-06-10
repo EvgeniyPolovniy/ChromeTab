@@ -16,10 +16,8 @@ export default class Settings extends Component {
     this.setState({is_active: !this.state.is_active});
   }
   render() {
+    const { currency, actions, timeActions, localeRu, time24 } = this.props
     let classN = this.state.is_active ? 'is-active' : ''
-    let settingCurrencyList = this.props.currency
-    let actions = this.props.actions
-    let timeActions = this.props.timeActions
     return (
       <div className={'bg-setings ' + classN }>
         <div href="#" className="btn" onClick={this.handleClick} >
@@ -31,13 +29,13 @@ export default class Settings extends Component {
         <div className={'seting-content ' + classN }>
           <h2>Date and time:</h2>
           <h3>Set language for date</h3>
-          <SettingDate localeRu={this.props.localeRu} action={timeActions}/>
+          <SettingDate localeRu={localeRu} action={timeActions}/>
           <h3>Set time format</h3>
-          <SettingTime time24={this.props.time24} action={timeActions}/>
+          <SettingTime time24={time24} action={timeActions}/>
           <h2>Display currency:</h2>
           <h3>Currency rate get from <a href="https://www.poloniex.com">poloniex.com</a></h3>
           <div className='currency-list'>
-            { settingCurrencyList.map( function(currency) {
+            { currency.map( function(currency) {
               return <SettingCurrencyItem key={currency.id} data={currency} action={actions}/>
             })}
           </div>
