@@ -101,13 +101,13 @@ body {
       font-size: 20px; } }
   @media (min-width: 1280px) and (max-width: 1400px) {
     body {
-      font-size: 24px; } }
+      font-size: 21px; } }
   @media (min-width: 1400px) and (max-width: 1600px) {
     body {
-      font-size: 26px; } }
+      font-size: 22px; } }
   @media (min-width: 1600px) {
     body {
-      font-size: 28px; } }
+      font-size: 23px; } }
 
 .main {
   height: 100vh;
@@ -115,6 +115,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  background-color: white;
   background-image: url(../img/bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -271,10 +272,11 @@ body {
       margin: 0;
       color: #34495e; }
     .bg-setings .seting-content h2 {
-      font-size: 1.5em;
+      font-size: 1.2em;
       text-align: left; }
     .bg-setings .seting-content h3 {
-      margin: 0 0 .5em; }
+      margin: 0 0 .5em;
+      font-size: 1em; }
       .bg-setings .seting-content h3 span {
         color: #34495e;
         font-size: 1em; }
@@ -283,12 +285,25 @@ body {
         color: #3498db; }
         .bg-setings .seting-content h3 a:hover {
           color: #2e8ece; }
+    .bg-setings .seting-content input {
+      display: inline-block;
+      line-height: 1.3em;
+      font-size: 1.1em;
+      padding: 0 .3em;
+      border-radius: 5px;
+      border: 0;
+      width: 4em;
+      outline: none; }
+    .bg-setings .seting-content .channel-label {
+      display: inline-block;
+      margin: 0 .3em 0 0; }
     .bg-setings .seting-content .date-list,
     .bg-setings .seting-content .time-list,
     .bg-setings .seting-content .currency-list {
       margin: 0 0 1em; }
     .bg-setings .seting-content .setting-currency-item {
       display: inline-block;
+      font-size: .8em;
       margin: 0 20px 0 0; }
       .bg-setings .seting-content .setting-currency-item:hover {
         cursor: pointer; }

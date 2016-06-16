@@ -14,24 +14,25 @@ class App extends Component {
     backgroundImage: 'url(https://source.unsplash.com/collection/' + this.props.bgChannel + '/2560x1600)',
   }
   render() {
-    const { currency, interval, actionsCurrency, actionsTime, time, date, time24, actionsSettings, localeRu } = this.props
+    const { currency, interval, actionsCurrency, actionsTime, time, date, time24, actionsSettings, localeRu, bgChannel } = this.props
     return (
-      <div className="main" style={this.bgStyle}>
+      <div className="main" style = { this.bgStyle } >
           <LeftBar
-            currency={currency}
-            interval={interval}
-            actions={actionsCurrency}
-            timeActions={actionsTime}
-            time={time}
-            date={date}
-            time24={time24}
+            currency = { currency }
+            interval = { interval }
+            actions = { actionsCurrency }
+            timeActions = { actionsTime }
+            time= { time }
+            date= { date }
+            time24 = { time24 }
           />
           <RightBar
-            currency={currency}
-            actions={actionsSettings}
-            timeActions={actionsTime}
-            localeRu={localeRu}
-            time24={time24}
+            currency = { currency }
+            actions = { actionsSettings }
+            timeActions = { actionsTime }
+            localeRu = { localeRu }
+            time24 = { time24 }
+            bgChannel = { bgChannel }
           />
       </div>
     )

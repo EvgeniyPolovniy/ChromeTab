@@ -56,6 +56,11 @@ export default function currencyReducer(state = initialState, action) {
         ...state,
         time24: action.isRu,
       }
+    case 'UPDATE_CHANNEL':
+      return {
+        ...state,
+        bgChannel: action.id,
+      }
     default:
       return state
   }

@@ -21654,6 +21654,7 @@
 	      var time24 = _props.time24;
 	      var actionsSettings = _props.actionsSettings;
 	      var localeRu = _props.localeRu;
+	      var bgChannel = _props.bgChannel;
 
 	      return _react2.default.createElement(
 	        "div",
@@ -21672,7 +21673,8 @@
 	          actions: actionsSettings,
 	          timeActions: actionsTime,
 	          localeRu: localeRu,
-	          time24: time24
+	          time24: time24,
+	          bgChannel: bgChannel
 	        })
 	      );
 	    }
@@ -22071,6 +22073,7 @@
 	      var localeRu = _props.localeRu;
 	      var time24 = _props.time24;
 	      var timeActions = _props.timeActions;
+	      var bgChannel = _props.bgChannel;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -22080,7 +22083,8 @@
 	          actions: actions,
 	          localeRu: localeRu,
 	          time24: time24,
-	          timeActions: timeActions
+	          timeActions: timeActions,
+	          bgChannel: bgChannel
 	        }),
 	        _react2.default.createElement('span', { className: 'first' }),
 	        _react2.default.createElement('span', { className: 'second' })
@@ -22141,6 +22145,10 @@
 	      _this.setState({ is_active: !_this.state.is_active });
 	    };
 
+	    _this.handleTextChange = function (e) {
+	      _this.props.actions.updateChannel(e.target.value || 237739);
+	    };
+
 	    _this.state = {
 	      is_active: false
 	    };
@@ -22156,6 +22164,7 @@
 	      var timeActions = _props.timeActions;
 	      var localeRu = _props.localeRu;
 	      var time24 = _props.time24;
+	      var bgChannel = _props.bgChannel;
 
 	      var classN = this.state.is_active ? 'is-active' : '';
 	      return _react2.default.createElement(
@@ -22225,7 +22234,17 @@
 	              { href: 'https://unsplash.com' },
 	              'unsplash.com'
 	            )
-	          )
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'channel-label' },
+	            'Id channel:'
+	          ),
+	          _react2.default.createElement('input', {
+	            type: 'number',
+	            value: bgChannel,
+	            onChange: this.handleTextChange
+	          })
 	        )
 	      );
 	    }
@@ -23702,6 +23721,12 @@
 	    id: id
 	  };
 	};
+	var updateChannel = exports.updateChannel = function updateChannel(id) {
+	  return {
+	    type: 'UPDATE_CHANNEL',
+	    id: id
+	  };
+	};
 
 /***/ },
 /* 224 */
@@ -23823,6 +23848,10 @@
 	    case 'UPDATE_TIME_LOCAL':
 	      return _extends({}, state, {
 	        time24: action.isRu
+	      });
+	    case 'UPDATE_CHANNEL':
+	      return _extends({}, state, {
+	        bgChannel: action.id
 	      });
 	    default:
 	      return state;

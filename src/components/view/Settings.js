@@ -7,7 +7,6 @@ import SettingTime from './SettingTime'
 export default class Settings extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       is_active: false
     }
@@ -15,8 +14,11 @@ export default class Settings extends Component {
   handleClick = () => {
     this.setState({is_active: !this.state.is_active});
   }
+  handleTextChange = (e) => {
+    this.props.actions.updateChannel(e.target.value || 237739)
+  }
   render() {
-    const { currency, actions, timeActions, localeRu, time24 } = this.props
+    const { currency, actions, timeActions, localeRu, time24, bgChannel } = this.props
     let classN = this.state.is_active ? 'is-active' : ''
     return (
       <div className={'bg-setings ' + classN }>
@@ -41,6 +43,12 @@ export default class Settings extends Component {
           </div>
           <h2>Random background image:</h2>
           <h3>Get from <a href="https://unsplash.com">unsplash.com</a></h3>
+          <p className='channel-label'>Id channel:</p>
+          <input
+            type="number"
+            value={bgChannel}
+            onChange={this.handleTextChange}
+          />
         </div>
       </div>
     )

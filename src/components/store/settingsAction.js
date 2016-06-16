@@ -4,3 +4,9 @@ export const updateSettingCurrency = (id) => {
     id: id
   }
 }
+export const updateChannel = (id) => {
+  return {
+    type: 'UPDATE_CHANNEL',
+    id: id
+  }
+}
