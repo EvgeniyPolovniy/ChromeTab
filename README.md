@@ -1,5 +1,6 @@
 ![](img/icon/256x256.png) ![](img/icon/128x128.png) ![](img/icon/64x64.png) ![](img/icon/32x32.png) ![](img/icon/16x16.png)
 # ChromeTab
+This extension display current exchange rate cryptocurrencies from poloniex.com, current time and have some settings.
 
 ![](image3.jpg)
 
