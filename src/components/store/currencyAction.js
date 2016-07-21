@@ -19,7 +19,7 @@ export const updateCurrency = () => {
 }
 
 export const getRateUah = () => {
-  const request = axios.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDUAH")&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+  const request = axios.get( 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDUAH%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=' );
   return (dispatch) => {
     request.then(({data}) => {
       dispatch(getRateRub(data.query.results.rate.Rate))
@@ -28,7 +28,7 @@ export const getRateUah = () => {
 }
 
 export const getRateRub = (uah) => {
-  const request = axios.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDRUB")&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+  const request = axios.get( 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDRUB%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=' );
   return (dispatch) => {
     request.then(({data}) => {
       dispatch(getRate(uah, data.query.results.rate.Rate))

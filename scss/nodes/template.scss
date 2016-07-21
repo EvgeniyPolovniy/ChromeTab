@@ -1,6 +1,7 @@
 html {
   height: 100vh;
 }
+
 body {
   @extend html;
   font-family: 'comfortaa-regular', cursive;
@@ -21,6 +22,7 @@ body {
     font-size: 23px;
   }
 }
+
 .main {
   height: 100vh;
   display: flex;
@@ -94,7 +96,8 @@ body {
     img {
       height: 100%;
     }
-    i,span {
+    i,
+    span {
       @include flexbox();
       vertical-align: top;
       justify-content: center;
@@ -121,7 +124,7 @@ body {
     .after-trend {
       position: absolute;
       display: none;
-      font-size: 1em
+      font-size: 1em;
     }
   }
   h1,
@@ -136,6 +139,7 @@ body {
     font-size: 1em;
   }
 }
+
 .bg-setings {
   position: absolute;
   flex-direction: column;
@@ -180,6 +184,7 @@ body {
       left: 5px;
       background: white;
       transform: rotate(0deg);
+
       @include transition();
       &:nth-child(1) {
         top: 5px;
@@ -199,14 +204,16 @@ body {
     min-width: calc(100% - 20px);
     padding: 32px 10px;
     right: calc(-100% - .8em);
-    background: rgba(255, 255, 255 , .7);
+    background: rgba(255, 255, 255, .7);
     border-radius: 5px;
     color: #34495e;
     @include transition();
     &.is-active {
       right: 0;
     }
-    p, h2, h3 {
+    p,
+    h2,
+    h3 {
       margin: 0;
       color: #34495e;
     }
@@ -255,7 +262,7 @@ body {
       &:hover {
         cursor: pointer;
         span {
-          color: rgba(0, 0, 0 , .9);
+          color: rgba(0, 0, 0, .9);
         }
       }
       input {

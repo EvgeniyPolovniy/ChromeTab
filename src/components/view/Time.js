@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 
-export default class Time extends Component {
+import { bindActionCreators } from "redux";
+import { connect  } from "react-redux";
+
+import * as timeAction from '../store/timeAction'
+
+class Time extends Component {
   constructor(props) {
     super(props);
 
@@ -21,3 +26,19 @@ export default class Time extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    interval: state.timeReducer.interval,
+    time: state.timeReducer.time,
+    date: state.timeReducer.date,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(timeAction, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Time)

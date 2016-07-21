@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from "redux";
+import { connect  } from "react-redux";
 
 import SettingCurrencyItem from './SettingCurrencyItem'
 import SettingDate from './SettingDate'
 import SettingTime from './SettingTime'
 
-export default class Settings extends Component {
+import * as settingsAction from '../store/settingsAction'
+import * as timeActions from '../store/timeAction'
+
+
+class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,3 +60,22 @@ export default class Settings extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    interval: state.timeReducer.interval,
+    currency: state.currencyReducer.currency,
+    localeRu: state.timeReducer.localeRu,
+    time24: state.timeReducer.time24,
+    bgChannel: state.currencyReducer.bgChannel
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(settingsAction, dispatch),
+    timeActions: bindActionCreators(timeActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

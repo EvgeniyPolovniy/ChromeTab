@@ -64,6 +64,10 @@
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+	var _reduxLogger = __webpack_require__(230);
+
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
 	var _reactRedux = __webpack_require__(181);
 
 	var _App = __webpack_require__(194);
@@ -74,19 +78,15 @@
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(228);
+	var _localStorage = __webpack_require__(229);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// import logger from 'redux-logger';
-
-
 	var persistedState = (0, _localStorage.loadState)();
 
-	var Store = (0, _redux.createStore)(_indexReducers2.default, persistedState, (0, _redux.applyMiddleware)(_reduxThunk2.default)
-	//applyMiddleware(thunk, logger())
-	);
+	var Store = (0, _redux.createStore)(_indexReducers2.default, persistedState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
+	// applyMiddleware(thunk, logger())
 	Store.subscribe(function () {
 	  (0, _localStorage.saveState)(Store.getState());
 	});
@@ -21596,23 +21596,9 @@
 
 	var _LeftBar2 = _interopRequireDefault(_LeftBar);
 
-	var _RightBar = __webpack_require__(199);
+	var _RightBar = __webpack_require__(200);
 
 	var _RightBar2 = _interopRequireDefault(_RightBar);
-
-	var _currencyAction = __webpack_require__(204);
-
-	var currencyAction = _interopRequireWildcard(_currencyAction);
-
-	var _settingsAction = __webpack_require__(223);
-
-	var settingsAction = _interopRequireWildcard(_settingsAction);
-
-	var _timeAction = __webpack_require__(224);
-
-	var timeAction = _interopRequireWildcard(_timeAction);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21644,38 +21630,11 @@
 	  _createClass(App, [{
 	    key: "render",
 	    value: function render() {
-	      var _props = this.props;
-	      var currency = _props.currency;
-	      var interval = _props.interval;
-	      var actionsCurrency = _props.actionsCurrency;
-	      var actionsTime = _props.actionsTime;
-	      var time = _props.time;
-	      var date = _props.date;
-	      var time24 = _props.time24;
-	      var actionsSettings = _props.actionsSettings;
-	      var localeRu = _props.localeRu;
-	      var bgChannel = _props.bgChannel;
-
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "main", style: this.bgStyle },
-	        _react2.default.createElement(_LeftBar2.default, {
-	          currency: currency,
-	          interval: interval,
-	          actions: actionsCurrency,
-	          timeActions: actionsTime,
-	          time: time,
-	          date: date,
-	          time24: time24
-	        }),
-	        _react2.default.createElement(_RightBar2.default, {
-	          currency: currency,
-	          actions: actionsSettings,
-	          timeActions: actionsTime,
-	          localeRu: localeRu,
-	          time24: time24,
-	          bgChannel: bgChannel
-	        })
+	        _react2.default.createElement(_LeftBar2.default, null),
+	        _react2.default.createElement(_RightBar2.default, null)
 	      );
 	    }
 	  }]);
@@ -21685,25 +21644,11 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    currency: state.currencyReducer.currency,
-	    interval: state.currencyReducer.interval,
-	    time: state.currencyReducer.time,
-	    date: state.currencyReducer.date,
-	    time24: state.currencyReducer.time24,
-	    localeRu: state.currencyReducer.localeRu,
 	    bgChannel: state.currencyReducer.bgChannel
 	  };
 	}
 
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    actionsCurrency: (0, _redux.bindActionCreators)(currencyAction, dispatch),
-	    actionsSettings: (0, _redux.bindActionCreators)(settingsAction, dispatch),
-	    actionsTime: (0, _redux.bindActionCreators)(timeAction, dispatch)
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
 /* 195 */
@@ -21725,7 +21670,7 @@
 
 	var _Time2 = _interopRequireDefault(_Time);
 
-	var _Currency = __webpack_require__(197);
+	var _Currency = __webpack_require__(198);
 
 	var _Currency2 = _interopRequireDefault(_Currency);
 
@@ -21749,26 +21694,11 @@
 	  _createClass(LeftBar, [{
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var interval = _props.interval;
-	      var timeActions = _props.timeActions;
-	      var time = _props.time;
-	      var date = _props.date;
-	      var time24 = _props.time24;
-	      var currency = _props.currency;
-	      var actions = _props.actions;
-
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'left-bar' },
-	        _react2.default.createElement(_Time2.default, {
-	          interval: interval,
-	          actions: timeActions,
-	          time: time,
-	          date: date,
-	          time24: time24
-	        }),
-	        _react2.default.createElement(_Currency2.default, { currency: currency, interval: interval, actions: actions })
+	        _react2.default.createElement(_Time2.default, null),
+	        _react2.default.createElement(_Currency2.default, null)
 	      );
 	    }
 	  }]);
@@ -21793,6 +21723,16 @@
 	var _react = __webpack_require__(9);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(167);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _timeAction = __webpack_require__(197);
+
+	var timeAction = _interopRequireWildcard(_timeAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21845,10 +21785,54 @@
 	  return Time;
 	}(_react.Component);
 
-	exports.default = Time;
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.timeReducer.interval,
+	    time: state.timeReducer.time,
+	    date: state.timeReducer.date
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(timeAction, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Time);
 
 /***/ },
 /* 197 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateTime = exports.updateTime = function updateTime() {
+	  return {
+	    type: 'UPDATE_TIME',
+	    time: new Date()
+	  };
+	};
+
+	var updateLocaleSetting = exports.updateLocaleSetting = function updateLocaleSetting(isRu) {
+	  return {
+	    type: 'UPDATE_DATE_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+	var updateTimeSetting = exports.updateTimeSetting = function updateTimeSetting(isRu) {
+	  return {
+	    type: 'UPDATE_TIME_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+/***/ },
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21863,9 +21847,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CurrencyItem = __webpack_require__(198);
+	var _redux = __webpack_require__(167);
+
+	var _CurrencyItem = __webpack_require__(199);
 
 	var _CurrencyItem2 = _interopRequireDefault(_CurrencyItem);
+
+	var _currencyAction = __webpack_require__(205);
+
+	var currencyAction = _interopRequireWildcard(_currencyAction);
+
+	var _reactRedux = __webpack_require__(181);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21895,12 +21889,10 @@
 	  _createClass(Curency, [{
 	    key: 'render',
 	    value: function render() {
-	      var currency = this.props.currency;
-
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'currency-block-wrapper' },
-	        currency.map(function (currency) {
+	        this.props.currency.map(function (currency) {
 	          if (currency.visible) {
 	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
 	          }
@@ -21912,10 +21904,23 @@
 	  return Curency;
 	}(_react.Component);
 
-	exports.default = Curency;
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.timeReducer.interval,
+	    currency: state.currencyReducer.currency
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(currencyAction, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Curency);
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22028,7 +22033,7 @@
 	exports.default = CurrencyItem;
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22043,7 +22048,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Settings = __webpack_require__(200);
+	var _Settings = __webpack_require__(201);
 
 	var _Settings2 = _interopRequireDefault(_Settings);
 
@@ -22067,25 +22072,10 @@
 	  _createClass(RightBar, [{
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var currency = _props.currency;
-	      var actions = _props.actions;
-	      var localeRu = _props.localeRu;
-	      var time24 = _props.time24;
-	      var timeActions = _props.timeActions;
-	      var bgChannel = _props.bgChannel;
-
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'right-bar' },
-	        _react2.default.createElement(_Settings2.default, {
-	          currency: currency,
-	          actions: actions,
-	          localeRu: localeRu,
-	          time24: time24,
-	          timeActions: timeActions,
-	          bgChannel: bgChannel
-	        }),
+	        _react2.default.createElement(_Settings2.default, null),
 	        _react2.default.createElement('span', { className: 'first' }),
 	        _react2.default.createElement('span', { className: 'second' })
 	      );
@@ -22098,10 +22088,10 @@
 	exports.default = RightBar;
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22113,17 +22103,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SettingCurrencyItem = __webpack_require__(201);
+	var _redux = __webpack_require__(167);
+
+	var _reactRedux = __webpack_require__(181);
+
+	var _SettingCurrencyItem = __webpack_require__(202);
 
 	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
 
-	var _SettingDate = __webpack_require__(202);
+	var _SettingDate = __webpack_require__(203);
 
 	var _SettingDate2 = _interopRequireDefault(_SettingDate);
 
-	var _SettingTime = __webpack_require__(203);
+	var _SettingTime = __webpack_require__(204);
 
 	var _SettingTime2 = _interopRequireDefault(_SettingTime);
+
+	var _settingsAction = __webpack_require__(224);
+
+	var settingsAction = _interopRequireWildcard(_settingsAction);
+
+	var _timeAction = __webpack_require__(197);
+
+	var timeActions = _interopRequireWildcard(_timeAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22156,7 +22160,7 @@
 	  }
 
 	  _createClass(Settings, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      var _props = this.props;
 	      var currency = _props.currency;
@@ -22168,80 +22172,80 @@
 
 	      var classN = this.state.is_active ? 'is-active' : '';
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        { className: 'bg-setings ' + classN },
 	        _react2.default.createElement(
-	          'div',
-	          { href: '#', className: 'btn', onClick: this.handleClick },
-	          _react2.default.createElement('span', null),
-	          _react2.default.createElement('span', null),
-	          _react2.default.createElement('span', null),
-	          _react2.default.createElement('span', null)
+	          "div",
+	          { href: "#", className: "btn", onClick: this.handleClick },
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null)
 	        ),
 	        _react2.default.createElement(
-	          'div',
+	          "div",
 	          { className: 'seting-content ' + classN },
 	          _react2.default.createElement(
-	            'h2',
+	            "h2",
 	            null,
-	            'Date and time:'
+	            "Date and time:"
 	          ),
 	          _react2.default.createElement(
-	            'h3',
+	            "h3",
 	            null,
-	            'Set language for date'
+	            "Set language for date"
 	          ),
 	          _react2.default.createElement(_SettingDate2.default, { localeRu: localeRu, action: timeActions }),
 	          _react2.default.createElement(
-	            'h3',
+	            "h3",
 	            null,
-	            'Set time format'
+	            "Set time format"
 	          ),
 	          _react2.default.createElement(_SettingTime2.default, { time24: time24, action: timeActions }),
 	          _react2.default.createElement(
-	            'h2',
+	            "h2",
 	            null,
-	            'Display currency:'
+	            "Display currency:"
 	          ),
 	          _react2.default.createElement(
-	            'h3',
+	            "h3",
 	            null,
-	            'Currency rate get from ',
+	            "Currency rate get from ",
 	            _react2.default.createElement(
-	              'a',
-	              { href: 'https://www.poloniex.com' },
-	              'poloniex.com'
+	              "a",
+	              { href: "https://www.poloniex.com" },
+	              "poloniex.com"
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'currency-list' },
+	            "div",
+	            { className: "currency-list" },
 	            currency.map(function (currency) {
 	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: actions });
 	            })
 	          ),
 	          _react2.default.createElement(
-	            'h2',
+	            "h2",
 	            null,
-	            'Random background image:'
+	            "Random background image:"
 	          ),
 	          _react2.default.createElement(
-	            'h3',
+	            "h3",
 	            null,
-	            'Get from ',
+	            "Get from ",
 	            _react2.default.createElement(
-	              'a',
-	              { href: 'https://unsplash.com' },
-	              'unsplash.com'
+	              "a",
+	              { href: "https://unsplash.com" },
+	              "unsplash.com"
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'p',
-	            { className: 'channel-label' },
-	            'Id channel:'
+	            "p",
+	            { className: "channel-label" },
+	            "Id channel:"
 	          ),
-	          _react2.default.createElement('input', {
-	            type: 'number',
+	          _react2.default.createElement("input", {
+	            type: "number",
 	            value: bgChannel,
 	            onChange: this.handleTextChange
 	          })
@@ -22253,10 +22257,27 @@
 	  return Settings;
 	}(_react.Component);
 
-	exports.default = Settings;
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.timeReducer.interval,
+	    currency: state.currencyReducer.currency,
+	    localeRu: state.timeReducer.localeRu,
+	    time24: state.timeReducer.time24,
+	    bgChannel: state.currencyReducer.bgChannel
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(settingsAction, dispatch),
+	    timeActions: (0, _redux.bindActionCreators)(timeActions, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22328,7 +22349,7 @@
 	exports.default = SettingCurrencyItem;
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22416,7 +22437,7 @@
 	exports.default = SettingDate;
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22504,7 +22525,7 @@
 	exports.default = SettingTime;
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22514,7 +22535,7 @@
 	});
 	exports.getRate = exports.getRateRub = exports.getRateUah = exports.updateCurrency = exports.updateRateUah = exports.updateRate = undefined;
 
-	var _axios = __webpack_require__(205);
+	var _axios = __webpack_require__(206);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -22539,7 +22560,7 @@
 	};
 
 	var getRateUah = exports.getRateUah = function getRateUah() {
-	  var request = _axios2.default.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDUAH")&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDUAH%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
 	  return function (dispatch) {
 	    request.then(function (_ref) {
 	      var data = _ref.data;
@@ -22550,7 +22571,7 @@
 	};
 
 	var getRateRub = exports.getRateRub = function getRateRub(uah) {
-	  var request = _axios2.default.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDRUB")&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDRUB%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
 	  return function (dispatch) {
 	    request.then(function (_ref2) {
 	      var data = _ref2.data;
@@ -22575,27 +22596,27 @@
 	};
 
 /***/ },
-/* 205 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = __webpack_require__(206);
-
-/***/ },
 /* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(207);
-	var utils = __webpack_require__(208);
-	var dispatchRequest = __webpack_require__(209);
-	var InterceptorManager = __webpack_require__(218);
-	var isAbsoluteURL = __webpack_require__(219);
-	var combineURLs = __webpack_require__(220);
-	var bind = __webpack_require__(221);
-	var transformData = __webpack_require__(213);
+	module.exports = __webpack_require__(207);
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var defaults = __webpack_require__(208);
+	var utils = __webpack_require__(209);
+	var dispatchRequest = __webpack_require__(210);
+	var InterceptorManager = __webpack_require__(219);
+	var isAbsoluteURL = __webpack_require__(220);
+	var combineURLs = __webpack_require__(221);
+	var bind = __webpack_require__(222);
+	var transformData = __webpack_require__(214);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -22670,7 +22691,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(222);
+	axios.spread = __webpack_require__(223);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -22697,12 +22718,12 @@
 	});
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22768,7 +22789,7 @@
 	};
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23037,7 +23058,7 @@
 	};
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23060,10 +23081,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(210);
+	        adapter = __webpack_require__(211);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(210);
+	        adapter = __webpack_require__(211);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -23077,18 +23098,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(208);
-	var buildURL = __webpack_require__(211);
-	var parseHeaders = __webpack_require__(212);
-	var transformData = __webpack_require__(213);
-	var isURLSameOrigin = __webpack_require__(214);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(215);
-	var settle = __webpack_require__(216);
+	var utils = __webpack_require__(209);
+	var buildURL = __webpack_require__(212);
+	var parseHeaders = __webpack_require__(213);
+	var transformData = __webpack_require__(214);
+	var isURLSameOrigin = __webpack_require__(215);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(216);
+	var settle = __webpack_require__(217);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -23181,7 +23202,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(217);
+	    var cookies = __webpack_require__(218);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -23239,12 +23260,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -23303,12 +23324,12 @@
 	};
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	/**
 	 * Parse headers into an object
@@ -23347,12 +23368,12 @@
 	};
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23372,12 +23393,12 @@
 	};
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23440,7 +23461,7 @@
 	}();
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23480,7 +23501,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23504,12 +23525,12 @@
 	};
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23562,12 +23583,12 @@
 	}();
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(209);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23619,7 +23640,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23640,7 +23661,7 @@
 	};
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23658,7 +23679,7 @@
 	};
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23674,7 +23695,7 @@
 	};
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23707,7 +23728,7 @@
 	};
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23729,36 +23750,6 @@
 	};
 
 /***/ },
-/* 224 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var updateTime = exports.updateTime = function updateTime() {
-	  return {
-	    type: 'UPDATE_TIME',
-	    time: new Date()
-	  };
-	};
-
-	var updateLocaleSetting = exports.updateLocaleSetting = function updateLocaleSetting(isRu) {
-	  return {
-	    type: 'UPDATE_DATE_LOCAL',
-	    isRu: isRu
-	  };
-	};
-
-	var updateTimeSetting = exports.updateTimeSetting = function updateTimeSetting(isRu) {
-	  return {
-	    type: 'UPDATE_TIME_LOCAL',
-	    isRu: isRu
-	  };
-	};
-
-/***/ },
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23774,10 +23765,15 @@
 
 	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
 
+	var _timeReducer = __webpack_require__(228);
+
+	var _timeReducer2 = _interopRequireDefault(_timeReducer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = (0, _redux.combineReducers)({
-	  currencyReducer: _currencyReducer2.default
+	  currencyReducer: _currencyReducer2.default,
+	  timeReducer: _timeReducer2.default
 	});
 
 /***/ },
@@ -23836,19 +23832,6 @@
 	      return _extends({}, state, {
 	        currency: updateBlock2
 	      });
-	    case 'UPDATE_TIME':
-	      return _extends({}, state, {
-	        time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
-	        date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
-	      });
-	    case 'UPDATE_DATE_LOCAL':
-	      return _extends({}, state, {
-	        localeRu: action.isRu
-	      });
-	    case 'UPDATE_TIME_LOCAL':
-	      return _extends({}, state, {
-	        time24: action.isRu
-	      });
 	    case 'UPDATE_CHANNEL':
 	      return _extends({}, state, {
 	        bgChannel: action.id
@@ -23857,25 +23840,6 @@
 	      return state;
 	  }
 	}
-
-	var timeWraper = function timeWraper(item) {
-	  var result = item.toString().length == 1 ? '0' + item : item;
-	  return result;
-	};
-	var normalizeTime = function normalizeTime(time) {
-	  var normalTime = timeWraper(time.getHours()) + ":" + timeWraper(time.getMinutes());
-	  return normalTime;
-	};
-
-	var dateOptions = {
-	  year: 'numeric',
-	  month: 'long',
-	  day: 'numeric'
-	};
-	var timeOptions = {
-	  hour: 'numeric',
-	  minute: 'numeric'
-	};
 
 /***/ },
 /* 227 */
@@ -24045,16 +24009,77 @@
 	    secondCurrency: 'BTC'
 	  }],
 	  rates: {},
+	  bgChannel: 237739
+	};
+
+	var initialTimeState = exports.initialTimeState = {
 	  interval: 30000,
 	  time: 0,
 	  date: 0,
 	  time24: true,
-	  localeRu: true,
-	  bgChannel: 237739
+	  localeRu: true
 	};
 
 /***/ },
 /* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = timeReducer;
+
+	var _store = __webpack_require__(227);
+
+	function timeReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialTimeState : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'UPDATE_TIME':
+	      return _extends({}, state, {
+	        time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
+	        date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
+	      });
+	    case 'UPDATE_DATE_LOCAL':
+	      return _extends({}, state, {
+	        localeRu: action.isRu
+	      });
+	    case 'UPDATE_TIME_LOCAL':
+	      return _extends({}, state, {
+	        time24: action.isRu
+	      });
+	    default:
+	      return state;
+	  }
+	}
+
+	var timeWraper = function timeWraper(item) {
+	  var result = item.toString().length == 1 ? '0' + item : item;
+	  return result;
+	};
+	var normalizeTime = function normalizeTime(time) {
+	  var normalTime = timeWraper(time.getHours()) + ":" + timeWraper(time.getMinutes());
+	  return normalTime;
+	};
+
+	var dateOptions = {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric'
+	};
+	var timeOptions = {
+	  hour: 'numeric',
+	  minute: 'numeric'
+	};
+
+/***/ },
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24082,6 +24107,251 @@
 	    // Ignore errors
 	  }
 	};
+
+/***/ },
+/* 230 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	function _toConsumableArray(arr) {
+	  if (Array.isArray(arr)) {
+	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+	      arr2[i] = arr[i];
+	    }return arr2;
+	  } else {
+	    return Array.from(arr);
+	  }
+	}
+
+	function _typeof(obj) {
+	  return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	}
+
+	var repeat = function repeat(str, times) {
+	  return new Array(times + 1).join(str);
+	};
+	var pad = function pad(num, maxLength) {
+	  return repeat("0", maxLength - num.toString().length) + num;
+	};
+	var formatTime = function formatTime(time) {
+	  return "@ " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2) + "." + pad(time.getMilliseconds(), 3);
+	};
+
+	// Use the new performance api to get better precision if available
+	var timer = typeof performance !== "undefined" && typeof performance.now === "function" ? performance : Date;
+
+	/**
+	 * parse the level option of createLogger
+	 *
+	 * @property {string | function | object} level - console[level]
+	 * @property {object} action
+	 * @property {array} payload
+	 * @property {string} type
+	 */
+
+	function getLogLevel(level, action, payload, type) {
+	  switch (typeof level === "undefined" ? "undefined" : _typeof(level)) {
+	    case "object":
+	      return typeof level[type] === "function" ? level[type].apply(level, _toConsumableArray(payload)) : level[type];
+	    case "function":
+	      return level(action);
+	    default:
+	      return level;
+	  }
+	}
+
+	/**
+	 * Creates logger with followed options
+	 *
+	 * @namespace
+	 * @property {object} options - options for logger
+	 * @property {string | function | object} options.level - console[level]
+	 * @property {boolean} options.duration - print duration of each action?
+	 * @property {boolean} options.timestamp - print timestamp with each action?
+	 * @property {object} options.colors - custom colors
+	 * @property {object} options.logger - implementation of the `console` API
+	 * @property {boolean} options.logErrors - should errors in action execution be caught, logged, and re-thrown?
+	 * @property {boolean} options.collapsed - is group collapsed?
+	 * @property {boolean} options.predicate - condition which resolves logger behavior
+	 * @property {function} options.stateTransformer - transform state before print
+	 * @property {function} options.actionTransformer - transform action before print
+	 * @property {function} options.errorTransformer - transform error before print
+	 */
+
+	function createLogger() {
+	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _options$level = options.level;
+	  var level = _options$level === undefined ? "log" : _options$level;
+	  var _options$logger = options.logger;
+	  var logger = _options$logger === undefined ? console : _options$logger;
+	  var _options$logErrors = options.logErrors;
+	  var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
+	  var collapsed = options.collapsed;
+	  var predicate = options.predicate;
+	  var _options$duration = options.duration;
+	  var duration = _options$duration === undefined ? false : _options$duration;
+	  var _options$timestamp = options.timestamp;
+	  var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
+	  var transformer = options.transformer;
+	  var _options$stateTransfo = options.stateTransformer;
+	  var // deprecated
+	  stateTransformer = _options$stateTransfo === undefined ? function (state) {
+	    return state;
+	  } : _options$stateTransfo;
+	  var _options$actionTransf = options.actionTransformer;
+	  var actionTransformer = _options$actionTransf === undefined ? function (actn) {
+	    return actn;
+	  } : _options$actionTransf;
+	  var _options$errorTransfo = options.errorTransformer;
+	  var errorTransformer = _options$errorTransfo === undefined ? function (error) {
+	    return error;
+	  } : _options$errorTransfo;
+	  var _options$colors = options.colors;
+	  var colors = _options$colors === undefined ? {
+	    title: function title() {
+	      return "#000000";
+	    },
+	    prevState: function prevState() {
+	      return "#9E9E9E";
+	    },
+	    action: function action() {
+	      return "#03A9F4";
+	    },
+	    nextState: function nextState() {
+	      return "#4CAF50";
+	    },
+	    error: function error() {
+	      return "#F20404";
+	    }
+	  } : _options$colors;
+
+	  // exit if console undefined
+
+	  if (typeof logger === "undefined") {
+	    return function () {
+	      return function (next) {
+	        return function (action) {
+	          return next(action);
+	        };
+	      };
+	    };
+	  }
+
+	  if (transformer) {
+	    console.error("Option 'transformer' is deprecated, use stateTransformer instead");
+	  }
+
+	  var logBuffer = [];
+	  function printBuffer() {
+	    logBuffer.forEach(function (logEntry, key) {
+	      var started = logEntry.started;
+	      var startedTime = logEntry.startedTime;
+	      var action = logEntry.action;
+	      var prevState = logEntry.prevState;
+	      var error = logEntry.error;
+	      var took = logEntry.took;
+	      var nextState = logEntry.nextState;
+
+	      var nextEntry = logBuffer[key + 1];
+	      if (nextEntry) {
+	        nextState = nextEntry.prevState;
+	        took = nextEntry.started - started;
+	      }
+	      // message
+	      var formattedAction = actionTransformer(action);
+	      var isCollapsed = typeof collapsed === "function" ? collapsed(function () {
+	        return nextState;
+	      }, action) : collapsed;
+
+	      var formattedTime = formatTime(startedTime);
+	      var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
+	      var title = "action " + (timestamp ? formattedTime : "") + " " + formattedAction.type + " " + (duration ? "(in " + took.toFixed(2) + " ms)" : "");
+
+	      // render
+	      try {
+	        if (isCollapsed) {
+	          if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
+	        } else {
+	          if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
+	        }
+	      } catch (e) {
+	        logger.log(title);
+	      }
+
+	      var prevStateLevel = getLogLevel(level, formattedAction, [prevState], "prevState");
+	      var actionLevel = getLogLevel(level, formattedAction, [formattedAction], "action");
+	      var errorLevel = getLogLevel(level, formattedAction, [error, prevState], "error");
+	      var nextStateLevel = getLogLevel(level, formattedAction, [nextState], "nextState");
+
+	      if (prevStateLevel) {
+	        if (colors.prevState) logger[prevStateLevel]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[prevStateLevel]("prev state", prevState);
+	      }
+
+	      if (actionLevel) {
+	        if (colors.action) logger[actionLevel]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[actionLevel]("action", formattedAction);
+	      }
+
+	      if (error && errorLevel) {
+	        if (colors.error) logger[errorLevel]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[errorLevel]("error", error);
+	      }
+
+	      if (nextStateLevel) {
+	        if (colors.nextState) logger[nextStateLevel]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[nextStateLevel]("next state", nextState);
+	      }
+
+	      try {
+	        logger.groupEnd();
+	      } catch (e) {
+	        logger.log("—— log end ——");
+	      }
+	    });
+	    logBuffer.length = 0;
+	  }
+
+	  return function (_ref) {
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        // exit early if predicate function returns false
+	        if (typeof predicate === "function" && !predicate(getState, action)) {
+	          return next(action);
+	        }
+
+	        var logEntry = {};
+	        logBuffer.push(logEntry);
+
+	        logEntry.started = timer.now();
+	        logEntry.startedTime = new Date();
+	        logEntry.prevState = stateTransformer(getState());
+	        logEntry.action = action;
+
+	        var returnedValue = undefined;
+	        if (logErrors) {
+	          try {
+	            returnedValue = next(action);
+	          } catch (e) {
+	            logEntry.error = errorTransformer(e);
+	          }
+	        } else {
+	          returnedValue = next(action);
+	        }
+
+	        logEntry.took = timer.now() - logEntry.started;
+	        logEntry.nextState = stateTransformer(getState());
+
+	        printBuffer();
+
+	        if (logEntry.error) throw logEntry.error;
+	        return returnedValue;
+	      };
+	    };
+	  };
+	}
+
+	module.exports = createLogger;
 
 /***/ }
 /******/ ]);

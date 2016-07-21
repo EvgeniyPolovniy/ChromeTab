@@ -157,10 +157,13 @@ export const initialState = {
     secondCurrency: 'BTC'
   }],
   rates: {},
+  bgChannel: 237739
+};
+
+export const initialTimeState = {
   interval: 30000,
   time: 0,
   date: 0,
   time24: true,
   localeRu: true,
-  bgChannel: 237739
-};
+}
