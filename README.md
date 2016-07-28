@@ -27,7 +27,8 @@ npm i
 
 # For compile JS (ReactJS) and scss to css
 
-open new console tab for watch process to js:
+open new console tab for watch process:
+
 ```{r, engine='bash', count_lines}
-webpack --watch
+npm run dev
 ```
