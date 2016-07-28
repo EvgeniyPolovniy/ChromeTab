@@ -1,4 +1,4 @@
-export const initialState = {
+export const initialCurrencyState = {
   currency: [{
     id: 1,
     price: 0,
@@ -62,6 +62,18 @@ export const initialState = {
   },{
     id: 6,
     price: 0,
+    type: 'BTC_ETC',
+    toFixed: 8,
+    name: 'etc-btc',
+    visible: true,
+    percentChange: 0,
+    publickFirst: 'ETC',
+    publickSecond: 'BTC',
+    firstCurrency: 'ETH-alt',
+    secondCurrency: 'BTC'
+  },{
+    id: 7,
+    price: 0,
     type: 'BTC_LSK',
     toFixed: 8,
     name: 'lisk',
@@ -72,7 +84,7 @@ export const initialState = {
     firstCurrency: 'LISK-alt',
     secondCurrency: 'BTC'
   },{
-    id: 7,
+    id: 8,
     price: 0,
     type: 'BTC_DAO',
     toFixed: 8,
@@ -84,7 +96,7 @@ export const initialState = {
     firstCurrency: 'DGD',
     secondCurrency: 'BTC'
   },{
-    id: 8,
+    id: 9,
     price: 0,
     type: 'BTC_DASH',
     toFixed: 8,
@@ -96,7 +108,7 @@ export const initialState = {
     firstCurrency: 'DASH',
     secondCurrency: 'BTC'
   },{
-    id: 9,
+    id: 10,
     price: 0,
     type: 'BTC_LTC',
     toFixed: 8,
@@ -108,7 +120,7 @@ export const initialState = {
     firstCurrency: 'LTC',
     secondCurrency: 'BTC'
   },{
-    id: 10,
+    id: 11,
     price: 0,
     type: 'BTC_DOGE',
     toFixed: 8,
@@ -120,7 +132,7 @@ export const initialState = {
     firstCurrency: 'DOGE',
     secondCurrency: 'BTC'
   },{
-    id: 11,
+    id: 12,
     price: 0,
     type: 'BTC_NXT',
     toFixed: 8,
@@ -132,7 +144,7 @@ export const initialState = {
     firstCurrency: 'NXT',
     secondCurrency: 'BTC'
   },{
-    id: 12,
+    id: 13,
     price: 0,
     type: 'BTC_XMR',
     toFixed: 8,
@@ -144,7 +156,7 @@ export const initialState = {
     firstCurrency: 'XMR',
     secondCurrency: 'BTC'
   },{
-    id: 13,
+    id: 14,
     price: 0,
     type: 'BTC_XRP',
     toFixed: 8,
@@ -156,14 +168,17 @@ export const initialState = {
     firstCurrency: 'XRP',
     secondCurrency: 'BTC'
   }],
-  rates: {},
-  bgChannel: 237739
+  rates: {}
 };
 
 export const initialTimeState = {
-  interval: 30000,
   time: 0,
   date: 0,
   time24: true,
   localeRu: true,
+}
+
+export const initialConfigState = {
+  interval: 30000,
+  bgChannel: 237739
 }

@@ -29,7 +29,7 @@ class Time extends Component {
 
 function mapStateToProps(state) {
   return {
-    interval: state.timeReducer.interval,
+    interval: state.configReducer.interval,
     time: state.timeReducer.time,
     date: state.timeReducer.date,
   }

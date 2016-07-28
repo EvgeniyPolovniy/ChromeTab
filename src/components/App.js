@@ -21,7 +21,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    bgChannel: state.currencyReducer.bgChannel
+    bgChannel: state.configReducer.bgChannel
   }
 }
 

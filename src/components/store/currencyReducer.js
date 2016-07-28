@@ -1,6 +1,6 @@
-import { initialState } from './store'
+import { initialCurrencyState } from './store'
 
-export default function currencyReducer(state = initialState, action) {
+export default function currencyReducer(state = initialCurrencyState, action) {
   switch (action.type) {
     case 'UPDATE_RATE':
       return {
@@ -39,11 +39,6 @@ export default function currencyReducer(state = initialState, action) {
       return {
         ...state,
         currency: updateBlock2
-      }
-    case 'UPDATE_CHANNEL':
-      return {
-        ...state,
-        bgChannel: action.id,
       }
     default:
       return state

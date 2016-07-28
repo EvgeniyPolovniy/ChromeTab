@@ -6,7 +6,7 @@ import SettingCurrencyItem from './SettingCurrencyItem'
 import SettingDate from './SettingDate'
 import SettingTime from './SettingTime'
 
-import * as settingsAction from '../store/settingsAction'
+import * as configAction from '../store/configAction'
 import * as timeActions from '../store/timeAction'
 
 
@@ -21,20 +21,20 @@ class Settings extends Component {
     this.setState({is_active: !this.state.is_active});
   }
   handleTextChange = (e) => {
-    this.props.actions.updateChannel(e.target.value || 237739)
+    this.props.configAction.updateChannel(e.target.value || 237739)
   }
   render() {
-    const { currency, actions, timeActions, localeRu, time24, bgChannel } = this.props
+    const { currency, configAction, timeActions, localeRu, time24, bgChannel } = this.props
     let classN = this.state.is_active ? 'is-active' : ''
     return (
-      <div className={'bg-setings ' + classN }>
-        <div href="#" className="btn" onClick={this.handleClick} >
+      <div className={ 'bg-setings ' + classN }>
+        <div href="#" className="btn" onClick={ this.handleClick } >
           <span></span>
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div className={'seting-content ' + classN }>
+        <div className={ 'seting-content ' + classN }>
           <h2>Date and time:</h2>
           <h3>Set language for date</h3>
           <SettingDate localeRu={localeRu} action={timeActions}/>
@@ -44,7 +44,7 @@ class Settings extends Component {
           <h3>Currency rate get from <a href="https://www.poloniex.com">poloniex.com</a></h3>
           <div className='currency-list'>
             { currency.map( function(currency) {
-              return <SettingCurrencyItem key={currency.id} data={currency} action={actions}/>
+              return <SettingCurrencyItem key={currency.id} data={currency} action={configAction}/>
             })}
           </div>
           <h2>Random background image:</h2>
@@ -63,17 +63,17 @@ class Settings extends Component {
 
 function mapStateToProps(state) {
   return {
-    interval: state.timeReducer.interval,
+    interval: state.configReducer.interval,
     currency: state.currencyReducer.currency,
     localeRu: state.timeReducer.localeRu,
     time24: state.timeReducer.time24,
-    bgChannel: state.currencyReducer.bgChannel
+    bgChannel: state.configReducer.bgChannel
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(settingsAction, dispatch),
+    configAction: bindActionCreators(configAction, dispatch),
     timeActions: bindActionCreators(timeActions, dispatch)
   }
 }

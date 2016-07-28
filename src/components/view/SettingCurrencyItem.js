@@ -15,11 +15,11 @@ export default class SettingCurrencyItem extends Component {
       <label className="setting-currency-item">
         <input
           type="checkbox"
-          checked={visible}
-          onChange={this.onChange}
+          checked={ visible }
+          onChange={ this.onChange }
         />
-        <span className={visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
-        {publickFirst}<span> - </span>{publickSecond}
+        <span className={ visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' } ></span>
+        { publickFirst }<span> - </span>{ publickSecond }
       </label>
     )
   }

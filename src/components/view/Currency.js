@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import CurrencyItem from './CurrencyItem'
 import * as currencyAction from '../store/currencyAction'
-import { connect  } from "react-redux";
+import { connect } from "react-redux";
 
-class Curency extends Component {
+class Currency extends Component {
   constructor(props) {
     super(props);
 
@@ -16,9 +16,10 @@ class Curency extends Component {
 
   }
   render() {
+    const { currencyArr } = this.props
     return (
       <div className="currency-block-wrapper">
-        { this.props.currency.map( function(currency) {
+        { currencyArr.map( function(currency) {
           if (currency.visible) {
             return <CurrencyItem key={currency.id} data={currency}/>
           }
@@ -30,8 +31,8 @@ class Curency extends Component {
 
 function mapStateToProps(state) {
   return {
-    interval: state.timeReducer.interval,
-    currency: state.currencyReducer.currency,
+    interval: state.configReducer.interval,
+    currencyArr: state.currencyReducer.currency,
   }
 }
 
@@ -41,4 +42,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Curency)
+export default connect(mapStateToProps, mapDispatchToProps)(Currency)

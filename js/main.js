@@ -64,21 +64,21 @@
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reduxLogger = __webpack_require__(230);
+	var _reduxLogger = __webpack_require__(181);
 
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-	var _reactRedux = __webpack_require__(181);
+	var _reactRedux = __webpack_require__(182);
 
-	var _App = __webpack_require__(194);
+	var _App = __webpack_require__(195);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _indexReducers = __webpack_require__(225);
+	var _indexReducers = __webpack_require__(226);
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(229);
+	var _localStorage = __webpack_require__(230);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20672,6 +20672,251 @@
 
 /***/ },
 /* 181 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	function _toConsumableArray(arr) {
+	  if (Array.isArray(arr)) {
+	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+	      arr2[i] = arr[i];
+	    }return arr2;
+	  } else {
+	    return Array.from(arr);
+	  }
+	}
+
+	function _typeof(obj) {
+	  return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	}
+
+	var repeat = function repeat(str, times) {
+	  return new Array(times + 1).join(str);
+	};
+	var pad = function pad(num, maxLength) {
+	  return repeat("0", maxLength - num.toString().length) + num;
+	};
+	var formatTime = function formatTime(time) {
+	  return "@ " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2) + "." + pad(time.getMilliseconds(), 3);
+	};
+
+	// Use the new performance api to get better precision if available
+	var timer = typeof performance !== "undefined" && typeof performance.now === "function" ? performance : Date;
+
+	/**
+	 * parse the level option of createLogger
+	 *
+	 * @property {string | function | object} level - console[level]
+	 * @property {object} action
+	 * @property {array} payload
+	 * @property {string} type
+	 */
+
+	function getLogLevel(level, action, payload, type) {
+	  switch (typeof level === "undefined" ? "undefined" : _typeof(level)) {
+	    case "object":
+	      return typeof level[type] === "function" ? level[type].apply(level, _toConsumableArray(payload)) : level[type];
+	    case "function":
+	      return level(action);
+	    default:
+	      return level;
+	  }
+	}
+
+	/**
+	 * Creates logger with followed options
+	 *
+	 * @namespace
+	 * @property {object} options - options for logger
+	 * @property {string | function | object} options.level - console[level]
+	 * @property {boolean} options.duration - print duration of each action?
+	 * @property {boolean} options.timestamp - print timestamp with each action?
+	 * @property {object} options.colors - custom colors
+	 * @property {object} options.logger - implementation of the `console` API
+	 * @property {boolean} options.logErrors - should errors in action execution be caught, logged, and re-thrown?
+	 * @property {boolean} options.collapsed - is group collapsed?
+	 * @property {boolean} options.predicate - condition which resolves logger behavior
+	 * @property {function} options.stateTransformer - transform state before print
+	 * @property {function} options.actionTransformer - transform action before print
+	 * @property {function} options.errorTransformer - transform error before print
+	 */
+
+	function createLogger() {
+	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _options$level = options.level;
+	  var level = _options$level === undefined ? "log" : _options$level;
+	  var _options$logger = options.logger;
+	  var logger = _options$logger === undefined ? console : _options$logger;
+	  var _options$logErrors = options.logErrors;
+	  var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
+	  var collapsed = options.collapsed;
+	  var predicate = options.predicate;
+	  var _options$duration = options.duration;
+	  var duration = _options$duration === undefined ? false : _options$duration;
+	  var _options$timestamp = options.timestamp;
+	  var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
+	  var transformer = options.transformer;
+	  var _options$stateTransfo = options.stateTransformer;
+	  var // deprecated
+	  stateTransformer = _options$stateTransfo === undefined ? function (state) {
+	    return state;
+	  } : _options$stateTransfo;
+	  var _options$actionTransf = options.actionTransformer;
+	  var actionTransformer = _options$actionTransf === undefined ? function (actn) {
+	    return actn;
+	  } : _options$actionTransf;
+	  var _options$errorTransfo = options.errorTransformer;
+	  var errorTransformer = _options$errorTransfo === undefined ? function (error) {
+	    return error;
+	  } : _options$errorTransfo;
+	  var _options$colors = options.colors;
+	  var colors = _options$colors === undefined ? {
+	    title: function title() {
+	      return "#000000";
+	    },
+	    prevState: function prevState() {
+	      return "#9E9E9E";
+	    },
+	    action: function action() {
+	      return "#03A9F4";
+	    },
+	    nextState: function nextState() {
+	      return "#4CAF50";
+	    },
+	    error: function error() {
+	      return "#F20404";
+	    }
+	  } : _options$colors;
+
+	  // exit if console undefined
+
+	  if (typeof logger === "undefined") {
+	    return function () {
+	      return function (next) {
+	        return function (action) {
+	          return next(action);
+	        };
+	      };
+	    };
+	  }
+
+	  if (transformer) {
+	    console.error("Option 'transformer' is deprecated, use stateTransformer instead");
+	  }
+
+	  var logBuffer = [];
+	  function printBuffer() {
+	    logBuffer.forEach(function (logEntry, key) {
+	      var started = logEntry.started;
+	      var startedTime = logEntry.startedTime;
+	      var action = logEntry.action;
+	      var prevState = logEntry.prevState;
+	      var error = logEntry.error;
+	      var took = logEntry.took;
+	      var nextState = logEntry.nextState;
+
+	      var nextEntry = logBuffer[key + 1];
+	      if (nextEntry) {
+	        nextState = nextEntry.prevState;
+	        took = nextEntry.started - started;
+	      }
+	      // message
+	      var formattedAction = actionTransformer(action);
+	      var isCollapsed = typeof collapsed === "function" ? collapsed(function () {
+	        return nextState;
+	      }, action) : collapsed;
+
+	      var formattedTime = formatTime(startedTime);
+	      var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
+	      var title = "action " + (timestamp ? formattedTime : "") + " " + formattedAction.type + " " + (duration ? "(in " + took.toFixed(2) + " ms)" : "");
+
+	      // render
+	      try {
+	        if (isCollapsed) {
+	          if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
+	        } else {
+	          if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
+	        }
+	      } catch (e) {
+	        logger.log(title);
+	      }
+
+	      var prevStateLevel = getLogLevel(level, formattedAction, [prevState], "prevState");
+	      var actionLevel = getLogLevel(level, formattedAction, [formattedAction], "action");
+	      var errorLevel = getLogLevel(level, formattedAction, [error, prevState], "error");
+	      var nextStateLevel = getLogLevel(level, formattedAction, [nextState], "nextState");
+
+	      if (prevStateLevel) {
+	        if (colors.prevState) logger[prevStateLevel]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[prevStateLevel]("prev state", prevState);
+	      }
+
+	      if (actionLevel) {
+	        if (colors.action) logger[actionLevel]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[actionLevel]("action", formattedAction);
+	      }
+
+	      if (error && errorLevel) {
+	        if (colors.error) logger[errorLevel]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[errorLevel]("error", error);
+	      }
+
+	      if (nextStateLevel) {
+	        if (colors.nextState) logger[nextStateLevel]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[nextStateLevel]("next state", nextState);
+	      }
+
+	      try {
+	        logger.groupEnd();
+	      } catch (e) {
+	        logger.log("—— log end ——");
+	      }
+	    });
+	    logBuffer.length = 0;
+	  }
+
+	  return function (_ref) {
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        // exit early if predicate function returns false
+	        if (typeof predicate === "function" && !predicate(getState, action)) {
+	          return next(action);
+	        }
+
+	        var logEntry = {};
+	        logBuffer.push(logEntry);
+
+	        logEntry.started = timer.now();
+	        logEntry.startedTime = new Date();
+	        logEntry.prevState = stateTransformer(getState());
+	        logEntry.action = action;
+
+	        var returnedValue = undefined;
+	        if (logErrors) {
+	          try {
+	            returnedValue = next(action);
+	          } catch (e) {
+	            logEntry.error = errorTransformer(e);
+	          }
+	        } else {
+	          returnedValue = next(action);
+	        }
+
+	        logEntry.took = timer.now() - logEntry.started;
+	        logEntry.nextState = stateTransformer(getState());
+
+	        printBuffer();
+
+	        if (logEntry.error) throw logEntry.error;
+	        return returnedValue;
+	      };
+	    };
+	  };
+	}
+
+	module.exports = createLogger;
+
+/***/ },
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20679,11 +20924,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(182);
+	var _Provider = __webpack_require__(183);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(185);
+	var _connect = __webpack_require__(186);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -20695,7 +20940,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20707,11 +20952,11 @@
 
 	var _react = __webpack_require__(9);
 
-	var _storeShape = __webpack_require__(183);
+	var _storeShape = __webpack_require__(184);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(185);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -20795,7 +21040,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20811,7 +21056,7 @@
 	});
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20840,7 +21085,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20862,31 +21107,31 @@
 
 	var _react = __webpack_require__(9);
 
-	var _storeShape = __webpack_require__(183);
+	var _storeShape = __webpack_require__(184);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(186);
+	var _shallowEqual = __webpack_require__(187);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(187);
+	var _wrapActionCreators = __webpack_require__(188);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(185);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(188);
+	var _isPlainObject = __webpack_require__(189);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(192);
+	var _hoistNonReactStatics = __webpack_require__(193);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(193);
+	var _invariant = __webpack_require__(194);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -21263,7 +21508,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21294,7 +21539,7 @@
 	}
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21311,14 +21556,14 @@
 	}
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(189),
-	    isHostObject = __webpack_require__(190),
-	    isObjectLike = __webpack_require__(191);
+	var getPrototype = __webpack_require__(190),
+	    isHostObject = __webpack_require__(191),
+	    isObjectLike = __webpack_require__(192);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21386,7 +21631,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21408,7 +21653,7 @@
 	module.exports = getPrototype;
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21435,7 +21680,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21473,7 +21718,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports) {
 
 	/**
@@ -21519,7 +21764,7 @@
 	};
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21573,7 +21818,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21590,13 +21835,13 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _reactRedux = __webpack_require__(181);
+	var _reactRedux = __webpack_require__(182);
 
-	var _LeftBar = __webpack_require__(195);
+	var _LeftBar = __webpack_require__(196);
 
 	var _LeftBar2 = _interopRequireDefault(_LeftBar);
 
-	var _RightBar = __webpack_require__(200);
+	var _RightBar = __webpack_require__(220);
 
 	var _RightBar2 = _interopRequireDefault(_RightBar);
 
@@ -21644,14 +21889,14 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    bgChannel: state.currencyReducer.bgChannel
+	    bgChannel: state.configReducer.bgChannel
 	  };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21666,11 +21911,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Time = __webpack_require__(196);
+	var _Time = __webpack_require__(197);
 
 	var _Time2 = _interopRequireDefault(_Time);
 
-	var _Currency = __webpack_require__(198);
+	var _Currency = __webpack_require__(199);
 
 	var _Currency2 = _interopRequireDefault(_Currency);
 
@@ -21709,7 +21954,7 @@
 	exports.default = LeftBar;
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21726,9 +21971,9 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _reactRedux = __webpack_require__(181);
+	var _reactRedux = __webpack_require__(182);
 
-	var _timeAction = __webpack_require__(197);
+	var _timeAction = __webpack_require__(198);
 
 	var timeAction = _interopRequireWildcard(_timeAction);
 
@@ -21787,7 +22032,7 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    interval: state.timeReducer.interval,
+	    interval: state.configReducer.interval,
 	    time: state.timeReducer.time,
 	    date: state.timeReducer.date
 	  };
@@ -21802,7 +22047,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Time);
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21832,7 +22077,7 @@
 	};
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21849,15 +22094,15 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _CurrencyItem = __webpack_require__(199);
+	var _CurrencyItem = __webpack_require__(200);
 
 	var _CurrencyItem2 = _interopRequireDefault(_CurrencyItem);
 
-	var _currencyAction = __webpack_require__(205);
+	var _currencyAction = __webpack_require__(201);
 
 	var currencyAction = _interopRequireWildcard(_currencyAction);
 
-	var _reactRedux = __webpack_require__(181);
+	var _reactRedux = __webpack_require__(182);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -21869,13 +22114,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Curency = function (_Component) {
-	  _inherits(Curency, _Component);
+	var Currency = function (_Component) {
+	  _inherits(Currency, _Component);
 
-	  function Curency(props) {
-	    _classCallCheck(this, Curency);
+	  function Currency(props) {
+	    _classCallCheck(this, Currency);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Curency).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Currency).call(this, props));
 
 	    props.actions.getRateUah();
 
@@ -21886,13 +22131,15 @@
 	    return _this;
 	  }
 
-	  _createClass(Curency, [{
+	  _createClass(Currency, [{
 	    key: 'render',
 	    value: function render() {
+	      var currencyArr = this.props.currencyArr;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'currency-block-wrapper' },
-	        this.props.currency.map(function (currency) {
+	        currencyArr.map(function (currency) {
 	          if (currency.visible) {
 	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
 	          }
@@ -21901,13 +22148,13 @@
 	    }
 	  }]);
 
-	  return Curency;
+	  return Currency;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
 	  return {
-	    interval: state.timeReducer.interval,
-	    currency: state.currencyReducer.currency
+	    interval: state.configReducer.interval,
+	    currencyArr: state.currencyReducer.currency
 	  };
 	}
 
@@ -21917,10 +22164,10 @@
 	  };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Curency);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Currency);
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22033,499 +22280,7 @@
 	exports.default = CurrencyItem;
 
 /***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Settings = __webpack_require__(201);
-
-	var _Settings2 = _interopRequireDefault(_Settings);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var RightBar = function (_Component) {
-	  _inherits(RightBar, _Component);
-
-	  function RightBar() {
-	    _classCallCheck(this, RightBar);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(RightBar).apply(this, arguments));
-	  }
-
-	  _createClass(RightBar, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'right-bar' },
-	        _react2.default.createElement(_Settings2.default, null),
-	        _react2.default.createElement('span', { className: 'first' }),
-	        _react2.default.createElement('span', { className: 'second' })
-	      );
-	    }
-	  }]);
-
-	  return RightBar;
-	}(_react.Component);
-
-	exports.default = RightBar;
-
-/***/ },
 /* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(167);
-
-	var _reactRedux = __webpack_require__(181);
-
-	var _SettingCurrencyItem = __webpack_require__(202);
-
-	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
-
-	var _SettingDate = __webpack_require__(203);
-
-	var _SettingDate2 = _interopRequireDefault(_SettingDate);
-
-	var _SettingTime = __webpack_require__(204);
-
-	var _SettingTime2 = _interopRequireDefault(_SettingTime);
-
-	var _settingsAction = __webpack_require__(224);
-
-	var settingsAction = _interopRequireWildcard(_settingsAction);
-
-	var _timeAction = __webpack_require__(197);
-
-	var timeActions = _interopRequireWildcard(_timeAction);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Settings = function (_Component) {
-	  _inherits(Settings, _Component);
-
-	  function Settings(props) {
-	    _classCallCheck(this, Settings);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).call(this, props));
-
-	    _this.handleClick = function () {
-	      _this.setState({ is_active: !_this.state.is_active });
-	    };
-
-	    _this.handleTextChange = function (e) {
-	      _this.props.actions.updateChannel(e.target.value || 237739);
-	    };
-
-	    _this.state = {
-	      is_active: false
-	    };
-	    return _this;
-	  }
-
-	  _createClass(Settings, [{
-	    key: "render",
-	    value: function render() {
-	      var _props = this.props;
-	      var currency = _props.currency;
-	      var actions = _props.actions;
-	      var timeActions = _props.timeActions;
-	      var localeRu = _props.localeRu;
-	      var time24 = _props.time24;
-	      var bgChannel = _props.bgChannel;
-
-	      var classN = this.state.is_active ? 'is-active' : '';
-	      return _react2.default.createElement(
-	        "div",
-	        { className: 'bg-setings ' + classN },
-	        _react2.default.createElement(
-	          "div",
-	          { href: "#", className: "btn", onClick: this.handleClick },
-	          _react2.default.createElement("span", null),
-	          _react2.default.createElement("span", null),
-	          _react2.default.createElement("span", null),
-	          _react2.default.createElement("span", null)
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: 'seting-content ' + classN },
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Date and time:"
-	          ),
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Set language for date"
-	          ),
-	          _react2.default.createElement(_SettingDate2.default, { localeRu: localeRu, action: timeActions }),
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Set time format"
-	          ),
-	          _react2.default.createElement(_SettingTime2.default, { time24: time24, action: timeActions }),
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Display currency:"
-	          ),
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Currency rate get from ",
-	            _react2.default.createElement(
-	              "a",
-	              { href: "https://www.poloniex.com" },
-	              "poloniex.com"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "currency-list" },
-	            currency.map(function (currency) {
-	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: actions });
-	            })
-	          ),
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Random background image:"
-	          ),
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Get from ",
-	            _react2.default.createElement(
-	              "a",
-	              { href: "https://unsplash.com" },
-	              "unsplash.com"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "p",
-	            { className: "channel-label" },
-	            "Id channel:"
-	          ),
-	          _react2.default.createElement("input", {
-	            type: "number",
-	            value: bgChannel,
-	            onChange: this.handleTextChange
-	          })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Settings;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    interval: state.timeReducer.interval,
-	    currency: state.currencyReducer.currency,
-	    localeRu: state.timeReducer.localeRu,
-	    time24: state.timeReducer.time24,
-	    bgChannel: state.currencyReducer.bgChannel
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    actions: (0, _redux.bindActionCreators)(settingsAction, dispatch),
-	    timeActions: (0, _redux.bindActionCreators)(timeActions, dispatch)
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
-
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SettingCurrencyItem = function (_Component) {
-	  _inherits(SettingCurrencyItem, _Component);
-
-	  function SettingCurrencyItem(props) {
-	    _classCallCheck(this, SettingCurrencyItem);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingCurrencyItem).call(this, props));
-
-	    _this.onChange = function () {
-	      _this.props.action.updateSettingCurrency(_this.props.data.id);
-	    };
-
-	    return _this;
-	  }
-
-	  _createClass(SettingCurrencyItem, [{
-	    key: "render",
-	    value: function render() {
-	      var _props$data = this.props.data;
-	      var visible = _props$data.visible;
-	      var publickFirst = _props$data.publickFirst;
-	      var publickSecond = _props$data.publickSecond;
-
-	      return _react2.default.createElement(
-	        "label",
-	        { className: "setting-currency-item" },
-	        _react2.default.createElement("input", {
-	          type: "checkbox",
-	          checked: visible,
-	          onChange: this.onChange
-	        }),
-	        _react2.default.createElement("span", { className: visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	        publickFirst,
-	        _react2.default.createElement(
-	          "span",
-	          null,
-	          " - "
-	        ),
-	        publickSecond
-	      );
-	    }
-	  }]);
-
-	  return SettingCurrencyItem;
-	}(_react.Component);
-
-	exports.default = SettingCurrencyItem;
-
-/***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SettingDate = function (_Component) {
-	  _inherits(SettingDate, _Component);
-
-	  function SettingDate(props) {
-	    _classCallCheck(this, SettingDate);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingDate).call(this, props));
-
-	    _this.onChange = function (e) {
-	      var isRu = e.target.value == 'ru';
-	      _this.props.action.updateLocaleSetting(isRu);
-	      _this.props.action.updateTime();
-	    };
-
-	    return _this;
-	  }
-
-	  _createClass(SettingDate, [{
-	    key: 'render',
-	    value: function render() {
-	      var localeRu = this.props.localeRu;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'date-list', onChange: this.onChange },
-	        _react2.default.createElement(
-	          'label',
-	          { className: 'setting-currency-item' },
-	          _react2.default.createElement('input', {
-	            type: 'radio',
-	            name: 'locale',
-	            value: 'ru'
-	          }),
-	          _react2.default.createElement('span', { className: localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'Russian'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'label',
-	          { className: 'setting-currency-item' },
-	          _react2.default.createElement('input', {
-	            type: 'radio',
-	            name: 'locale',
-	            value: 'en-US'
-	          }),
-	          _react2.default.createElement('span', { className: !localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'English'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SettingDate;
-	}(_react.Component);
-
-	exports.default = SettingDate;
-
-/***/ },
-/* 204 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SettingTime = function (_Component) {
-	  _inherits(SettingTime, _Component);
-
-	  function SettingTime(props) {
-	    _classCallCheck(this, SettingTime);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingTime).call(this, props));
-
-	    _this.onChange = function (e) {
-	      var isRu = e.target.value == 'ru';
-	      _this.props.action.updateTimeSetting(isRu);
-	      _this.props.action.updateTime();
-	    };
-
-	    return _this;
-	  }
-
-	  _createClass(SettingTime, [{
-	    key: 'render',
-	    value: function render() {
-	      var time24 = this.props.time24;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'time-list', onChange: this.onChange },
-	        _react2.default.createElement(
-	          'label',
-	          { className: 'setting-currency-item' },
-	          _react2.default.createElement('input', {
-	            type: 'radio',
-	            name: 'time',
-	            value: 'ru'
-	          }),
-	          _react2.default.createElement('span', { className: time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            '24'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'label',
-	          { className: 'setting-currency-item' },
-	          _react2.default.createElement('input', {
-	            type: 'radio',
-	            name: 'time',
-	            value: 'en-US'
-	          }),
-	          _react2.default.createElement('span', { className: !time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            '12'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SettingTime;
-	}(_react.Component);
-
-	exports.default = SettingTime;
-
-/***/ },
-/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22535,7 +22290,7 @@
 	});
 	exports.getRate = exports.getRateRub = exports.getRateUah = exports.updateCurrency = exports.updateRateUah = exports.updateRate = undefined;
 
-	var _axios = __webpack_require__(206);
+	var _axios = __webpack_require__(202);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -22596,27 +22351,27 @@
 	};
 
 /***/ },
-/* 206 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(207);
+	module.exports = __webpack_require__(203);
 
 /***/ },
-/* 207 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(208);
-	var utils = __webpack_require__(209);
-	var dispatchRequest = __webpack_require__(210);
-	var InterceptorManager = __webpack_require__(219);
-	var isAbsoluteURL = __webpack_require__(220);
-	var combineURLs = __webpack_require__(221);
-	var bind = __webpack_require__(222);
-	var transformData = __webpack_require__(214);
+	var defaults = __webpack_require__(204);
+	var utils = __webpack_require__(205);
+	var dispatchRequest = __webpack_require__(206);
+	var InterceptorManager = __webpack_require__(215);
+	var isAbsoluteURL = __webpack_require__(216);
+	var combineURLs = __webpack_require__(217);
+	var bind = __webpack_require__(218);
+	var transformData = __webpack_require__(210);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -22691,7 +22446,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(223);
+	axios.spread = __webpack_require__(219);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -22718,12 +22473,12 @@
 	});
 
 /***/ },
-/* 208 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22789,7 +22544,7 @@
 	};
 
 /***/ },
-/* 209 */
+/* 205 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23058,7 +22813,7 @@
 	};
 
 /***/ },
-/* 210 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23081,10 +22836,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(211);
+	        adapter = __webpack_require__(207);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(211);
+	        adapter = __webpack_require__(207);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -23098,18 +22853,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 211 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(209);
-	var buildURL = __webpack_require__(212);
-	var parseHeaders = __webpack_require__(213);
-	var transformData = __webpack_require__(214);
-	var isURLSameOrigin = __webpack_require__(215);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(216);
-	var settle = __webpack_require__(217);
+	var utils = __webpack_require__(205);
+	var buildURL = __webpack_require__(208);
+	var parseHeaders = __webpack_require__(209);
+	var transformData = __webpack_require__(210);
+	var isURLSameOrigin = __webpack_require__(211);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(212);
+	var settle = __webpack_require__(213);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -23202,7 +22957,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(218);
+	    var cookies = __webpack_require__(214);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -23260,12 +23015,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 212 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -23324,12 +23079,12 @@
 	};
 
 /***/ },
-/* 213 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	/**
 	 * Parse headers into an object
@@ -23368,12 +23123,12 @@
 	};
 
 /***/ },
-/* 214 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23393,12 +23148,12 @@
 	};
 
 /***/ },
-/* 215 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23461,7 +23216,7 @@
 	}();
 
 /***/ },
-/* 216 */
+/* 212 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23501,7 +23256,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 217 */
+/* 213 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23525,12 +23280,12 @@
 	};
 
 /***/ },
-/* 218 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -23583,12 +23338,12 @@
 	}();
 
 /***/ },
-/* 219 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(209);
+	var utils = __webpack_require__(205);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23640,7 +23395,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 220 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23661,7 +23416,7 @@
 	};
 
 /***/ },
-/* 221 */
+/* 217 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23679,7 +23434,7 @@
 	};
 
 /***/ },
-/* 222 */
+/* 218 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23695,7 +23450,7 @@
 	};
 
 /***/ },
-/* 223 */
+/* 219 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23728,29 +23483,500 @@
 	};
 
 /***/ },
-/* 224 */
-/***/ function(module, exports) {
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var updateSettingCurrency = exports.updateSettingCurrency = function updateSettingCurrency(id) {
-	  return {
-	    type: 'UPDATE_SETTING_CURRENCY',
-	    id: id
-	  };
-	};
-	var updateChannel = exports.updateChannel = function updateChannel(id) {
-	  return {
-	    type: 'UPDATE_CHANNEL',
-	    id: id
-	  };
-	};
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Settings = __webpack_require__(221);
+
+	var _Settings2 = _interopRequireDefault(_Settings);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var RightBar = function (_Component) {
+	  _inherits(RightBar, _Component);
+
+	  function RightBar() {
+	    _classCallCheck(this, RightBar);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(RightBar).apply(this, arguments));
+	  }
+
+	  _createClass(RightBar, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'right-bar' },
+	        _react2.default.createElement(_Settings2.default, null),
+	        _react2.default.createElement('span', { className: 'first' }),
+	        _react2.default.createElement('span', { className: 'second' })
+	      );
+	    }
+	  }]);
+
+	  return RightBar;
+	}(_react.Component);
+
+	exports.default = RightBar;
 
 /***/ },
-/* 225 */
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(167);
+
+	var _reactRedux = __webpack_require__(182);
+
+	var _SettingCurrencyItem = __webpack_require__(222);
+
+	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
+
+	var _SettingDate = __webpack_require__(223);
+
+	var _SettingDate2 = _interopRequireDefault(_SettingDate);
+
+	var _SettingTime = __webpack_require__(224);
+
+	var _SettingTime2 = _interopRequireDefault(_SettingTime);
+
+	var _configAction = __webpack_require__(232);
+
+	var configAction = _interopRequireWildcard(_configAction);
+
+	var _timeAction = __webpack_require__(198);
+
+	var timeActions = _interopRequireWildcard(_timeAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Settings = function (_Component) {
+	  _inherits(Settings, _Component);
+
+	  function Settings(props) {
+	    _classCallCheck(this, Settings);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).call(this, props));
+
+	    _this.handleClick = function () {
+	      _this.setState({ is_active: !_this.state.is_active });
+	    };
+
+	    _this.handleTextChange = function (e) {
+	      _this.props.configAction.updateChannel(e.target.value || 237739);
+	    };
+
+	    _this.state = {
+	      is_active: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Settings, [{
+	    key: "render",
+	    value: function render() {
+	      var _props = this.props;
+	      var currency = _props.currency;
+	      var configAction = _props.configAction;
+	      var timeActions = _props.timeActions;
+	      var localeRu = _props.localeRu;
+	      var time24 = _props.time24;
+	      var bgChannel = _props.bgChannel;
+
+	      var classN = this.state.is_active ? 'is-active' : '';
+	      return _react2.default.createElement(
+	        "div",
+	        { className: 'bg-setings ' + classN },
+	        _react2.default.createElement(
+	          "div",
+	          { href: "#", className: "btn", onClick: this.handleClick },
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null),
+	          _react2.default.createElement("span", null)
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: 'seting-content ' + classN },
+	          _react2.default.createElement(
+	            "h2",
+	            null,
+	            "Date and time:"
+	          ),
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Set language for date"
+	          ),
+	          _react2.default.createElement(_SettingDate2.default, { localeRu: localeRu, action: timeActions }),
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Set time format"
+	          ),
+	          _react2.default.createElement(_SettingTime2.default, { time24: time24, action: timeActions }),
+	          _react2.default.createElement(
+	            "h2",
+	            null,
+	            "Display currency:"
+	          ),
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Currency rate get from ",
+	            _react2.default.createElement(
+	              "a",
+	              { href: "https://www.poloniex.com" },
+	              "poloniex.com"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "currency-list" },
+	            currency.map(function (currency) {
+	              return _react2.default.createElement(_SettingCurrencyItem2.default, { key: currency.id, data: currency, action: configAction });
+	            })
+	          ),
+	          _react2.default.createElement(
+	            "h2",
+	            null,
+	            "Random background image:"
+	          ),
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Get from ",
+	            _react2.default.createElement(
+	              "a",
+	              { href: "https://unsplash.com" },
+	              "unsplash.com"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            { className: "channel-label" },
+	            "Id channel:"
+	          ),
+	          _react2.default.createElement("input", {
+	            type: "number",
+	            value: bgChannel,
+	            onChange: this.handleTextChange
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Settings;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.configReducer.interval,
+	    currency: state.currencyReducer.currency,
+	    localeRu: state.timeReducer.localeRu,
+	    time24: state.timeReducer.time24,
+	    bgChannel: state.configReducer.bgChannel
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    configAction: (0, _redux.bindActionCreators)(configAction, dispatch),
+	    timeActions: (0, _redux.bindActionCreators)(timeActions, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingCurrencyItem = function (_Component) {
+	  _inherits(SettingCurrencyItem, _Component);
+
+	  function SettingCurrencyItem(props) {
+	    _classCallCheck(this, SettingCurrencyItem);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingCurrencyItem).call(this, props));
+
+	    _this.onChange = function () {
+	      _this.props.action.updateSettingCurrency(_this.props.data.id);
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SettingCurrencyItem, [{
+	    key: "render",
+	    value: function render() {
+	      var _props$data = this.props.data;
+	      var visible = _props$data.visible;
+	      var publickFirst = _props$data.publickFirst;
+	      var publickSecond = _props$data.publickSecond;
+
+	      return _react2.default.createElement(
+	        "label",
+	        { className: "setting-currency-item" },
+	        _react2.default.createElement("input", {
+	          type: "checkbox",
+	          checked: visible,
+	          onChange: this.onChange
+	        }),
+	        _react2.default.createElement("span", { className: visible ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	        publickFirst,
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          " - "
+	        ),
+	        publickSecond
+	      );
+	    }
+	  }]);
+
+	  return SettingCurrencyItem;
+	}(_react.Component);
+
+	exports.default = SettingCurrencyItem;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingDate = function (_Component) {
+	  _inherits(SettingDate, _Component);
+
+	  function SettingDate(props) {
+	    _classCallCheck(this, SettingDate);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingDate).call(this, props));
+
+	    _this.onChange = function (e) {
+	      var isRu = e.target.value == 'ru';
+	      _this.props.action.updateLocaleSetting(isRu);
+	      _this.props.action.updateTime();
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SettingDate, [{
+	    key: 'render',
+	    value: function render() {
+	      var localeRu = this.props.localeRu;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'date-list', onChange: this.onChange },
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'locale',
+	            value: 'ru'
+	          }),
+	          _react2.default.createElement('span', { className: localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'Russian'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'locale',
+	            value: 'en-US'
+	          }),
+	          _react2.default.createElement('span', { className: !localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'English'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SettingDate;
+	}(_react.Component);
+
+	exports.default = SettingDate;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SettingTime = function (_Component) {
+	  _inherits(SettingTime, _Component);
+
+	  function SettingTime(props) {
+	    _classCallCheck(this, SettingTime);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingTime).call(this, props));
+
+	    _this.onChange = function (e) {
+	      var isRu = e.target.value == 'ru';
+	      _this.props.action.updateTimeSetting(isRu);
+	      _this.props.action.updateTime();
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SettingTime, [{
+	    key: 'render',
+	    value: function render() {
+	      var time24 = this.props.time24;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'time-list', onChange: this.onChange },
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'time',
+	            value: 'ru'
+	          }),
+	          _react2.default.createElement('span', { className: time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '24'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'setting-currency-item' },
+	          _react2.default.createElement('input', {
+	            type: 'radio',
+	            name: 'time',
+	            value: 'en-US'
+	          }),
+	          _react2.default.createElement('span', { className: !time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '12'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SettingTime;
+	}(_react.Component);
+
+	exports.default = SettingTime;
+
+/***/ },
+/* 225 */,
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23761,23 +23987,28 @@
 
 	var _redux = __webpack_require__(167);
 
-	var _currencyReducer = __webpack_require__(226);
+	var _currencyReducer = __webpack_require__(227);
 
 	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
 
-	var _timeReducer = __webpack_require__(228);
+	var _timeReducer = __webpack_require__(229);
 
 	var _timeReducer2 = _interopRequireDefault(_timeReducer);
+
+	var _configReducer = __webpack_require__(231);
+
+	var _configReducer2 = _interopRequireDefault(_configReducer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = (0, _redux.combineReducers)({
 	  currencyReducer: _currencyReducer2.default,
-	  timeReducer: _timeReducer2.default
+	  timeReducer: _timeReducer2.default,
+	  configReducer: _configReducer2.default
 	});
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23790,10 +24021,10 @@
 
 	exports.default = currencyReducer;
 
-	var _store = __webpack_require__(227);
+	var _store = __webpack_require__(228);
 
 	function currencyReducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialState : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialCurrencyState : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
@@ -23832,17 +24063,13 @@
 	      return _extends({}, state, {
 	        currency: updateBlock2
 	      });
-	    case 'UPDATE_CHANNEL':
-	      return _extends({}, state, {
-	        bgChannel: action.id
-	      });
 	    default:
 	      return state;
 	  }
 	}
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23850,7 +24077,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var initialState = exports.initialState = {
+	var initialCurrencyState = exports.initialCurrencyState = {
 	  currency: [{
 	    id: 1,
 	    price: 0,
@@ -23914,6 +24141,18 @@
 	  }, {
 	    id: 6,
 	    price: 0,
+	    type: 'BTC_ETC',
+	    toFixed: 8,
+	    name: 'etc-btc',
+	    visible: true,
+	    percentChange: 0,
+	    publickFirst: 'ETC',
+	    publickSecond: 'BTC',
+	    firstCurrency: 'ETH-alt',
+	    secondCurrency: 'BTC'
+	  }, {
+	    id: 7,
+	    price: 0,
 	    type: 'BTC_LSK',
 	    toFixed: 8,
 	    name: 'lisk',
@@ -23924,7 +24163,7 @@
 	    firstCurrency: 'LISK-alt',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 7,
+	    id: 8,
 	    price: 0,
 	    type: 'BTC_DAO',
 	    toFixed: 8,
@@ -23936,7 +24175,7 @@
 	    firstCurrency: 'DGD',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 8,
+	    id: 9,
 	    price: 0,
 	    type: 'BTC_DASH',
 	    toFixed: 8,
@@ -23948,7 +24187,7 @@
 	    firstCurrency: 'DASH',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 9,
+	    id: 10,
 	    price: 0,
 	    type: 'BTC_LTC',
 	    toFixed: 8,
@@ -23960,7 +24199,7 @@
 	    firstCurrency: 'LTC',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 10,
+	    id: 11,
 	    price: 0,
 	    type: 'BTC_DOGE',
 	    toFixed: 8,
@@ -23972,7 +24211,7 @@
 	    firstCurrency: 'DOGE',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 11,
+	    id: 12,
 	    price: 0,
 	    type: 'BTC_NXT',
 	    toFixed: 8,
@@ -23984,7 +24223,7 @@
 	    firstCurrency: 'NXT',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 12,
+	    id: 13,
 	    price: 0,
 	    type: 'BTC_XMR',
 	    toFixed: 8,
@@ -23996,7 +24235,7 @@
 	    firstCurrency: 'XMR',
 	    secondCurrency: 'BTC'
 	  }, {
-	    id: 13,
+	    id: 14,
 	    price: 0,
 	    type: 'BTC_XRP',
 	    toFixed: 8,
@@ -24008,20 +24247,23 @@
 	    firstCurrency: 'XRP',
 	    secondCurrency: 'BTC'
 	  }],
-	  rates: {},
-	  bgChannel: 237739
+	  rates: {}
 	};
 
 	var initialTimeState = exports.initialTimeState = {
-	  interval: 30000,
 	  time: 0,
 	  date: 0,
 	  time24: true,
 	  localeRu: true
 	};
 
+	var initialConfigState = exports.initialConfigState = {
+	  interval: 30000,
+	  bgChannel: 237739
+	};
+
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24034,7 +24276,7 @@
 
 	exports.default = timeReducer;
 
-	var _store = __webpack_require__(227);
+	var _store = __webpack_require__(228);
 
 	function timeReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialTimeState : arguments[0];
@@ -24079,7 +24321,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24109,249 +24351,56 @@
 	};
 
 /***/ },
-/* 230 */
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = configReducer;
+
+	var _store = __webpack_require__(228);
+
+	function configReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? _store.initialConfigState : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'UPDATE_CHANNEL':
+	      return _extends({}, state, {
+	        bgChannel: action.id
+	      });
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 232 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	function _toConsumableArray(arr) {
-	  if (Array.isArray(arr)) {
-	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	      arr2[i] = arr[i];
-	    }return arr2;
-	  } else {
-	    return Array.from(arr);
-	  }
-	}
-
-	function _typeof(obj) {
-	  return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-	}
-
-	var repeat = function repeat(str, times) {
-	  return new Array(times + 1).join(str);
-	};
-	var pad = function pad(num, maxLength) {
-	  return repeat("0", maxLength - num.toString().length) + num;
-	};
-	var formatTime = function formatTime(time) {
-	  return "@ " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2) + "." + pad(time.getMilliseconds(), 3);
-	};
-
-	// Use the new performance api to get better precision if available
-	var timer = typeof performance !== "undefined" && typeof performance.now === "function" ? performance : Date;
-
-	/**
-	 * parse the level option of createLogger
-	 *
-	 * @property {string | function | object} level - console[level]
-	 * @property {object} action
-	 * @property {array} payload
-	 * @property {string} type
-	 */
-
-	function getLogLevel(level, action, payload, type) {
-	  switch (typeof level === "undefined" ? "undefined" : _typeof(level)) {
-	    case "object":
-	      return typeof level[type] === "function" ? level[type].apply(level, _toConsumableArray(payload)) : level[type];
-	    case "function":
-	      return level(action);
-	    default:
-	      return level;
-	  }
-	}
-
-	/**
-	 * Creates logger with followed options
-	 *
-	 * @namespace
-	 * @property {object} options - options for logger
-	 * @property {string | function | object} options.level - console[level]
-	 * @property {boolean} options.duration - print duration of each action?
-	 * @property {boolean} options.timestamp - print timestamp with each action?
-	 * @property {object} options.colors - custom colors
-	 * @property {object} options.logger - implementation of the `console` API
-	 * @property {boolean} options.logErrors - should errors in action execution be caught, logged, and re-thrown?
-	 * @property {boolean} options.collapsed - is group collapsed?
-	 * @property {boolean} options.predicate - condition which resolves logger behavior
-	 * @property {function} options.stateTransformer - transform state before print
-	 * @property {function} options.actionTransformer - transform action before print
-	 * @property {function} options.errorTransformer - transform error before print
-	 */
-
-	function createLogger() {
-	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var _options$level = options.level;
-	  var level = _options$level === undefined ? "log" : _options$level;
-	  var _options$logger = options.logger;
-	  var logger = _options$logger === undefined ? console : _options$logger;
-	  var _options$logErrors = options.logErrors;
-	  var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
-	  var collapsed = options.collapsed;
-	  var predicate = options.predicate;
-	  var _options$duration = options.duration;
-	  var duration = _options$duration === undefined ? false : _options$duration;
-	  var _options$timestamp = options.timestamp;
-	  var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
-	  var transformer = options.transformer;
-	  var _options$stateTransfo = options.stateTransformer;
-	  var // deprecated
-	  stateTransformer = _options$stateTransfo === undefined ? function (state) {
-	    return state;
-	  } : _options$stateTransfo;
-	  var _options$actionTransf = options.actionTransformer;
-	  var actionTransformer = _options$actionTransf === undefined ? function (actn) {
-	    return actn;
-	  } : _options$actionTransf;
-	  var _options$errorTransfo = options.errorTransformer;
-	  var errorTransformer = _options$errorTransfo === undefined ? function (error) {
-	    return error;
-	  } : _options$errorTransfo;
-	  var _options$colors = options.colors;
-	  var colors = _options$colors === undefined ? {
-	    title: function title() {
-	      return "#000000";
-	    },
-	    prevState: function prevState() {
-	      return "#9E9E9E";
-	    },
-	    action: function action() {
-	      return "#03A9F4";
-	    },
-	    nextState: function nextState() {
-	      return "#4CAF50";
-	    },
-	    error: function error() {
-	      return "#F20404";
-	    }
-	  } : _options$colors;
-
-	  // exit if console undefined
-
-	  if (typeof logger === "undefined") {
-	    return function () {
-	      return function (next) {
-	        return function (action) {
-	          return next(action);
-	        };
-	      };
-	    };
-	  }
-
-	  if (transformer) {
-	    console.error("Option 'transformer' is deprecated, use stateTransformer instead");
-	  }
-
-	  var logBuffer = [];
-	  function printBuffer() {
-	    logBuffer.forEach(function (logEntry, key) {
-	      var started = logEntry.started;
-	      var startedTime = logEntry.startedTime;
-	      var action = logEntry.action;
-	      var prevState = logEntry.prevState;
-	      var error = logEntry.error;
-	      var took = logEntry.took;
-	      var nextState = logEntry.nextState;
-
-	      var nextEntry = logBuffer[key + 1];
-	      if (nextEntry) {
-	        nextState = nextEntry.prevState;
-	        took = nextEntry.started - started;
-	      }
-	      // message
-	      var formattedAction = actionTransformer(action);
-	      var isCollapsed = typeof collapsed === "function" ? collapsed(function () {
-	        return nextState;
-	      }, action) : collapsed;
-
-	      var formattedTime = formatTime(startedTime);
-	      var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
-	      var title = "action " + (timestamp ? formattedTime : "") + " " + formattedAction.type + " " + (duration ? "(in " + took.toFixed(2) + " ms)" : "");
-
-	      // render
-	      try {
-	        if (isCollapsed) {
-	          if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
-	        } else {
-	          if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
-	        }
-	      } catch (e) {
-	        logger.log(title);
-	      }
-
-	      var prevStateLevel = getLogLevel(level, formattedAction, [prevState], "prevState");
-	      var actionLevel = getLogLevel(level, formattedAction, [formattedAction], "action");
-	      var errorLevel = getLogLevel(level, formattedAction, [error, prevState], "error");
-	      var nextStateLevel = getLogLevel(level, formattedAction, [nextState], "nextState");
-
-	      if (prevStateLevel) {
-	        if (colors.prevState) logger[prevStateLevel]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[prevStateLevel]("prev state", prevState);
-	      }
-
-	      if (actionLevel) {
-	        if (colors.action) logger[actionLevel]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[actionLevel]("action", formattedAction);
-	      }
-
-	      if (error && errorLevel) {
-	        if (colors.error) logger[errorLevel]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[errorLevel]("error", error);
-	      }
-
-	      if (nextStateLevel) {
-	        if (colors.nextState) logger[nextStateLevel]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[nextStateLevel]("next state", nextState);
-	      }
-
-	      try {
-	        logger.groupEnd();
-	      } catch (e) {
-	        logger.log("—— log end ——");
-	      }
-	    });
-	    logBuffer.length = 0;
-	  }
-
-	  return function (_ref) {
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        // exit early if predicate function returns false
-	        if (typeof predicate === "function" && !predicate(getState, action)) {
-	          return next(action);
-	        }
-
-	        var logEntry = {};
-	        logBuffer.push(logEntry);
-
-	        logEntry.started = timer.now();
-	        logEntry.startedTime = new Date();
-	        logEntry.prevState = stateTransformer(getState());
-	        logEntry.action = action;
-
-	        var returnedValue = undefined;
-	        if (logErrors) {
-	          try {
-	            returnedValue = next(action);
-	          } catch (e) {
-	            logEntry.error = errorTransformer(e);
-	          }
-	        } else {
-	          returnedValue = next(action);
-	        }
-
-	        logEntry.took = timer.now() - logEntry.started;
-	        logEntry.nextState = stateTransformer(getState());
-
-	        printBuffer();
-
-	        if (logEntry.error) throw logEntry.error;
-	        return returnedValue;
-	      };
-	    };
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateSettingCurrency = exports.updateSettingCurrency = function updateSettingCurrency(id) {
+	  return {
+	    type: 'UPDATE_SETTING_CURRENCY',
+	    id: id
 	  };
-	}
-
-	module.exports = createLogger;
+	};
+	var updateChannel = exports.updateChannel = function updateChannel(id) {
+	  return {
+	    type: 'UPDATE_CHANNEL',
+	    id: id
+	  };
+	};
 
 /***/ }
 /******/ ]);
