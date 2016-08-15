@@ -1,7 +1,7 @@
 import '../scss/main.scss'
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, bindActionCreators, applyMiddleware } from "redux";
+import { createStore, bindActionCreators, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider, connect  } from "react-redux";
@@ -16,8 +16,11 @@ const persistedState = loadState();
 const Store = createStore(
   reducers,
   persistedState,
-  applyMiddleware(thunk),
-  // applyMiddleware(thunk, logger())
+  compose(
+    applyMiddleware(thunk),
+    // applyMiddleware(thunk, logger()),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ),
 )
 
 Store.subscribe(() => {

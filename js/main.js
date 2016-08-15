@@ -78,15 +78,18 @@
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(230);
+	var _localStorage = __webpack_require__(231);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var persistedState = (0, _localStorage.loadState)();
 
-	var Store = (0, _redux.createStore)(_indexReducers2.default, persistedState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	var Store = (0, _redux.createStore)(_indexReducers2.default, persistedState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default),
+	// applyMiddleware(thunk, logger()),
+	window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	  return f;
+	}));
 
-	// applyMiddleware(thunk, logger())
 	Store.subscribe(function () {
 	  (0, _localStorage.saveState)(Store.getState());
 	});
@@ -23569,7 +23572,7 @@
 
 	var _SettingTime2 = _interopRequireDefault(_SettingTime);
 
-	var _configAction = __webpack_require__(232);
+	var _configAction = __webpack_require__(225);
 
 	var configAction = _interopRequireWildcard(_configAction);
 
@@ -23975,7 +23978,28 @@
 	exports.default = SettingTime;
 
 /***/ },
-/* 225 */,
+/* 225 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateSettingCurrency = exports.updateSettingCurrency = function updateSettingCurrency(id) {
+	  return {
+	    type: 'UPDATE_SETTING_CURRENCY',
+	    id: id
+	  };
+	};
+	var updateChannel = exports.updateChannel = function updateChannel(id) {
+	  return {
+	    type: 'UPDATE_CHANNEL',
+	    id: id
+	  };
+	};
+
+/***/ },
 /* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23995,7 +24019,7 @@
 
 	var _timeReducer2 = _interopRequireDefault(_timeReducer);
 
-	var _configReducer = __webpack_require__(231);
+	var _configReducer = __webpack_require__(230);
 
 	var _configReducer2 = _interopRequireDefault(_configReducer);
 
@@ -24322,36 +24346,6 @@
 
 /***/ },
 /* 230 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var loadState = exports.loadState = function loadState() {
-	  try {
-	    var serializedState = localStorage.getItem('Tab42State');
-	    if (serializedState === null) {
-	      return undefined;
-	    }
-	    return JSON.parse(serializedState);
-	  } catch (err) {
-	    return undefined;
-	  }
-	};
-
-	var saveState = exports.saveState = function saveState(state) {
-	  try {
-	    var serializedState = JSON.stringify(state);
-	    localStorage.setItem('Tab42State', serializedState);
-	  } catch (err) {
-	    // Ignore errors
-	  }
-	};
-
-/***/ },
-/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24381,7 +24375,7 @@
 	}
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24389,17 +24383,25 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var updateSettingCurrency = exports.updateSettingCurrency = function updateSettingCurrency(id) {
-	  return {
-	    type: 'UPDATE_SETTING_CURRENCY',
-	    id: id
-	  };
+	var loadState = exports.loadState = function loadState() {
+	  try {
+	    var serializedState = localStorage.getItem('Tab42State');
+	    if (serializedState === null) {
+	      return undefined;
+	    }
+	    return JSON.parse(serializedState);
+	  } catch (err) {
+	    return undefined;
+	  }
 	};
-	var updateChannel = exports.updateChannel = function updateChannel(id) {
-	  return {
-	    type: 'UPDATE_CHANNEL',
-	    id: id
-	  };
+
+	var saveState = exports.saveState = function saveState(state) {
+	  try {
+	    var serializedState = JSON.stringify(state);
+	    localStorage.setItem('Tab42State', serializedState);
+	  } catch (err) {
+	    // Ignore errors
+	  }
 	};
 
 /***/ }
