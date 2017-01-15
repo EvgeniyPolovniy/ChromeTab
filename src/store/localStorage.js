@@ -2,7 +2,7 @@ export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('Tab42State');
     const now = new Date().getTime();
-    if ( serializedState === null || serializedState.timestamp + 86400000 < now) {
+    if ( serializedState === null) {
       return {};
     }
     return JSON.parse(serializedState);

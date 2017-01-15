@@ -6,13 +6,13 @@ export default class SettingTime extends Component {
   }
 
   onChange = (e) => {
-    let isRu = e.target.value == 'ru'
+    let isRu = e.target.value == 'ru';
     this.props.action.updateTimeSetting(isRu);
     this.props.action.updateTime();
-  }
+  };
 
   render() {
-    const { time24 } = this.props
+    const { time24 } = this.props;
     return (
       <div className='time-list' onChange={this.onChange}>
         <label className="setting-currency-item">

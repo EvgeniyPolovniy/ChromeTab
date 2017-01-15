@@ -19,13 +19,13 @@ class Settings extends Component {
   }
   handleClick = () => {
     this.setState({is_active: !this.state.is_active});
-  }
+  };
   handleTextChange = (e) => {
     this.props.configAction.updateChannel(e.target.value || 237739)
-  }
+  };
   render() {
-    const { currency, configAction, timeActions, localeRu, time24, bgChannel } = this.props
-    let classN = this.state.is_active ? 'is-active' : ''
+    const { currency, configAction, timeActions, localeRu, time24, bgChannel } = this.props;
+    let classN = this.state.is_active ? 'is-active' : '';
     return (
       <div className={ 'bg-setings ' + classN }>
         <div href="#" className="btn" onClick={ this.handleClick } >

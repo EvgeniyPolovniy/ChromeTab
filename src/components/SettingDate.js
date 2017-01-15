@@ -6,10 +6,10 @@ export default class SettingDate extends Component {
   }
 
   onChange = (e) => {
-    let isRu = e.target.value == 'ru'
+    let isRu = e.target.value == 'ru';
     this.props.action.updateLocaleSetting(isRu);
     this.props.action.updateTime();
-  }
+  };
 
   render() {
     const { localeRu } = this.props;

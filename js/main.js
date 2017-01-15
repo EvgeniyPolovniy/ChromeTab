@@ -24862,7 +24862,7 @@
 /* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -24873,8 +24873,6 @@
 	var _react = __webpack_require__(9);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(186);
 
 	var _reactRedux = __webpack_require__(214);
 
@@ -24914,11 +24912,11 @@
 	  }
 
 	  _createClass(App, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "main", style: this.bgStyle },
+	        'div',
+	        { className: 'main', style: this.bgStyle },
 	        _react2.default.createElement(_LeftBar2.default, null),
 	        _react2.default.createElement(_RightBar2.default, null)
 	      );
@@ -27775,7 +27773,7 @@
 	  try {
 	    var serializedState = localStorage.getItem('Tab42State');
 	    var now = new Date().getTime();
-	    if (serializedState === null || serializedState.timestamp + 86400000 < now) {
+	    if (serializedState === null) {
 	      return {};
 	    }
 	    return JSON.parse(serializedState);

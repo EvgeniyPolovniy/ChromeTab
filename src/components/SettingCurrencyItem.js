@@ -7,10 +7,10 @@ export default class SettingCurrencyItem extends Component {
 
   onChange = () => {
     this.props.action.updateSettingCurrency(this.props.data.id);
-  }
+  };
 
   render() {
-    const { visible, publicFirst, publicSecond } = this.props.data
+    const { visible, publicFirst, publicSecond } = this.props.data;
     return (
       <label className="setting-currency-item">
         <input

@@ -32,7 +32,7 @@ class Currency extends Component {
 function mapStateToProps(state) {
   return {
     interval: state.configReducer.interval,
-    currencyArr: state.currencyReducer.currency,
+    currencyArr: state.currencyReducer.currency
   }
 }
 

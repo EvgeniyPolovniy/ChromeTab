@@ -20,8 +20,8 @@ class Time extends Component {
     const { time, date } = this.props;
     return (
       <div>
-        <h1 className="time">{time}</h1>
-        <h2 className="date">{date}</h2>
+        <h1 className="time">{ time }</h1>
+        <h2 className="date">{ date }</h2>
       </div>
     )
   }
@@ -31,7 +31,7 @@ function mapStateToProps(state) {
   return {
     interval: state.configReducer.interval,
     time: state.timeReducer.time,
-    date: state.timeReducer.date,
+    date: state.timeReducer.date
   }
 }
 
