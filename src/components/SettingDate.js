@@ -12,7 +12,7 @@ export default class SettingDate extends Component {
   }
 
   render() {
-    const { localeRu } = this.props
+    const { localeRu } = this.props;
     return (
       <div className='date-list' onChange={ this.onChange }>
         <label className="setting-currency-item">
@@ -21,7 +21,7 @@ export default class SettingDate extends Component {
             name='locale'
             value='ru'
           />
-          <span className={ localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' } ></span>
+          <span className={ localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' } >&nbsp;</span>
           <span>Russian</span>
         </label>
         <label className="setting-currency-item">
@@ -30,7 +30,7 @@ export default class SettingDate extends Component {
             name='locale'
             value='en-US'
           />
-        <span className={ !localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' } ></span>
+        <span className={ !localeRu ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o' } >&nbsp;</span>
           <span>English</span>
         </label>
       </div>

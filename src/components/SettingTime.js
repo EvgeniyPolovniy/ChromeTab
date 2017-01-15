@@ -21,7 +21,7 @@ export default class SettingTime extends Component {
             name='time'
             value='ru'
           />
-          <span className={time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+          <span className={time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} >&nbsp;</span>
           <span>24</span>
         </label>
         <label className="setting-currency-item">
@@ -30,7 +30,7 @@ export default class SettingTime extends Component {
             name='time'
             value='en-US'
           />
-          <span className={!time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} ></span>
+          <span className={!time24 ? 'checkbox icon-check-square-o' : 'checkbox icon-square-o'} >&nbsp;</span>
           <span>12</span>
         </label>
       </div>

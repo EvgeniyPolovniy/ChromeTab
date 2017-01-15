@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect  } from "react-redux";
 
-import LeftBar from './view/LeftBar'
-import RightBar from './view/RightBar'
+import LeftBar from './LeftBar'
+import RightBar from './RightBar'
 
 class App extends Component {
   bgStyle = {

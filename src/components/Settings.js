@@ -6,8 +6,8 @@ import SettingCurrencyItem from './SettingCurrencyItem'
 import SettingDate from './SettingDate'
 import SettingTime from './SettingTime'
 
-import * as configAction from '../store/configAction'
-import * as timeActions from '../store/timeAction'
+import * as configAction from '../AC/configAction'
+import * as timeActions from '../AC/timeAction'
 
 
 class Settings extends Component {
@@ -29,10 +29,10 @@ class Settings extends Component {
     return (
       <div className={ 'bg-setings ' + classN }>
         <div href="#" className="btn" onClick={ this.handleClick } >
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
         </div>
         <div className={ 'seting-content ' + classN }>
           <h2>Date and time:</h2>

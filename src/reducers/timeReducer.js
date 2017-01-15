@@ -1,4 +1,4 @@
-import { initialTimeState } from './store'
+import { initialTimeState } from '../store/store'
 
 export default function timeReducer(state = initialTimeState, action) {
   switch (action.type) {
@@ -7,37 +7,36 @@ export default function timeReducer(state = initialTimeState, action) {
         ...state,
         time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
         date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
-      }
+      };
     case 'UPDATE_DATE_LOCAL':
       return {
         ...state,
-        localeRu: action.isRu,
-      }
+        localeRu: action.isRu
+      };
     case 'UPDATE_TIME_LOCAL':
       return {
         ...state,
-        time24: action.isRu,
-      }
+        time24: action.isRu
+      };
     default:
       return state
   }
 }
 
-const timeWraper = (item) => {
-  let result = (item.toString().length == 1) ? ('0'+ item) : item;
-  return result
-}
+const timeWrapper = (item) => {
+  return item.toString().length == 1 ? '0'+ item : item;
+};
+
 const normalizeTime = (time) => {
-  let normalTime = timeWraper(time.getHours()) + ":" + timeWraper(time.getMinutes());
-  return normalTime;
-}
+  return timeWrapper(time.getHours()) + ":" + timeWrapper(time.getMinutes());
+};
 
 const dateOptions = {
   year: 'numeric',
   month: 'long',
-  day: 'numeric',
+  day: 'numeric'
 };
 const timeOptions = {
   hour: 'numeric',
-  minute: 'numeric',
+  minute: 'numeric'
 };

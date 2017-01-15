@@ -6,8 +6,8 @@ export default class RightBar extends Component {
     return (
       <div className="right-bar">
         <Settings />
-        <span className="first"></span>
-        <span className="second"></span>
+        <span className="first">&nbsp;</span>
+        <span className="second">&nbsp;</span>
       </div>
     )
   }

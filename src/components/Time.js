@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from "redux";
 import { connect  } from "react-redux";
 
-import * as timeAction from '../store/timeAction'
+import * as timeAction from '../AC/timeAction'
 
 class Time extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Time extends Component {
   }
 
   render() {
-    const { time, date } = this.props
+    const { time, date } = this.props;
     return (
       <div>
         <h1 className="time">{time}</h1>

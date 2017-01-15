@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import CurrencyItem from './CurrencyItem'
-import * as currencyAction from '../store/currencyAction'
+import * as currencyAction from '../AC/currencyAction'
 import { connect } from "react-redux";
 
 class Currency extends Component {
@@ -16,7 +16,7 @@ class Currency extends Component {
 
   }
   render() {
-    const { currencyArr } = this.props
+    const { currencyArr } = this.props;
     return (
       <div className="currency-block-wrapper">
         { currencyArr.map( function(currency) {
