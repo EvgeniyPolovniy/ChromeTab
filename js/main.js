@@ -74,11 +74,11 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _indexReducers = __webpack_require__(276);
+	var _indexReducers = __webpack_require__(269);
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(275);
+	var _localStorage = __webpack_require__(274);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24878,11 +24878,11 @@
 
 	var _reactRedux = __webpack_require__(214);
 
-	var _LeftBar = __webpack_require__(280);
+	var _LeftBar = __webpack_require__(232);
 
 	var _LeftBar2 = _interopRequireDefault(_LeftBar);
 
-	var _RightBar = __webpack_require__(284);
+	var _RightBar = __webpack_require__(263);
 
 	var _RightBar2 = _interopRequireDefault(_RightBar);
 
@@ -24937,12 +24937,471 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Time = __webpack_require__(233);
+
+	var _Time2 = _interopRequireDefault(_Time);
+
+	var _Currency = __webpack_require__(235);
+
+	var _Currency2 = _interopRequireDefault(_Currency);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LeftBar = function (_Component) {
+	  _inherits(LeftBar, _Component);
+
+	  function LeftBar() {
+	    _classCallCheck(this, LeftBar);
+
+	    return _possibleConstructorReturn(this, (LeftBar.__proto__ || Object.getPrototypeOf(LeftBar)).apply(this, arguments));
+	  }
+
+	  _createClass(LeftBar, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'left-bar' },
+	        _react2.default.createElement(_Time2.default, null),
+	        _react2.default.createElement(_Currency2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return LeftBar;
+	}(_react.Component);
+
+	exports.default = LeftBar;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(186);
+
+	var _reactRedux = __webpack_require__(214);
+
+	var _timeAction = __webpack_require__(234);
+
+	var timeAction = _interopRequireWildcard(_timeAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Time = function (_Component) {
+	  _inherits(Time, _Component);
+
+	  function Time(props) {
+	    _classCallCheck(this, Time);
+
+	    var _this = _possibleConstructorReturn(this, (Time.__proto__ || Object.getPrototypeOf(Time)).call(this, props));
+
+	    props.actions.updateTime();
+
+	    setInterval(function () {
+	      props.actions.updateTime();
+	    }, props.interval);
+	    return _this;
+	  }
+
+	  _createClass(Time, [{
+	    key: "render",
+	    value: function render() {
+	      var _props = this.props,
+	          time = _props.time,
+	          date = _props.date;
+
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "h1",
+	          { className: "time" },
+	          time
+	        ),
+	        _react2.default.createElement(
+	          "h2",
+	          { className: "date" },
+	          date
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Time;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.configReducer.interval,
+	    time: state.timeReducer.time,
+	    date: state.timeReducer.date
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(timeAction, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Time);
+
+/***/ },
+/* 234 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateTime = exports.updateTime = function updateTime() {
+	  return {
+	    type: 'UPDATE_TIME',
+	    time: new Date()
+	  };
+	};
+
+	var updateLocaleSetting = exports.updateLocaleSetting = function updateLocaleSetting(isRu) {
+	  return {
+	    type: 'UPDATE_DATE_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+	var updateTimeSetting = exports.updateTimeSetting = function updateTimeSetting(isRu) {
+	  return {
+	    type: 'UPDATE_TIME_LOCAL',
+	    isRu: isRu
+	  };
+	};
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(186);
+
+	var _CurrencyItem = __webpack_require__(236);
+
+	var _CurrencyItem2 = _interopRequireDefault(_CurrencyItem);
+
+	var _currencyAction = __webpack_require__(237);
+
+	var currencyAction = _interopRequireWildcard(_currencyAction);
+
+	var _reactRedux = __webpack_require__(214);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Currency = function (_Component) {
+	  _inherits(Currency, _Component);
+
+	  function Currency(props) {
+	    _classCallCheck(this, Currency);
+
+	    var _this = _possibleConstructorReturn(this, (Currency.__proto__ || Object.getPrototypeOf(Currency)).call(this, props));
+
+	    props.actions.getRateUah();
+
+	    setInterval(function () {
+	      props.actions.getRateUah();
+	    }, props.interval);
+
+	    return _this;
+	  }
+
+	  _createClass(Currency, [{
+	    key: 'render',
+	    value: function render() {
+	      var currencyArr = this.props.currencyArr;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'currency-block-wrapper' },
+	        currencyArr.map(function (currency) {
+	          if (currency.visible) {
+	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
+	          }
+	        })
+	      );
+	    }
+	  }]);
+
+	  return Currency;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    interval: state.configReducer.interval,
+	    currencyArr: state.currencyReducer.currency
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(currencyAction, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Currency);
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CurrencyItem = function (_Component) {
+	  _inherits(CurrencyItem, _Component);
+
+	  function CurrencyItem() {
+	    _classCallCheck(this, CurrencyItem);
+
+	    return _possibleConstructorReturn(this, (CurrencyItem.__proto__ || Object.getPrototypeOf(CurrencyItem)).apply(this, arguments));
+	  }
+
+	  _createClass(CurrencyItem, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props$data = this.props.data,
+	          name = _props$data.name,
+	          firstCurrency = _props$data.firstCurrency,
+	          publicFirst = _props$data.publicFirst,
+	          last = _props$data.last,
+	          secondCurrency = _props$data.secondCurrency,
+	          publicSecond = _props$data.publicSecond,
+	          percentChange = _props$data.percentChange;
+
+	      return _react2.default.createElement(
+	        'span',
+	        { className: 'currency-block ' + name },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'left-currency' },
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '1\xA0'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'currency-abbr-wrap' },
+	            _react2.default.createElement(
+	              'i',
+	              { className: 'cc ' + firstCurrency },
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'currency-abbr' },
+	              publicFirst
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            '\xA0=\xA0'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'currency-wrap' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'ball-triangle-path' },
+	            _react2.default.createElement('div', null),
+	            _react2.default.createElement('div', null),
+	            _react2.default.createElement('div', null)
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'currency' },
+	            last
+	          ),
+	          '\xA0',
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'currency-abbr-wrap' },
+	            _react2.default.createElement(
+	              'i',
+	              { className: 'cc ' + secondCurrency },
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'currency-abbr' },
+	              publicSecond
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'after-trend' },
+	          percentChange
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CurrencyItem;
+	}(_react.Component);
+
+	exports.default = CurrencyItem;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getRate = exports.getRateRub = exports.getRateUah = exports.updateCurrency = exports.updateRateUah = exports.updateRate = undefined;
+
+	var _axios = __webpack_require__(238);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var updateRate = exports.updateRate = function updateRate(data) {
+	  return {
+	    type: 'UPDATE_RATE',
+	    rates: data
+	  };
+	};
+
+	var updateRateUah = exports.updateRateUah = function updateRateUah(price) {
+	  return {
+	    type: 'UPDATE_RATE_UAH',
+	    price: price
+	  };
+	};
+
+	var updateCurrency = exports.updateCurrency = function updateCurrency() {
+	  return {
+	    type: 'UPDATE_CURRENCY'
+	  };
+	};
+
+	var getRateUah = exports.getRateUah = function getRateUah() {
+	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDUAH%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
+	  return function (dispatch) {
+	    request.then(function (_ref) {
+	      var data = _ref.data;
+
+	      dispatch(getRateRub(data.query.results.rate.Rate));
+	    });
+	  };
+	};
+
+	var getRateRub = exports.getRateRub = function getRateRub(uah) {
+	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDRUB%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
+	  return function (dispatch) {
+	    request.then(function (_ref2) {
+	      var data = _ref2.data;
+
+	      dispatch(getRate(uah, data.query.results.rate.Rate));
+	    });
+	  };
+	};
+
+	var getRate = exports.getRate = function getRate(uah, rub) {
+	  var request = _axios2.default.get('https://poloniex.com/public?command=returnTicker');
+	  return function (dispatch) {
+	    request.then(function (_ref3) {
+	      var data = _ref3.data;
+
+	      data['UAH'] = { last: uah };
+	      data['RUB'] = { last: rub };
+	      dispatch(updateRate(data));
+	      dispatch(updateCurrency());
+	    });
+	  };
+	};
+
+/***/ },
 /* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -26369,244 +26828,7 @@
 	};
 
 /***/ },
-/* 263 */,
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var loadState = exports.loadState = function loadState() {
-	  try {
-	    var serializedState = localStorage.getItem('Tab42State');
-	    var now = new Date().getTime();
-	    if (serializedState === null || serializedState.timestamp + 86400000 < now) {
-	      return {};
-	    }
-	    return JSON.parse(serializedState);
-	  } catch (err) {
-	    return {};
-	  }
-	};
-
-	var saveState = exports.saveState = function saveState(state) {
-	  try {
-	    var serializedState = JSON.stringify({ state: state, timestamp: new Date().getTime() });
-	    localStorage.setItem('Tab42State', serializedState);
-	  } catch (err) {
-	    // Ignore errors
-	  }
-	};
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _redux = __webpack_require__(186);
-
-	var _currencyReducer = __webpack_require__(277);
-
-	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
-
-	var _timeReducer = __webpack_require__(278);
-
-	var _timeReducer2 = _interopRequireDefault(_timeReducer);
-
-	var _configReducer = __webpack_require__(279);
-
-	var _configReducer2 = _interopRequireDefault(_configReducer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = (0, _redux.combineReducers)({
-	  currencyReducer: _currencyReducer2.default,
-	  timeReducer: _timeReducer2.default,
-	  configReducer: _configReducer2.default
-	});
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = currencyReducer;
-
-	var _store = __webpack_require__(292);
-
-	function currencyReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialCurrencyState;
-	  var action = arguments[1];
-
-	  var _ret = function () {
-	    switch (action.type) {
-	      case 'UPDATE_RATE':
-	        return {
-	          v: _extends({}, state, {
-	            rates: action.rates
-	          })
-	        };
-	      case 'UPDATE_RATE_UAH':
-	        return {
-	          v: _extends({}, state, {
-	            rates: _extends({}, state.rates, { 'UAH': action.price })
-	          })
-	        };
-	      case 'UPDATE_CURRENCY':
-	        var updateBlock = [];
-	        state.currency.map(function (currency) {
-	          var item = currency.type;
-	          var price = state.rates[item].last;
-	          var percentChange = state.rates[item].percentChange || 0;
-	          currency.last = parseFloat(price).toFixed(currency.toFixed);
-	          currency.percentChange = parseFloat(percentChange).toFixed(4);
-
-	          updateBlock.push(currency);
-	        });
-	        return {
-	          v: _extends({}, state, {
-	            currency: updateBlock
-	          })
-	        };
-	      case 'UPDATE_SETTING_CURRENCY':
-	        var updateBlock2 = [];
-	        state.currency.map(function (currency) {
-	          if (currency.id == action.id) {
-	            currency.visible = !currency.visible;
-	          }
-	          updateBlock2.push(currency);
-	        });
-	        return {
-	          v: _extends({}, state, {
-	            currency: updateBlock2
-	          })
-	        };
-	      default:
-	        return {
-	          v: state
-	        };
-	    }
-	  }();
-
-	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-	}
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = timeReducer;
-
-	var _store = __webpack_require__(292);
-
-	function timeReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialTimeState;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'UPDATE_TIME':
-	      return _extends({}, state, {
-	        time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
-	        date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
-	      });
-	    case 'UPDATE_DATE_LOCAL':
-	      return _extends({}, state, {
-	        localeRu: action.isRu
-	      });
-	    case 'UPDATE_TIME_LOCAL':
-	      return _extends({}, state, {
-	        time24: action.isRu
-	      });
-	    default:
-	      return state;
-	  }
-	}
-
-	var timeWrapper = function timeWrapper(item) {
-	  return item.toString().length == 1 ? '0' + item : item;
-	};
-
-	var normalizeTime = function normalizeTime(time) {
-	  return timeWrapper(time.getHours()) + ":" + timeWrapper(time.getMinutes());
-	};
-
-	var dateOptions = {
-	  year: 'numeric',
-	  month: 'long',
-	  day: 'numeric'
-	};
-	var timeOptions = {
-	  hour: 'numeric',
-	  minute: 'numeric'
-	};
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports.default = configReducer;
-
-	var _store = __webpack_require__(292);
-
-	function configReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialConfigState;
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'UPDATE_CHANNEL':
-	      return _extends({}, state, {
-	        bgChannel: action.id
-	      });
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 280 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26621,369 +26843,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Time = __webpack_require__(281);
-
-	var _Time2 = _interopRequireDefault(_Time);
-
-	var _Currency = __webpack_require__(282);
-
-	var _Currency2 = _interopRequireDefault(_Currency);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var LeftBar = function (_Component) {
-	  _inherits(LeftBar, _Component);
-
-	  function LeftBar() {
-	    _classCallCheck(this, LeftBar);
-
-	    return _possibleConstructorReturn(this, (LeftBar.__proto__ || Object.getPrototypeOf(LeftBar)).apply(this, arguments));
-	  }
-
-	  _createClass(LeftBar, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'left-bar' },
-	        _react2.default.createElement(_Time2.default, null),
-	        _react2.default.createElement(_Currency2.default, null)
-	      );
-	    }
-	  }]);
-
-	  return LeftBar;
-	}(_react.Component);
-
-	exports.default = LeftBar;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(186);
-
-	var _reactRedux = __webpack_require__(214);
-
-	var _timeAction = __webpack_require__(291);
-
-	var timeAction = _interopRequireWildcard(_timeAction);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Time = function (_Component) {
-	  _inherits(Time, _Component);
-
-	  function Time(props) {
-	    _classCallCheck(this, Time);
-
-	    var _this = _possibleConstructorReturn(this, (Time.__proto__ || Object.getPrototypeOf(Time)).call(this, props));
-
-	    props.actions.updateTime();
-
-	    setInterval(function () {
-	      props.actions.updateTime();
-	    }, props.interval);
-	    return _this;
-	  }
-
-	  _createClass(Time, [{
-	    key: "render",
-	    value: function render() {
-	      var _props = this.props,
-	          time = _props.time,
-	          date = _props.date;
-
-	      return _react2.default.createElement(
-	        "div",
-	        null,
-	        _react2.default.createElement(
-	          "h1",
-	          { className: "time" },
-	          time
-	        ),
-	        _react2.default.createElement(
-	          "h2",
-	          { className: "date" },
-	          date
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Time;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    interval: state.configReducer.interval,
-	    time: state.timeReducer.time,
-	    date: state.timeReducer.date
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    actions: (0, _redux.bindActionCreators)(timeAction, dispatch)
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Time);
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(186);
-
-	var _CurrencyItem = __webpack_require__(283);
-
-	var _CurrencyItem2 = _interopRequireDefault(_CurrencyItem);
-
-	var _currencyAction = __webpack_require__(289);
-
-	var currencyAction = _interopRequireWildcard(_currencyAction);
-
-	var _reactRedux = __webpack_require__(214);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Currency = function (_Component) {
-	  _inherits(Currency, _Component);
-
-	  function Currency(props) {
-	    _classCallCheck(this, Currency);
-
-	    var _this = _possibleConstructorReturn(this, (Currency.__proto__ || Object.getPrototypeOf(Currency)).call(this, props));
-
-	    props.actions.getRateUah();
-
-	    setInterval(function () {
-	      props.actions.getRateUah();
-	    }, props.interval);
-
-	    return _this;
-	  }
-
-	  _createClass(Currency, [{
-	    key: 'render',
-	    value: function render() {
-	      var currencyArr = this.props.currencyArr;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'currency-block-wrapper' },
-	        currencyArr.map(function (currency) {
-	          if (currency.visible) {
-	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
-	          }
-	        })
-	      );
-	    }
-	  }]);
-
-	  return Currency;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    interval: state.configReducer.interval,
-	    currencyArr: state.currencyReducer.currency
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    actions: (0, _redux.bindActionCreators)(currencyAction, dispatch)
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Currency);
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var CurrencyItem = function (_Component) {
-	  _inherits(CurrencyItem, _Component);
-
-	  function CurrencyItem() {
-	    _classCallCheck(this, CurrencyItem);
-
-	    return _possibleConstructorReturn(this, (CurrencyItem.__proto__ || Object.getPrototypeOf(CurrencyItem)).apply(this, arguments));
-	  }
-
-	  _createClass(CurrencyItem, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props$data = this.props.data,
-	          name = _props$data.name,
-	          firstCurrency = _props$data.firstCurrency,
-	          publicFirst = _props$data.publicFirst,
-	          last = _props$data.last,
-	          secondCurrency = _props$data.secondCurrency,
-	          publicSecond = _props$data.publicSecond,
-	          percentChange = _props$data.percentChange;
-
-	      return _react2.default.createElement(
-	        'span',
-	        { className: 'currency-block ' + name },
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'left-currency' },
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            '1\xA0'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'currency-abbr-wrap' },
-	            _react2.default.createElement(
-	              'i',
-	              { className: 'cc ' + firstCurrency },
-	              '\xA0'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'currency-abbr' },
-	              publicFirst
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            '\xA0=\xA0'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'currency-wrap' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'ball-triangle-path' },
-	            _react2.default.createElement('div', null),
-	            _react2.default.createElement('div', null),
-	            _react2.default.createElement('div', null)
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'currency' },
-	            last
-	          ),
-	          '\xA0',
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'currency-abbr-wrap' },
-	            _react2.default.createElement(
-	              'i',
-	              { className: 'cc ' + secondCurrency },
-	              '\xA0'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'currency-abbr' },
-	              publicSecond
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'after-trend' },
-	          percentChange
-	        )
-	      );
-	    }
-	  }]);
-
-	  return CurrencyItem;
-	}(_react.Component);
-
-	exports.default = CurrencyItem;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(9);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Settings = __webpack_require__(285);
+	var _Settings = __webpack_require__(264);
 
 	var _Settings2 = _interopRequireDefault(_Settings);
 
@@ -27031,7 +26891,7 @@
 	exports.default = RightBar;
 
 /***/ },
-/* 285 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27050,23 +26910,23 @@
 
 	var _reactRedux = __webpack_require__(214);
 
-	var _SettingCurrencyItem = __webpack_require__(286);
+	var _SettingCurrencyItem = __webpack_require__(265);
 
 	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
 
-	var _SettingDate = __webpack_require__(287);
+	var _SettingDate = __webpack_require__(266);
 
 	var _SettingDate2 = _interopRequireDefault(_SettingDate);
 
-	var _SettingTime = __webpack_require__(288);
+	var _SettingTime = __webpack_require__(267);
 
 	var _SettingTime2 = _interopRequireDefault(_SettingTime);
 
-	var _configAction = __webpack_require__(290);
+	var _configAction = __webpack_require__(268);
 
 	var configAction = _interopRequireWildcard(_configAction);
 
-	var _timeAction = __webpack_require__(291);
+	var _timeAction = __webpack_require__(234);
 
 	var timeActions = _interopRequireWildcard(_timeAction);
 
@@ -27236,7 +27096,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
 
 /***/ },
-/* 286 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27312,7 +27172,7 @@
 	exports.default = SettingCurrencyItem;
 
 /***/ },
-/* 287 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27408,7 +27268,7 @@
 	exports.default = SettingDate;
 
 /***/ },
-/* 288 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27504,80 +27364,7 @@
 	exports.default = SettingTime;
 
 /***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getRate = exports.getRateRub = exports.getRateUah = exports.updateCurrency = exports.updateRateUah = exports.updateRate = undefined;
-
-	var _axios = __webpack_require__(238);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var updateRate = exports.updateRate = function updateRate(data) {
-	  return {
-	    type: 'UPDATE_RATE',
-	    rates: data
-	  };
-	};
-
-	var updateRateUah = exports.updateRateUah = function updateRateUah(price) {
-	  return {
-	    type: 'UPDATE_RATE_UAH',
-	    price: price
-	  };
-	};
-
-	var updateCurrency = exports.updateCurrency = function updateCurrency() {
-	  return {
-	    type: 'UPDATE_CURRENCY'
-	  };
-	};
-
-	var getRateUah = exports.getRateUah = function getRateUah() {
-	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDUAH%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
-	  return function (dispatch) {
-	    request.then(function (_ref) {
-	      var data = _ref.data;
-
-	      dispatch(getRateRub(data.query.results.rate.Rate));
-	    });
-	  };
-	};
-
-	var getRateRub = exports.getRateRub = function getRateRub(uah) {
-	  var request = _axios2.default.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDRUB%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=');
-	  return function (dispatch) {
-	    request.then(function (_ref2) {
-	      var data = _ref2.data;
-
-	      dispatch(getRate(uah, data.query.results.rate.Rate));
-	    });
-	  };
-	};
-
-	var getRate = exports.getRate = function getRate(uah, rub) {
-	  var request = _axios2.default.get('https://poloniex.com/public?command=returnTicker');
-	  return function (dispatch) {
-	    request.then(function (_ref3) {
-	      var data = _ref3.data;
-
-	      data['UAH'] = { last: uah };
-	      data['RUB'] = { last: rub };
-	      dispatch(updateRate(data));
-	      dispatch(updateCurrency());
-	    });
-	  };
-	};
-
-/***/ },
-/* 290 */
+/* 268 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27600,37 +27387,114 @@
 	};
 
 /***/ },
-/* 291 */
-/***/ function(module, exports) {
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var updateTime = exports.updateTime = function updateTime() {
-	  return {
-	    type: 'UPDATE_TIME',
-	    time: new Date()
-	  };
-	};
 
-	var updateLocaleSetting = exports.updateLocaleSetting = function updateLocaleSetting(isRu) {
-	  return {
-	    type: 'UPDATE_DATE_LOCAL',
-	    isRu: isRu
-	  };
-	};
+	var _redux = __webpack_require__(186);
 
-	var updateTimeSetting = exports.updateTimeSetting = function updateTimeSetting(isRu) {
-	  return {
-	    type: 'UPDATE_TIME_LOCAL',
-	    isRu: isRu
-	  };
-	};
+	var _currencyReducer = __webpack_require__(270);
+
+	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
+
+	var _timeReducer = __webpack_require__(272);
+
+	var _timeReducer2 = _interopRequireDefault(_timeReducer);
+
+	var _configReducer = __webpack_require__(273);
+
+	var _configReducer2 = _interopRequireDefault(_configReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = (0, _redux.combineReducers)({
+	  currencyReducer: _currencyReducer2.default,
+	  timeReducer: _timeReducer2.default,
+	  configReducer: _configReducer2.default
+	});
 
 /***/ },
-/* 292 */
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = currencyReducer;
+
+	var _store = __webpack_require__(271);
+
+	function currencyReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialCurrencyState;
+	  var action = arguments[1];
+
+	  var _ret = function () {
+	    switch (action.type) {
+	      case 'UPDATE_RATE':
+	        return {
+	          v: _extends({}, state, {
+	            rates: action.rates
+	          })
+	        };
+	      case 'UPDATE_RATE_UAH':
+	        return {
+	          v: _extends({}, state, {
+	            rates: _extends({}, state.rates, { 'UAH': action.price })
+	          })
+	        };
+	      case 'UPDATE_CURRENCY':
+	        var updateBlock = [];
+	        state.currency.map(function (currency) {
+	          var item = currency.type;
+	          var price = state.rates[item].last;
+	          var percentChange = state.rates[item].percentChange || 0;
+	          currency.last = parseFloat(price).toFixed(currency.toFixed);
+	          currency.percentChange = parseFloat(percentChange).toFixed(4);
+
+	          updateBlock.push(currency);
+	        });
+	        return {
+	          v: _extends({}, state, {
+	            currency: updateBlock
+	          })
+	        };
+	      case 'UPDATE_SETTING_CURRENCY':
+	        var updateBlock2 = [];
+	        state.currency.map(function (currency) {
+	          if (currency.id == action.id) {
+	            currency.visible = !currency.visible;
+	          }
+	          updateBlock2.push(currency);
+	        });
+	        return {
+	          v: _extends({}, state, {
+	            currency: updateBlock2
+	          })
+	        };
+	      default:
+	        return {
+	          v: state
+	        };
+	    }
+	  }();
+
+	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	}
+
+/***/ },
+/* 271 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27809,6 +27673,124 @@
 	var initialConfigState = exports.initialConfigState = {
 	  interval: 30000,
 	  bgChannel: 237739
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = timeReducer;
+
+	var _store = __webpack_require__(271);
+
+	function timeReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialTimeState;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'UPDATE_TIME':
+	      return _extends({}, state, {
+	        time: action.time.toLocaleString(state.time24 ? 'ru' : 'en-US', timeOptions),
+	        date: action.time.toLocaleString(state.localeRu ? 'ru' : 'en-US', dateOptions)
+	      });
+	    case 'UPDATE_DATE_LOCAL':
+	      return _extends({}, state, {
+	        localeRu: action.isRu
+	      });
+	    case 'UPDATE_TIME_LOCAL':
+	      return _extends({}, state, {
+	        time24: action.isRu
+	      });
+	    default:
+	      return state;
+	  }
+	}
+
+	var timeWrapper = function timeWrapper(item) {
+	  return item.toString().length == 1 ? '0' + item : item;
+	};
+
+	var normalizeTime = function normalizeTime(time) {
+	  return timeWrapper(time.getHours()) + ":" + timeWrapper(time.getMinutes());
+	};
+
+	var dateOptions = {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric'
+	};
+	var timeOptions = {
+	  hour: 'numeric',
+	  minute: 'numeric'
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = configReducer;
+
+	var _store = __webpack_require__(271);
+
+	function configReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialConfigState;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'UPDATE_CHANNEL':
+	      return _extends({}, state, {
+	        bgChannel: action.id
+	      });
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var loadState = exports.loadState = function loadState() {
+	  try {
+	    var serializedState = localStorage.getItem('Tab42State');
+	    var now = new Date().getTime();
+	    if (serializedState === null || serializedState.timestamp + 86400000 < now) {
+	      return {};
+	    }
+	    return JSON.parse(serializedState);
+	  } catch (err) {
+	    return {};
+	  }
+	};
+
+	var saveState = exports.saveState = function saveState(state) {
+	  try {
+	    var serializedState = JSON.stringify({ state: state, timestamp: new Date().getTime() });
+	    localStorage.setItem('Tab42State', serializedState);
+	  } catch (err) {
+	    // Ignore errors
+	  }
 	};
 
 /***/ }

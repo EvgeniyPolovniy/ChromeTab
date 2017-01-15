@@ -8,7 +8,7 @@ export default class CurrencyItem extends Component {
         <span className="left-currency">
           <span>1&nbsp;</span>
           <span className="currency-abbr-wrap">
-            <i className={'cc ' + firstCurrency}>&nbsp;</i>
+            <i className={'cc ' + firstCurrency}> </i>
             <span className="currency-abbr">{publicFirst}</span>
           </span>
           <span>&nbsp;=&nbsp;</span>
@@ -17,7 +17,7 @@ export default class CurrencyItem extends Component {
           <div className="ball-triangle-path"><div></div><div></div><div></div></div>
           <span className="currency">{last}</span>&nbsp;
           <span className="currency-abbr-wrap">
-            <i className={'cc ' + secondCurrency}>&nbsp;</i>
+            <i className={'cc ' + secondCurrency}> </i>
             <span className="currency-abbr">{publicSecond}</span>
           </span>
         </span>
