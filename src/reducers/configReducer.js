@@ -1,6 +1,6 @@
-import { initialConfigState } from '../store/store'
+import { initialState } from '../store/store'
 
-export default function configReducer(state = initialConfigState, action) {
+export default function configReducer(state = initialState.configState, action) {
   switch (action.type) {
     case 'UPDATE_CHANNEL':
       return {

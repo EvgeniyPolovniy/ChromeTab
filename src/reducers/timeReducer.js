@@ -1,6 +1,6 @@
-import { initialTimeState } from '../store/store'
+import { initialState } from '../store/store'
 
-export default function timeReducer(state = initialTimeState, action) {
+export default function timeReducer(state = initialState.timeState, action) {
   switch (action.type) {
     case 'UPDATE_TIME':
       return {

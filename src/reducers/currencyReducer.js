@@ -1,6 +1,6 @@
-import { initialCurrencyState } from '../store/store'
+import { initialState } from '../store/store'
 
-export default function currencyReducer(state = initialCurrencyState, action) {
+export default function currencyReducer(state = initialState.currencyState, action) {
   switch (action.type) {
     case 'UPDATE_RATE':
       return {
