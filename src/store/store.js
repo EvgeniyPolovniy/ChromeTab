@@ -165,8 +165,10 @@ export const initialState = {
     time24: true,
     localeRu: true
   }],
-  configState: [{
+  configState: {
     interval: 30000,
-    bgChannel: 237739
-  }]
+    bgChannel: 237739,
+    btc: 0,
+    eth: 0
+  }
 }

@@ -74,11 +74,11 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _indexReducers = __webpack_require__(275);
+	var _indexReducers = __webpack_require__(276);
 
 	var _indexReducers2 = _interopRequireDefault(_indexReducers);
 
-	var _localStorage = __webpack_require__(280);
+	var _localStorage = __webpack_require__(281);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4092,6 +4092,14 @@
 	      return emptyFunction.thatReturnsNull;
 	    }
 
+	    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+	      var checker = arrayOfTypeCheckers[i];
+	      if (typeof checker !== 'function') {
+	        warning(false, 'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' + 'received %s at index %s.', getPostfixForTypeWarning(checker), i);
+	        return emptyFunction.thatReturnsNull;
+	      }
+	    }
+
 	    function validate(props, propName, componentName, location, propFullName) {
 	      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
 	        var checker = arrayOfTypeCheckers[i];
@@ -4224,6 +4232,9 @@
 	  // This handles more types than `getPropType`. Only used for error messages.
 	  // See `createPrimitiveTypeChecker`.
 	  function getPreciseType(propValue) {
+	    if (typeof propValue === 'undefined' || propValue === null) {
+	      return '' + propValue;
+	    }
 	    var propType = getPropType(propValue);
 	    if (propType === 'object') {
 	      if (propValue instanceof Date) {
@@ -4233,6 +4244,23 @@
 	      }
 	    }
 	    return propType;
+	  }
+
+	  // Returns a string that is postfixed to a warning about an invalid type.
+	  // For example, "undefined" or "of type array"
+	  function getPostfixForTypeWarning(value) {
+	    var type = getPreciseType(value);
+	    switch (type) {
+	      case 'array':
+	      case 'object':
+	        return 'an ' + type;
+	      case 'boolean':
+	      case 'date':
+	      case 'regexp':
+	        return 'a ' + type;
+	      default:
+	        return type;
+	    }
 	  }
 
 	  // Returns class name of the object, if any.
@@ -23909,7 +23937,7 @@
 	'use strict';
 
 	exports.__esModule = true;
-	exports.connect = exports.connectAdvanced = exports.Provider = undefined;
+	exports.connect = exports.connectAdvanced = exports.createProvider = exports.Provider = undefined;
 
 	var _Provider = __webpack_require__(219);
 
@@ -23928,6 +23956,7 @@
 	}
 
 	exports.Provider = _Provider2.default;
+	exports.createProvider = _Provider.createProvider;
 	exports.connectAdvanced = _connectAdvanced2.default;
 	exports.connect = _connect2.default;
 
@@ -23940,7 +23969,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
-	exports.default = undefined;
+	exports.createProvider = createProvider;
 
 	var _react = __webpack_require__(9);
 
@@ -23986,51 +24015,58 @@
 	  (0, _warning2.default)('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 	}
 
-	var Provider = function (_Component) {
-	  _inherits(Provider, _Component);
+	function createProvider() {
+	  var _Provider$childContex;
 
-	  Provider.prototype.getChildContext = function getChildContext() {
-	    return { store: this.store, storeSubscription: null };
-	  };
+	  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
+	  var subKey = arguments[1];
 
-	  function Provider(props, context) {
-	    _classCallCheck(this, Provider);
+	  var subscriptionKey = subKey || storeKey + 'Subscription';
 
-	    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+	  var Provider = function (_Component) {
+	    _inherits(Provider, _Component);
 
-	    _this.store = props.store;
-	    return _this;
+	    Provider.prototype.getChildContext = function getChildContext() {
+	      var _ref;
+
+	      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+	    };
+
+	    function Provider(props, context) {
+	      _classCallCheck(this, Provider);
+
+	      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+
+	      _this[storeKey] = props.store;
+	      return _this;
+	    }
+
+	    Provider.prototype.render = function render() {
+	      return _react.Children.only(this.props.children);
+	    };
+
+	    return Provider;
+	  }(_react.Component);
+
+	  if (process.env.NODE_ENV !== 'production') {
+	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+	      if (this[storeKey] !== nextProps.store) {
+	        warnAboutReceivingStore();
+	      }
+	    };
 	  }
 
-	  Provider.prototype.render = function render() {
-	    return _react.Children.only(this.props.children);
+	  Provider.propTypes = {
+	    store: _PropTypes.storeShape.isRequired,
+	    children: _propTypes2.default.element.isRequired
 	  };
+	  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = _PropTypes.storeShape.isRequired, _Provider$childContex[subscriptionKey] = _PropTypes.subscriptionShape, _Provider$childContex);
+	  Provider.displayName = 'Provider';
 
 	  return Provider;
-	}(_react.Component);
-
-	exports.default = Provider;
-
-	if (process.env.NODE_ENV !== 'production') {
-	  Provider.prototype.componentWillReceiveProps = function (nextProps) {
-	    var store = this.store;
-	    var nextStore = nextProps.store;
-
-	    if (store !== nextStore) {
-	      warnAboutReceivingStore();
-	    }
-	  };
 	}
 
-	Provider.propTypes = {
-	  store: _PropTypes.storeShape.isRequired,
-	  children: _propTypes2.default.element.isRequired
-	};
-	Provider.childContextTypes = {
-	  store: _PropTypes.storeShape.isRequired,
-	  storeSubscription: _PropTypes.subscriptionShape
-	};
-	Provider.displayName = 'Provider';
+	exports.default = createProvider();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
@@ -24085,17 +24121,22 @@
 
 	var emptyFunction = __webpack_require__(20);
 	var invariant = __webpack_require__(16);
+	var ReactPropTypesSecret = __webpack_require__(40);
 
 	module.exports = function () {
-	  // Important!
-	  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-	  function shim() {
+	  function shim(props, propName, componentName, location, propFullName, secret) {
+	    if (secret === ReactPropTypesSecret) {
+	      // It is still safe when called from React.
+	      return;
+	    }
 	    invariant(false, 'Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
 	  };
 	  shim.isRequired = shim;
 	  function getShim() {
 	    return shim;
 	  };
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
 	  var ReactPropTypes = {
 	    array: shim,
 	    bool: shim,
@@ -25331,7 +25372,7 @@
 
 	var _LeftBar2 = _interopRequireDefault(_LeftBar);
 
-	var _RightBar = __webpack_require__(269);
+	var _RightBar = __webpack_require__(270);
 
 	var _RightBar2 = _interopRequireDefault(_RightBar);
 
@@ -25594,6 +25635,10 @@
 
 	var _reactRedux = __webpack_require__(218);
 
+	var _TotalUsd = __webpack_require__(269);
+
+	var _TotalUsd2 = _interopRequireDefault(_TotalUsd);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -25626,14 +25671,29 @@
 	    value: function render() {
 	      var currencyArr = this.props.currencyArr;
 
+	      var totalData = {
+	        btcToUsd: 1,
+	        ethToUsd: 1,
+	        ethToBtc: 1
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'currency-block-wrapper' },
 	        currencyArr.map(function (currency) {
 	          if (currency.visible) {
+	            if (currency.type === 'USDT_BTC') {
+	              totalData.btcToUsd = parseFloat(currency.last, 10);
+	            }
+	            if (currency.type === 'USDT_ETH') {
+	              totalData.ethToUsd = parseFloat(currency.last, 10);
+	            }
+	            if (currency.type === 'BTC_ETH') {
+	              totalData.ethToBtc = parseFloat(currency.last, 10);
+	            }
 	            return _react2.default.createElement(_CurrencyItem2.default, { key: currency.id, data: currency });
 	          }
-	        })
+	        }),
+	        _react2.default.createElement(_TotalUsd2.default, { data: totalData })
 	      );
 	    }
 	  }]);
@@ -27280,6 +27340,86 @@
 /* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(9);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(218);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TotalUsd = function (_Component) {
+	  _inherits(TotalUsd, _Component);
+
+	  function TotalUsd() {
+	    _classCallCheck(this, TotalUsd);
+
+	    return _possibleConstructorReturn(this, (TotalUsd.__proto__ || Object.getPrototypeOf(TotalUsd)).apply(this, arguments));
+	  }
+
+	  _createClass(TotalUsd, [{
+	    key: "render",
+	    value: function render() {
+	      var btc = this.props.btc + this.props.eth * this.props.data.ethToBtc;
+	      var usd = btc * this.props.data.btcToUsd;
+	      return _react2.default.createElement(
+	        "span",
+	        { className: "currency-block total" },
+	        _react2.default.createElement(
+	          "span",
+	          { className: "title" },
+	          "Total: "
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          { className: "title" },
+	          "BTC: ",
+	          btc.toFixed(8)
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          { className: "title" },
+	          "USD: $",
+	          usd.toFixed(2)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TotalUsd;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    btc: state.configReducer.btc,
+	    eth: state.configReducer.eth
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {};
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TotalUsd);
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -27292,7 +27432,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Settings = __webpack_require__(270);
+	var _Settings = __webpack_require__(271);
 
 	var _Settings2 = _interopRequireDefault(_Settings);
 
@@ -27340,7 +27480,7 @@
 	exports.default = RightBar;
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27359,19 +27499,19 @@
 
 	var _reactRedux = __webpack_require__(218);
 
-	var _SettingCurrencyItem = __webpack_require__(271);
+	var _SettingCurrencyItem = __webpack_require__(272);
 
 	var _SettingCurrencyItem2 = _interopRequireDefault(_SettingCurrencyItem);
 
-	var _SettingDate = __webpack_require__(272);
+	var _SettingDate = __webpack_require__(273);
 
 	var _SettingDate2 = _interopRequireDefault(_SettingDate);
 
-	var _SettingTime = __webpack_require__(273);
+	var _SettingTime = __webpack_require__(274);
 
 	var _SettingTime2 = _interopRequireDefault(_SettingTime);
 
-	var _configAction = __webpack_require__(274);
+	var _configAction = __webpack_require__(275);
 
 	var configAction = _interopRequireWildcard(_configAction);
 
@@ -27402,7 +27542,15 @@
 	    };
 
 	    _this.handleTextChange = function (e) {
-	      _this.props.configAction.updateChannel(e.target.value || 237739);
+	      _this.props.configAction.updateChannel(parseInt(e.target.value, 10) || 237739);
+	    };
+
+	    _this.handleTextChangeBtc = function (e) {
+	      _this.props.configAction.updateBtc(parseFloat(e.target.value, 10) || 1);
+	    };
+
+	    _this.handleTextChangeEth = function (e) {
+	      _this.props.configAction.updateEth(parseFloat(e.target.value, 10) || 1);
 	    };
 
 	    _this.state = {
@@ -27420,7 +27568,9 @@
 	          timeActions = _props.timeActions,
 	          localeRu = _props.localeRu,
 	          time24 = _props.time24,
-	          bgChannel = _props.bgChannel;
+	          bgChannel = _props.bgChannel,
+	          btc = _props.btc,
+	          eth = _props.eth;
 
 	      var classN = this.state.is_active ? 'is-active' : '';
 	      return _react2.default.createElement(
@@ -27516,6 +27666,31 @@
 	            type: "number",
 	            value: bgChannel,
 	            onChange: this.handleTextChange
+	          }),
+	          _react2.default.createElement(
+	            "h2",
+	            null,
+	            "Available coins:"
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            { className: "channel-label" },
+	            "BTC:"
+	          ),
+	          _react2.default.createElement("input", {
+	            type: "number",
+	            value: btc,
+	            onChange: this.handleTextChangeBtc
+	          }),
+	          _react2.default.createElement(
+	            "p",
+	            { className: "channel-label" },
+	            "ETH:"
+	          ),
+	          _react2.default.createElement("input", {
+	            type: "number",
+	            value: eth,
+	            onChange: this.handleTextChangeEth
 	          })
 	        )
 	      );
@@ -27531,7 +27706,9 @@
 	    currency: state.currencyReducer.currency,
 	    localeRu: state.timeReducer.localeRu,
 	    time24: state.timeReducer.time24,
-	    bgChannel: state.configReducer.bgChannel
+	    bgChannel: state.configReducer.bgChannel,
+	    btc: state.configReducer.btc,
+	    eth: state.configReducer.eth
 	  };
 	}
 
@@ -27545,7 +27722,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Settings);
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27621,7 +27798,7 @@
 	exports.default = SettingCurrencyItem;
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27717,7 +27894,7 @@
 	exports.default = SettingDate;
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27813,7 +27990,7 @@
 	exports.default = SettingTime;
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -27835,8 +28012,22 @@
 	  };
 	};
 
+	var updateBtc = exports.updateBtc = function updateBtc(id) {
+	  return {
+	    type: 'UPDATE_BTC',
+	    id: id
+	  };
+	};
+
+	var updateEth = exports.updateEth = function updateEth(id) {
+	  return {
+	    type: 'UPDATE_ETH',
+	    id: id
+	  };
+	};
+
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27847,15 +28038,15 @@
 
 	var _redux = __webpack_require__(190);
 
-	var _currencyReducer = __webpack_require__(276);
+	var _currencyReducer = __webpack_require__(277);
 
 	var _currencyReducer2 = _interopRequireDefault(_currencyReducer);
 
-	var _timeReducer = __webpack_require__(278);
+	var _timeReducer = __webpack_require__(279);
 
 	var _timeReducer2 = _interopRequireDefault(_timeReducer);
 
-	var _configReducer = __webpack_require__(279);
+	var _configReducer = __webpack_require__(280);
 
 	var _configReducer2 = _interopRequireDefault(_configReducer);
 
@@ -27868,7 +28059,7 @@
 	});
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27881,7 +28072,7 @@
 
 	exports.default = currencyReducer;
 
-	var _store = __webpack_require__(277);
+	var _store = __webpack_require__(278);
 
 	function currencyReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialState.currencyState;
@@ -27927,7 +28118,7 @@
 	}
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28102,14 +28293,16 @@
 	    time24: true,
 	    localeRu: true
 	  }],
-	  configState: [{
+	  configState: {
 	    interval: 30000,
-	    bgChannel: 237739
-	  }]
+	    bgChannel: 237739,
+	    btc: 0,
+	    eth: 0
+	  }
 	};
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28122,7 +28315,7 @@
 
 	exports.default = timeReducer;
 
-	var _store = __webpack_require__(277);
+	var _store = __webpack_require__(278);
 
 	function timeReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialState.timeState;
@@ -28166,7 +28359,7 @@
 	};
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28179,7 +28372,7 @@
 
 	exports.default = configReducer;
 
-	var _store = __webpack_require__(277);
+	var _store = __webpack_require__(278);
 
 	function configReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _store.initialState.configState;
@@ -28190,13 +28383,21 @@
 	      return _extends({}, state, {
 	        bgChannel: action.id
 	      });
+	    case 'UPDATE_BTC':
+	      return _extends({}, state, {
+	        btc: action.id
+	      });
+	    case 'UPDATE_ETH':
+	      return _extends({}, state, {
+	        eth: action.id
+	      });
 	    default:
 	      return state;
 	  }
 	}
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports) {
 
 	'use strict';

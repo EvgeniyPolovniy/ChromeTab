@@ -83,6 +83,15 @@ body {
     white-space: nowrap;
     margin: 0 0 1em;
     line-height: 1;
+    &.total {
+      font-size: 1em;
+      flex-direction: column;
+      text-align: left;
+      span {
+        text-align: left;
+        justify-content: flex-start;
+      }
+    }
     &.loading {
       .ball-triangle-path {
         display: inline-block;

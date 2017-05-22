@@ -161,6 +161,13 @@ body {
     white-space: nowrap;
     margin: 0 0 1em;
     line-height: 1; }
+    .main .currency-block.total {
+      font-size: 1em;
+      flex-direction: column;
+      text-align: left; }
+      .main .currency-block.total span {
+        text-align: left;
+        justify-content: flex-start; }
     .main .currency-block.loading .ball-triangle-path {
       display: inline-block; }
     .main .currency-block.loading .currency-wrap i,
